@@ -1,0 +1,12 @@
+include: package:effective_dart/analysis_options.yaml
+
+analyzer:
+  errors:
+    - avoid_web_libraries_in_flutter: ignore
+
+linter:
+  rules:
+    public_member_api_docs: false
+    prefer_relative_imports: false
+    avoid_function_literals_in_foreach_calls: false
+    avoid_relative_lib_imports: true

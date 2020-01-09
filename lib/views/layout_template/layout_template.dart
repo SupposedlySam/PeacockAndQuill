@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/views/layout_template/layout_template_desktop.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
+import 'layout_template_desktop.dart';
 
 class LayoutTemplate extends StatelessWidget {
   const LayoutTemplate({

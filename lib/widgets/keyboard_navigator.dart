@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:peacock_and_quill/viewmodels/keyboard_listener_view_model.dart';
 import 'dart:html' as html;
 
+import 'package:flutter/cupertino.dart';
+import 'package:peacock_and_quill/view_models/keyboard_listener_view_model.dart';
 import 'package:provider/provider.dart';
 
 class KeyboardNavigator extends StatefulWidget {
@@ -28,39 +28,40 @@ class _KeyboardNavigatorState extends State<KeyboardNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<KeyboardListenerViewModel>(context);
-
     return RawKeyboardListener(
       child: widget.child,
       focusNode: _focusNode,
-      onKey: (RawKeyEvent rawKeyEvent) {
-        final debugName = rawKeyEvent.logicalKey.debugName;
-        final document = html.document;
-
-        switch (debugName) {
-          case arrowUp:
-            if (document.fullscreenEnabled) {
-              document.documentElement.requestFullscreen();
-              model.setFullscreen(true);
-            }
-            break;
-          case arrowDown:
-            if (document.fullscreenEnabled) {
-              document.exitFullscreen();
-              model.setFullscreen(false);
-            }
-            break;
-          case arrowLeft:
-            // TODO: go back a slide
-            model.triggerPrev();
-            break;
-          case arrowRight:
-            // TODO: go to next slide
-            model.triggerNext();
-            break;
-        }
-      },
+      onKey: handleKey,
     );
+  }
+
+  void handleKey(RawKeyEvent rawKeyEvent) {
+    final model = Provider.of<KeyboardListenerViewModel>(context);
+    final debugName = rawKeyEvent.logicalKey.debugName;
+    final document = html.document;
+
+    switch (debugName) {
+      case arrowUp:
+        if (document.fullscreenEnabled) {
+          document.documentElement.requestFullscreen();
+          model.setFullscreen(value: true);
+        }
+        break;
+      case arrowDown:
+        if (document.fullscreenEnabled) {
+          document.exitFullscreen();
+          model.setFullscreen(value: false);
+        }
+        break;
+      case arrowLeft:
+        // TODO: go back a slide
+        model.triggerPrev();
+        break;
+      case arrowRight:
+        // TODO: go to next slide
+        model.triggerNext();
+        break;
+    }
   }
 
   @override

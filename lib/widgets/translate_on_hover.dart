@@ -9,8 +9,8 @@ class TranslateOnHover extends StatefulWidget {
 }
 
 class _TranslateOnHoverState extends State<TranslateOnHover> {
-  final nonHoverTransform = Matrix4.identity();
-  final hoverTransform = Matrix4.identity()..translate(0, -5, 0);
+  final Matrix4 nonHoverTransform = Matrix4.identity();
+  final Matrix4 hoverTransform = Matrix4.identity()..translate(0, -5, 0);
 
   bool _hovering = false;
 

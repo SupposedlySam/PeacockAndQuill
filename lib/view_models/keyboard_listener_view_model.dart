@@ -7,7 +7,7 @@ class KeyboardListenerViewModel extends ChangeNotifier {
 
   bool get isFullscreen => _isFullscreen;
 
-  void setFullscreen(bool value) {
+  void setFullscreen({bool value}) {
     _isFullscreen = value;
     notifyListeners();
   }

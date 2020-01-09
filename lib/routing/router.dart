@@ -20,16 +20,16 @@ class _FadeRoute extends PageRouteBuilder {
       : super(
           settings: RouteSettings(name: routeName),
           pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
+            context,
+            animation,
+            secondaryAnimation,
           ) =>
               child,
           transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
+            context,
+            animation,
+            secondaryAnimation,
+            child,
           ) =>
               FadeTransition(
             opacity: animation,

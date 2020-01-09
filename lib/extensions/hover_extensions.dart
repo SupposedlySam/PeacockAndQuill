@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'dart:html' as html;
 
+import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/widgets/translate_on_hover.dart';
 
 extension HoverExtensions on Widget {
-  static final appContainer =
+  static final html.Element appContainer =
       html.window.document.getElementById('app-container');
 
   Widget get showCursorOnHover {
