@@ -22,7 +22,9 @@ class _FocusNodeManagerState extends State<FocusNodeManager> {
   }
 
   @override
-  Widget build(BuildContext context) => widget.builder(context, _focusNode);
+  Widget build(BuildContext context) {
+    return widget.builder(context, _focusNode);
+  }
 
   @override
   void dispose() {

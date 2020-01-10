@@ -7,17 +7,20 @@ extension HoverExtensions on Widget {
   static final html.Element appContainer =
       html.window.document.getElementById('app-container');
 
-  Widget get showCursorOnHover {
-    return MouseRegion(
-      child: this, // the widget we're using the extension on
-      onHover: (event) => appContainer.style.cursor = 'pointer',
-      onExit: (event) => appContainer.style.cursor = 'default',
-    );
-  }
+  Widget get showPointerOnHover => _setCursorType('pointer');
+  Widget get showGrabOnHover => _setCursorType('grab');
 
   Widget get moveUpOnHover {
     return TranslateOnHover(
       child: this,
+    );
+  }
+
+  Widget _setCursorType(String cursor) {
+    return MouseRegion(
+      child: this, // the widget we're using the extension on
+      onHover: (event) => appContainer.style.cursor = cursor,
+      onExit: (event) => appContainer.style.cursor = 'default',
     );
   }
 }
