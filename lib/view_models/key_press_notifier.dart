@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-class KeyboardListenerViewModel extends ChangeNotifier {
-  List<VoidCallback> onNext;
-  List<VoidCallback> onPrev;
+class KeyPressNotifier extends ChangeNotifier {
+  List<VoidCallback> onNext = [];
+  List<VoidCallback> onPrev = [];
   bool _isFullscreen = false;
 
   bool get isFullscreen => _isFullscreen;
 
   void setFullscreen({bool value}) {
     _isFullscreen = value;
+    print('notifyListeners');
     notifyListeners();
   }
 

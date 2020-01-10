@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/widgets/centered_view/centered_view.dart';
-import 'package:peacock_and_quill/widgets/navigation_bar/navigation_bar.dart';
-import 'package:peacock_and_quill/widgets/navigation_drawer/navigation_drawer.dart';
+import 'package:peacock_and_quill/components/centered_view.dart';
+import 'package:peacock_and_quill/components/navigation_bar/navigation_bar.dart';
+import 'package:peacock_and_quill/components/navigation_drawer/navigation_drawer.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class LayoutTemplateDesktop extends StatelessWidget {

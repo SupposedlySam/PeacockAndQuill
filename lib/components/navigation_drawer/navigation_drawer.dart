@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/widgets/navigation_drawer/navigation_drawer_header.dart';
+import 'package:peacock_and_quill/components/navigation_drawer/navigation_drawer_header.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key key}) : super(key: key);

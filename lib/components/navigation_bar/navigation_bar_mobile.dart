@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/widgets/navigation_bar/navbar_logo.dart';
+import 'package:peacock_and_quill/components/navigation_bar/nav_bar_logo.dart';
 
 class NavigationBarMobile extends StatelessWidget {
   const NavigationBarMobile({Key key}) : super(key: key);

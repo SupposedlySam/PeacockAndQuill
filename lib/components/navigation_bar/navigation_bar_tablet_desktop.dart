@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'navbar_logo.dart';
+import 'package:peacock_and_quill/components/navigation_bar/nav_bar_logo.dart';
 
 class NavigationBarTabletDesktop extends StatelessWidget {
   @override

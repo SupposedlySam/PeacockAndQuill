@@ -5,7 +5,7 @@ class Api {
       'https://us-central1-thebasics-2f123.cloudfunctions.net/thebasics';
 
   Future<dynamic> getEpisodes() async {
-    var response = await Dio().get('$_apiEndpoint/courseEpisodes');
+    var response = await Dio().get<dynamic>('$_apiEndpoint/courseEpisodes');
 
     if (response.statusCode == 200) {}
 
@@ -14,7 +14,7 @@ class Api {
   }
 
   Future<dynamic> getEpisode(int id) async {
-    var response = await Dio().get('$_apiEndpoint/episode?id=$id');
+    var response = await Dio().get<dynamic>('$_apiEndpoint/episode?id=$id');
 
     if (response.statusCode == 200) {}
 

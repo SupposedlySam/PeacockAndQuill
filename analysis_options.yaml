@@ -1,8 +1,9 @@
 include: package:effective_dart/analysis_options.yaml
 
 analyzer:
-  errors:
-    - avoid_web_libraries_in_flutter: ignore
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
 
 linter:
   rules:
