@@ -5,6 +5,29 @@
   <title>Peacock and Quill</title>
 </head>
 <body id="app-container">
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-analytics.js"></script>
+    
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyC4pKVii_NCp9-xJmiwyipL-HCrWd_Affs",
+      authDomain: "peacockandquill.firebaseapp.com",
+      databaseURL: "https://peacockandquill.firebaseio.com",
+      projectId: "peacockandquill",
+      storageBucket: "peacockandquill.appspot.com",
+      messagingSenderId: "768283907591",
+      appId: "1:768283907591:web:b4090e0071f4bfa9563ca2",
+      measurementId: "G-3E7DSL719Y"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>

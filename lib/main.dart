@@ -1,5 +1,6 @@
-import 'dart:io';
+import 'dart:io' show Platform;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/components/lifecycle_managers/focus_node_manager.dart';
 import 'package:peacock_and_quill/style.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   }
 
   StatefulWidget platformMain(BuildContext context) {
-    if (Platform.isIOS || Platform.isAndroid) {
+    if (!kIsWeb) {
       return mainApp(context);
     }
     return FocusNodeManager(
