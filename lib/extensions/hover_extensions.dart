@@ -1,4 +1,4 @@
-import 'dart:html' as html;
+import 'package:universal_html/prefer_universal/html.dart' as html;
 
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/components/translate_on_hover.dart';

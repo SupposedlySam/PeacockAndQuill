@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "768283907591",
+    "firebase_url": "https://peacockandquill.firebaseio.com",
+    "project_id": "peacockandquill",
+    "storage_bucket": "peacockandquill.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768283907591:android:b80b373a10d9723b563ca2",
+        "android_client_info": {
+          "package_name": "com.supposedlysam.peacock_and_quill"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768283907591-pbea3cgshtooilgu2i68umdqufdvbqj0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.supposedlysam.peacock_and_quill",
+            "certificate_hash": "280b6352a53779e561ff34d028672882fa7b4b01"
+          }
+        },
+        {
+          "client_id": "768283907591-8euk8velib0mh59vv3387c4hdd6jc50g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4yrgOSMeWe_6zOObTbKkd5NrnjTi2mPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768283907591-8euk8velib0mh59vv3387c4hdd6jc50g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/components/lifecycle_managers/focus_node_manager.dart';
 import 'package:peacock_and_quill/style.dart';
@@ -16,6 +18,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return platformMain(context);
+  }
+
+  StatefulWidget platformMain(BuildContext context) {
+    if (Platform.isIOS || Platform.isAndroid) {
+      return mainApp(context);
+    }
     return FocusNodeManager(
       builder: (context, focusNode) {
         return KeyboardNavigator(

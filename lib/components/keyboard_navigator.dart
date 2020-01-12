@@ -1,4 +1,4 @@
-import 'dart:html' as html;
+import 'package:universal_html/prefer_universal/html.dart' as html;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -54,16 +54,12 @@ class KeyboardNavigator extends StatelessWidget {
   }
 
   void _exitFullscreen(html.HtmlDocument document, KeyPressNotifier model) {
-    if (document.fullscreenEnabled) {
-      document.exitFullscreen();
-      model.setFullscreen(value: false);
-    }
+    document.exitFullscreen();
+    model.setFullscreen(value: false);
   }
 
   void _setFullscreen(html.HtmlDocument document, KeyPressNotifier model) {
-    if (document.fullscreenEnabled) {
-      document.documentElement.requestFullscreen();
-      model.setFullscreen(value: true);
-    }
+    document.documentElement.requestFullscreen();
+    model.setFullscreen(value: true);
   }
 }
