@@ -9,7 +9,6 @@ class KeyPressNotifier extends ChangeNotifier {
 
   void setFullscreen({bool value}) {
     _isFullscreen = value;
-    print('notifyListeners');
     notifyListeners();
   }
 

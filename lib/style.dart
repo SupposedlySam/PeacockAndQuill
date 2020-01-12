@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Config {
+class Style {
   static ThemeData defaultTheme(BuildContext context) {
     const brightness = Brightness.dark;
     return ThemeData(
