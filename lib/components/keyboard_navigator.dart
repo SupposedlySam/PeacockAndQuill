@@ -1,12 +1,11 @@
-import 'package:universal_html/prefer_universal/html.dart' as html;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:peacock_and_quill/locator.dart';
 import 'package:peacock_and_quill/view_models/key_press_notifier.dart';
+import 'package:universal_html/prefer_universal/html.dart' as html;
 
 class KeyboardNavigator extends StatelessWidget {
-  const KeyboardNavigator({
+  KeyboardNavigator({
     @required this.focusNode,
     @required this.child,
   });

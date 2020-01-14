@@ -25,7 +25,8 @@
       "name": "Chrome",
       "request": "launch",
       "type": "dart",
-      "deviceId": "chrome"
+      "deviceId": "chrome",
+      "args": ["--web-port=5000"]
     }
   ],
   "compounds": [

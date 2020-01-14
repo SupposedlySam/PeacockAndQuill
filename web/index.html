@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Peacock and Quill</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="768283907591-8euk8velib0mh59vv3387c4hdd6jc50g.apps.googleusercontent.com" />
+    <title>Peacock and Quill</title>
+    <script defer src="main.dart.js" type="application/javascript"></script>
+    
 </head>
 <body id="app-container">
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
 
-  <!-- TODO: Add SDKs for Firebase products that you want to use
-    https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-analytics.js"></script>
-    
-    <script>
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+  <script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
       apiKey: "AIzaSyC4pKVii_NCp9-xJmiwyipL-HCrWd_Affs",
@@ -22,12 +27,12 @@
       storageBucket: "peacockandquill.appspot.com",
       messagingSenderId: "768283907591",
       appId: "1:768283907591:web:b4090e0071f4bfa9563ca2",
-      measurementId: "G-3E7DSL719Y"
+      measurementId: "G-3E7DSL719Y",
     };
+    
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
   </script>
-  <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
