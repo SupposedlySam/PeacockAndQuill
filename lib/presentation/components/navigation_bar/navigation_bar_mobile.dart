@@ -1,10 +1,12 @@
+import 'package:peacock_and_quill/presentation/view_models/nav_bar_view_model.dart';
+
 import 'navigation_bar_imports.dart';
 
 class NavigationBarMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<Authorization>(context);
-    final model = Provider.of<NavBarMobileViewModel>(context);
+    final auth = locator<Authorization>();
+    final model = locator<NavBarViewModel>();
 
     return Container(
       child: Column(
@@ -36,8 +38,4 @@ class NavigationBarMobile extends StatelessWidget {
       ),
     );
   }
-}
-
-class NavBarMobileViewModel extends ValueNotifier<bool> {
-  NavBarMobileViewModel({@required bool value}) : super(value);
 }

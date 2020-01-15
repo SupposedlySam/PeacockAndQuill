@@ -19,12 +19,14 @@ class LayoutTemplateDesktop extends StatelessWidget {
         drawer: sizingInformation.deviceScreenType == DeviceScreenType.Mobile
             ? NavigationDrawer()
             : null,
-        body: Container(
-          child: buildCenteredView(),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(AssetConstants.woodGrid),
-              fit: BoxFit.cover,
+        body: SafeArea(
+          child: Container(
+            child: buildCenteredView(),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AssetConstants.woodGrid),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),

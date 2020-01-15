@@ -3,7 +3,7 @@ import 'navigation_bar_imports.dart';
 class NavigationBarTabletDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<Authorization>(context);
+    final auth = locator<Authorization>();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

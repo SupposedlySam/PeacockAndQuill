@@ -1,53 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/data/repositories/authorization.dart';
-import 'package:peacock_and_quill/data/repositories/firestore/firestore_mobile.dart'
-    if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/firestore_web.dart';
-import 'package:peacock_and_quill/data/repositories/interfaces/i_firestore.dart';
-import 'package:peacock_and_quill/domain/routing/navigation_entity.dart';
-import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar_mobile.dart';
+import 'package:peacock_and_quill/domain/entities/presentation_entity.dart';
+import 'package:peacock_and_quill/presentation/view_models/nav_bar_view_model.dart';
+import 'package:peacock_and_quill/presentation/view_models/presenter_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-class Providers extends StatefulWidget {
+import 'locator.dart';
+
+class Providers extends StatelessWidget {
   final Widget child;
 
   Providers({@required this.child});
 
-  @override
-  _ProvidersState createState() => _ProvidersState();
-}
-
-class _ProvidersState extends State<Providers> {
-  Firestore firestore;
-
-  @override
-  void initState() {
-    super.initState();
-    firestore = Firestore();
+  List<SingleChildWidget> get changeNotifierProviders {
+    return [
+      ChangeNotifierProvider<NavBarViewModel>.value(
+        value: locator<NavBarViewModel>(),
+      ),
+      ChangeNotifierProvider<PresenterViewModel>.value(
+        value: locator<PresenterViewModel>(),
+      ),
+    ];
   }
 
-  List<SingleChildWidget> get independentProviders => [
-        Provider<NavigationEntity>.value(value: NavigationEntity()),
-        ChangeNotifierProvider<NavBarMobileViewModel>.value(
-          value: NavBarMobileViewModel(value: false),
-        ),
-      ];
-
-  List<SingleChildWidget> get dependentProviders => [
-        ProxyProvider<IFirestore, Authorization>(
-          update: (_, firestore, __) => Authorization(firestore: firestore),
-        ),
-      ];
+  List<SingleChildWidget> get streamProviders {
+    return [
+      // StreamProvider<PresentationEntity>.value(
+      //   initialData: PresentationEntity(currentSlide: 2),
+      //   value: locator<PresenterViewModel>().getPresentation(),
+      // ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<IFirestore>.value(value: firestore),
-        ...independentProviders,
-        ...dependentProviders,
+        ...changeNotifierProviders,
+        ...streamProviders,
       ],
-      child: widget.child,
+      child: child,
     );
   }
 }

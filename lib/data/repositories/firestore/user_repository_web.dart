@@ -1,9 +1,9 @@
 import 'package:firebase/firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:peacock_and_quill/data/models/firebase/user.dart' as m;
-import 'package:peacock_and_quill/data/repositories/interfaces/i_firestore.dart';
+import 'package:peacock_and_quill/data/models/firebase/user_model.dart';
+import 'package:peacock_and_quill/data/repositories/firestore/i_user_repository.dart';
 
-class Firestore implements IFirestore {
+class UserRepository implements IUserRepository {
   void init() {
     if (apps.isEmpty) {
       initializeApp(
@@ -26,7 +26,7 @@ class Firestore implements IFirestore {
       final store = firestore();
       final doc = store.collection('users').doc(fbUser.uid);
 
-      final user = m.User(
+      final user = UserModel(
         uid: fbUser.uid,
         name: fbUser.displayName,
         email: fbUser.email,

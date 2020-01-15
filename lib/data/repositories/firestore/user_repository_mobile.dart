@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:peacock_and_quill/data/models/firebase/user.dart';
-import 'package:peacock_and_quill/data/repositories/interfaces/i_firestore.dart';
+import 'package:peacock_and_quill/data/models/firebase/user_model.dart';
+import 'package:peacock_and_quill/data/repositories/firestore/i_user_repository.dart';
 
-class Firestore implements IFirestore {
+class UserRepository implements IUserRepository {
   final fs.Firestore _firestore = fs.Firestore.instance;
   void init() {}
 
@@ -12,7 +12,7 @@ class Firestore implements IFirestore {
       final fbUser = await authResult.user;
       final doc = _firestore.collection('users').document(fbUser.uid);
 
-      final user = User(
+      final user = UserModel(
         uid: fbUser.uid,
         name: fbUser.displayName,
         email: fbUser.email,

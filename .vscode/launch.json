@@ -10,10 +10,16 @@
       "type": "dart"
     },
     {
-      "name": "Android",
+      "name": "Android E",
       "request": "launch",
       "type": "dart",
       "deviceId": "emulator-5554"
+    },
+    {
+      "name": "Android R",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "988a1b413950494c49"
     },
     {
       "name": "iPhone",
@@ -32,7 +38,7 @@
   "compounds": [
     {
       "name": "All Devices",
-      "configurations": ["Android", "Chrome"]
+      "configurations": ["Android E", "Android R", "Chrome"]
     }
   ]
 }

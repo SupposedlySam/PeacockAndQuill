@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-class User {
+class UserModel {
   String uid;
   String name;
   String email;
   bool isAnonymous;
   DateTime createdAt;
 
-  User({
+  UserModel({
     this.uid,
     this.name,
     this.email,
@@ -15,11 +15,12 @@ class User {
     this.createdAt,
   });
 
-  factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
+  factory UserModel.fromRawJson(String str) =>
+      UserModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         uid: json["uid"],
         name: json["name"],
         email: json["email"],

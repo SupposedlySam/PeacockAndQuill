@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:peacock_and_quill/presentation/views/home/home_view.dart';
+import 'package:peacock_and_quill/presentation/views/presenter/presenter_view.dart';
 
 Route<dynamic> onGenerateRouteHandler(RouteSettings settings) {
   switch (settings.name) {

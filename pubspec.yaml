@@ -27,6 +27,7 @@ dependencies:
   provider: ^4.0.0 # used for dependency injection
   # provider_architecture: ^1.0.5 # used to interact with injected models
   responsive_builder: ^0.1.4 # used to separate device size specific views
+  rxdart: ^0.23.1 # used for advanced streams
   universal_html: ^1.1.10 # used to allow cross platform development
 
   # Web only packages

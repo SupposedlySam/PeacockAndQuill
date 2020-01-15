@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class NavigationEntity extends NavigatorObserver {
+class NavigationInterceptor extends NavigatorObserver {
   @override
   void didPop(Route route, Route previousRoute) {
     // Your code to run in this callback

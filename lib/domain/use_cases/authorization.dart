@@ -1,14 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:peacock_and_quill/data/repositories/interfaces/i_firestore.dart';
+import 'package:peacock_and_quill/data/repositories/firestore/i_user_repository.dart';
+import 'package:peacock_and_quill/domain/providers/locator.dart';
 
 class Authorization {
-  final IFirestore firestore;
+  final IUserRepository userRepository = locator<IUserRepository>();
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Authorization({@required this.firestore});
 
   Future<FirebaseUser> get getUser => _auth.currentUser();
   Stream<FirebaseUser> get user => _auth.onAuthStateChanged;
@@ -24,7 +22,7 @@ class Authorization {
       );
 
       final authResult = await _auth.signInWithCredential(credential);
-      await firestore.updateUser(authResult);
+      await userRepository.updateUser(authResult);
 
       return authResult;
     } catch (error) {
