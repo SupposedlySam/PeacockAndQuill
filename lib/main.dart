@@ -1,15 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/components/keyboard_navigator.dart';
-import 'package:peacock_and_quill/components/lifecycle_managers/focus_node_manager.dart';
-import 'package:peacock_and_quill/models/navigation_entity.dart';
-import 'package:peacock_and_quill/providers.dart';
-import 'package:peacock_and_quill/routing/router.dart';
-import 'package:peacock_and_quill/style.dart';
-import 'package:peacock_and_quill/views/layout_template/layout_template.dart';
+import 'package:peacock_and_quill/domain/providers/locator.dart';
+import 'package:peacock_and_quill/domain/providers/provider.dart';
+import 'package:peacock_and_quill/domain/routing/navigation_entity.dart';
+import 'package:peacock_and_quill/domain/routing/router.dart';
+import 'package:peacock_and_quill/presentation/components/keyboard_navigator.dart';
+import 'package:peacock_and_quill/presentation/components/lifecycle_managers/focus_node_manager.dart';
+import 'package:peacock_and_quill/presentation/style.dart';
+import 'package:peacock_and_quill/presentation/views/layout_template/layout_template.dart';
 import 'package:provider/provider.dart';
-
-import 'locator.dart';
 
 void main() {
   setupLocator();
