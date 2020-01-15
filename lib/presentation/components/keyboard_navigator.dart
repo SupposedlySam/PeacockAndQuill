@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:peacock_and_quill/domain/providers/locator.dart';
+import 'package:peacock_and_quill/presentation/components/lifecycle_managers/focus_node_manager.dart';
 import 'package:peacock_and_quill/presentation/view_models/key_press_notifier.dart';
 import 'package:universal_html/prefer_universal/html.dart' as html;
 
 class KeyboardNavigator extends StatelessWidget {
   KeyboardNavigator({
-    @required this.focusNode,
     @required this.child,
   });
 
@@ -16,14 +16,17 @@ class KeyboardNavigator extends StatelessWidget {
   static const String arrowRight = "Arrow Right";
 
   final Widget child;
-  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-      child: child,
-      focusNode: focusNode,
-      onKey: handleKey,
+    return FocusNodeManager(
+      builder: (context, focusNode) {
+        return RawKeyboardListener(
+          child: child,
+          focusNode: focusNode,
+          onKey: handleKey,
+        );
+      },
     );
   }
 

@@ -16,9 +16,7 @@ class LayoutTemplateDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) => Scaffold(
-        drawer: sizingInformation.deviceScreenType == DeviceScreenType.Mobile
-            ? NavigationDrawer()
-            : null,
+        drawer: buildDrawer(sizingInformation),
         body: SafeArea(
           child: Container(
             child: buildCenteredView(),
@@ -32,6 +30,12 @@ class LayoutTemplateDesktop extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  NavigationDrawer buildDrawer(SizingInformation sizingInformation) {
+    return sizingInformation.deviceScreenType == DeviceScreenType.Mobile
+        ? NavigationDrawer()
+        : null;
   }
 
   Widget buildCenteredView() {

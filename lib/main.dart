@@ -5,50 +5,35 @@ import 'package:peacock_and_quill/domain/providers/provider.dart';
 import 'package:peacock_and_quill/domain/routing/navigation_interceptor.dart';
 import 'package:peacock_and_quill/domain/routing/router.dart';
 import 'package:peacock_and_quill/presentation/components/keyboard_navigator.dart';
-import 'package:peacock_and_quill/presentation/components/lifecycle_managers/focus_node_manager.dart';
 import 'package:peacock_and_quill/presentation/style.dart';
 import 'package:peacock_and_quill/presentation/views/layout_template/layout_template.dart';
 
 void main() {
   setupLocator();
-  runApp(MyApp());
+  runApp(PeacockAndQuill());
 }
 
-class MyApp extends StatelessWidget {
+class PeacockAndQuill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Providers(
-      child: platformMain(context),
+      child: enableKeyboardForWeb(context),
     );
   }
 
-  Widget platformMain(BuildContext context) {
-    if (kIsWeb) {
-      return FocusNodeManager(
-        builder: (context, focusNode) {
-          return KeyboardNavigator(
-            focusNode: focusNode,
-            child: mainApp(context),
-          );
-        },
-      );
-    }
-    return mainApp(context);
+  Widget enableKeyboardForWeb(BuildContext context) {
+    return (kIsWeb)
+        ? KeyboardNavigator(child: mainApp(context))
+        : mainApp(context);
   }
 
   Widget mainApp(BuildContext context) {
-    final navigationEntity = locator<NavigationInterceptor>();
-
     return MaterialApp(
-      navigatorObservers: [navigationEntity],
+      navigatorObservers: [locator<NavigationInterceptor>()],
       title: 'Peacock and Quill',
       theme: Style.defaultTheme(context),
       onGenerateRoute: onGenerateRouteHandler,
-      builder: (context, navigator) {
-        return LayoutTemplate(
-          navigator: navigator as Navigator,
-        );
-      },
+      builder: (context, navigator) => LayoutTemplate(navigator: navigator),
       debugShowCheckedModeBanner: false,
     );
   }
