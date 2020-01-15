@@ -38,7 +38,7 @@
   "compounds": [
     {
       "name": "All Devices",
-      "configurations": ["Android E", "Android R", "Chrome"]
+      "configurations": ["Android R", "Chrome"]
     }
   ]
 }

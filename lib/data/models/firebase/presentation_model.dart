@@ -2,9 +2,11 @@ import 'dart:convert';
 
 class PresentationModel {
   int currentSlide;
+  int initialSlide;
 
   PresentationModel({
     this.currentSlide,
+    this.initialSlide,
   });
 
   factory PresentationModel.fromRawJson(String str) =>
@@ -15,6 +17,7 @@ class PresentationModel {
   factory PresentationModel.fromJson(Map<String, dynamic> json) =>
       PresentationModel(
         currentSlide: json["currentSlide"],
+        initialSlide: json["initialSlide"],
       );
 
   Map<String, dynamic> toJson() => {

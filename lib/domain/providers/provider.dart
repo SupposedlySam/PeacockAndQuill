@@ -17,18 +17,15 @@ class Providers extends StatelessWidget {
       ChangeNotifierProvider<NavBarViewModel>.value(
         value: locator<NavBarViewModel>(),
       ),
-      ChangeNotifierProvider<PresenterViewModel>.value(
-        value: locator<PresenterViewModel>(),
-      ),
     ];
   }
 
   List<SingleChildWidget> get streamProviders {
     return [
-      // StreamProvider<PresentationEntity>.value(
-      //   initialData: PresentationEntity(currentSlide: 2),
-      //   value: locator<PresenterViewModel>().getPresentation(),
-      // ),
+      StreamProvider<PresentationEntity>.value(
+        initialData: PresentationEntity(currentSlide: 0, initialSlide: 0),
+        value: locator<PresenterViewModel>().getPresentationStream(),
+      ),
     ];
   }
 

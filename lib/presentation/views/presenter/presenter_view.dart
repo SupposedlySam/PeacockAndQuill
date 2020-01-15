@@ -1,7 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/presentation/views/presenter/presenter_content_desktop.dart';
 import 'package:peacock_and_quill/presentation/views/presenter/presenter_content_mobile.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 class HomeView extends StatelessWidget {
   static List<Widget> pages = [
@@ -23,9 +23,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenTypeLayout(
-      tablet: HomeContentDesktop(pages: pages),
-      mobile: HomeContentMobile(pages: pages),
-    );
+    if (kIsWeb) return HomeContentDesktop(pages: pages);
+    return HomeContentMobile(pages: pages);
   }
 }

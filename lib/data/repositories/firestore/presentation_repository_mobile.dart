@@ -6,27 +6,32 @@ import 'i_presentation_repository.dart';
 
 class PresentationRepository extends IPresentationRepository {
   @override
-  Stream<PresentationEntity> getPresentation() {
+  Stream<PresentationEntity> getPresentationStream() {
     final store = fs.Firestore.instance;
+    store.document('$collectionName/$presenterId').get();
     final doc = store.collection(collectionName).document(presenterId);
-    final models = doc.snapshots().map<PresentationModel>(
-      (snap) {
-        return PresentationModel.fromJson(snap.data);
-      },
-    );
 
-    return models.map(
-      (model) {
-        print(model.currentSlide);
-        return PresentationEntity(
-          currentSlide: model.currentSlide,
+    return doc
+        .snapshots()
+        .map<PresentationModel>((snap) => PresentationModel.fromJson(snap.data))
+        .map(
+          (model) => PresentationEntity(
+            currentSlide: model.currentSlide,
+            initialSlide: model.initialSlide,
+          ),
         );
-      },
-    );
   }
 
   @override
-  void updateSlide(PresentationEntity presentationEntity) {
-    // TODO: implement updateSlide
+  void updateSlide(int slideIndex) {}
+
+  @override
+  Future<int> getInitialSlide() async {
+    final store = fs.Firestore.instance;
+    final doc =
+        await store.collection(collectionName).document(presenterId).get();
+    final model = PresentationModel.fromJson(doc.data);
+
+    return model.initialSlide;
   }
 }

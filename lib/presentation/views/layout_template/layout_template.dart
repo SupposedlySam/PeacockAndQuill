@@ -13,7 +13,6 @@ class LayoutTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
-      desktop: LayoutTemplateDesktop(navigator: navigator),
       mobile: LayoutTemplateDesktop(navigator: navigator),
     );
   }

@@ -6,7 +6,12 @@ class NavBarLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15),
-      child: Image.asset(AssetConstants.wordMark),
+      child: logo(),
     );
+  }
+
+  Widget logo() {
+    // Web doesn't support svg right now
+    return Image.asset(AssetConstants.wordMark);
   }
 }

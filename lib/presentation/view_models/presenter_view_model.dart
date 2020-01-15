@@ -3,34 +3,36 @@ import 'package:peacock_and_quill/domain/entities/presentation_entity.dart';
 import 'package:peacock_and_quill/domain/use_cases/interaction.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar_imports.dart';
 
-class PresenterViewModel extends ChangeNotifier with Interaction {
+class PresenterViewModel with Interaction {
   final presentationRepository = locator<IPresentationRepository>();
   PageController _pageController;
 
-  // Properties
-  int _index = 0;
-  int get index => _index;
-
   /// Notify listeners when page changes
-  void listen(PageController pageController) {
-    _pageController = pageController
-      ..addListener(handleListener)
-      ..removeListener(handleListener);
+  void init(PageController pageController) async {
+    await _setInitialSlide(pageController);
+
+    // Sync the currentSlide
+    syncToDevices(pageController);
+
+    _pageController = pageController..addListener(handleListener);
   }
 
-  /// Invoke when page changes
-  void handleListener() {
-    final index = syncToDevices(_pageController);
-    setIndex(index);
+  Future<int> getInitialSlide() async {
+    return presentationRepository.getInitialSlide();
   }
 
-  Stream<PresentationEntity> getPresentation() {
-    return presentationRepository.getPresentation();
+  /// Invoke when page changes based on our use case
+  void handleListener() => syncToDevices(_pageController);
+
+  /// Pull the data directly from the repository
+  Stream<PresentationEntity> getPresentationStream() {
+    return presentationRepository.getPresentationStream();
   }
 
-  /// Update the current index
-  void setIndex(int index) {
-    _index = index;
-    notifyListeners();
+  Future _setInitialSlide(PageController pageController) async {
+    if (_pageController == null) {
+      final initialSlide = await getInitialSlide();
+      pageController.jumpToPage(initialSlide);
+    }
   }
 }
