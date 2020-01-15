@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/i_presentation_repository.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/i_user_repository.dart';
@@ -17,10 +18,16 @@ import 'package:peacock_and_quill/presentation/view_models/presenter_view_model.
 GetIt locator = GetIt.instance;
 
 void setupLocator() {
+  _globalKeys();
   _viewModelSetup();
   _useCaseSetup();
   _repositorySetup();
   _otherSetup();
+}
+
+void _globalKeys() {
+  locator.registerLazySingleton(() => GlobalKey<ScaffoldState>());
+  locator.registerLazySingleton(() => GlobalKey<NavigatorState>());
 }
 
 void _viewModelSetup() {

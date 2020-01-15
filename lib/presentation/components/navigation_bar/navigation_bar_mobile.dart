@@ -16,16 +16,8 @@ class NavigationBarMobile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () {
-                    return model.value = !model.value;
-                  },
-                ),
-                NavBarLogo()
-              ],
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[NavBarLogo()],
             ),
           ),
           if (model.value)

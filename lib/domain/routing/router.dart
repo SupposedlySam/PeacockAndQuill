@@ -10,13 +10,13 @@ Route<dynamic> onGenerateRouteHandler(RouteSettings settings) {
 }
 
 PageRoute _getPageRoute(Widget child, RouteSettings settings) {
-  return _FadeRoute(child: child, routeName: settings.name);
+  return FadeRoute(child: child, routeName: settings.name);
 }
 
-class _FadeRoute extends PageRouteBuilder<PageRoute> {
+class FadeRoute extends PageRouteBuilder {
   final Widget child;
   final String routeName;
-  _FadeRoute({this.child, this.routeName})
+  FadeRoute({this.child, this.routeName})
       : super(
           settings: RouteSettings(name: routeName),
           pageBuilder: (

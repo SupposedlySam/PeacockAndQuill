@@ -5,9 +5,19 @@ import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/i_
 class NavBarLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final scaffold = locator<GlobalKey<ScaffoldState>>().currentState;
+
     return Padding(
       padding: const EdgeInsets.all(15),
-      child: locator<ILogo>().getLogo,
+      child: GestureDetector(
+          child: InkWell(child: locator<ILogo>().getLogo),
+          onTap: () {
+            if (scaffold.isEndDrawerOpen) {
+              Navigator.of(context).pop();
+            } else {
+              scaffold.openEndDrawer();
+            }
+          }),
     );
   }
 }

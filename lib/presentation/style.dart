@@ -4,7 +4,6 @@ class Style {
   static ThemeData defaultTheme(BuildContext context) {
     const brightness = Brightness.dark;
     return ThemeData(
-      brightness: brightness,
-    );
+        brightness: brightness, scaffoldBackgroundColor: Colors.transparent);
   }
 }

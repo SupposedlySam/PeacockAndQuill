@@ -5,9 +5,9 @@ import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/i_
 
 class Logo extends ILogo {
   Widget get getLogo => SvgPicture.asset(
-        AssetConstants.wordMarkSVG,
-        height: 50,
-        width: 100,
+        AssetConstants.logoSVG,
+        height: 35,
+        width: 35,
         excludeFromSemantics: true,
       );
 }

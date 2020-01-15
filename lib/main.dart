@@ -6,7 +6,6 @@ import 'package:peacock_and_quill/domain/routing/navigation_interceptor.dart';
 import 'package:peacock_and_quill/domain/routing/router.dart';
 import 'package:peacock_and_quill/presentation/components/keyboard_navigator.dart';
 import 'package:peacock_and_quill/presentation/style.dart';
-import 'package:peacock_and_quill/presentation/views/layout_template/layout_template.dart';
 
 void main() {
   setupLocator();
@@ -33,7 +32,6 @@ class PeacockAndQuill extends StatelessWidget {
       title: 'Peacock and Quill',
       theme: Style.defaultTheme(context),
       onGenerateRoute: onGenerateRouteHandler,
-      builder: (context, navigator) => LayoutTemplate(navigator: navigator),
       debugShowCheckedModeBanner: false,
     );
   }

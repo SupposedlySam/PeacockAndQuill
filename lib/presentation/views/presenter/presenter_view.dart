@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:peacock_and_quill/presentation/views/base_view.dart';
 import 'package:peacock_and_quill/presentation/views/presenter/presenter_content_desktop.dart';
 import 'package:peacock_and_quill/presentation/views/presenter/presenter_content_mobile.dart';
 
@@ -23,7 +24,10 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb) return HomeContentDesktop(pages: pages);
-    return HomeContentMobile(pages: pages);
+    final content = (kIsWeb)
+        ? HomeContentDesktop(pages: pages)
+        : HomeContentMobile(pages: pages);
+
+    return BaseView(child: content);
   }
 }
