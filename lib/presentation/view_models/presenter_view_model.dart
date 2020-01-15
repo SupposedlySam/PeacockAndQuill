@@ -11,9 +11,6 @@ class PresenterViewModel with Interaction {
   void init(PageController pageController) async {
     await _setInitialSlide(pageController);
 
-    // Sync the currentSlide
-    syncToDevices(pageController);
-
     _pageController = pageController..addListener(handleListener);
   }
 
@@ -32,7 +29,12 @@ class PresenterViewModel with Interaction {
   Future _setInitialSlide(PageController pageController) async {
     if (_pageController == null) {
       final initialSlide = await getInitialSlide();
+
+      // Move to the initial slide
       pageController.jumpToPage(initialSlide);
+
+      // Sync the currentSlide
+      syncToDevices(pageController);
     }
   }
 }
