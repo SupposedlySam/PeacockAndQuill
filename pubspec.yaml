@@ -25,10 +25,10 @@ dependencies:
   get_it: ^3.1.0 # used for injecting service
   google_sign_in: ^4.1.1 # used to sign in with google
   provider: ^4.0.0 # used for dependency injection
-  # provider_architecture: ^1.0.5 # used to interact with injected models
   responsive_builder: ^0.1.4 # used to separate device size specific views
   rxdart: ^0.23.1 # used for advanced streams
   universal_html: ^1.1.10 # used to allow cross platform development
+  flutter_svg: ^0.15.0 # used to support svg in mobile
 
   # Web only packages
   firebase: ^7.2.0 # used for firestore web

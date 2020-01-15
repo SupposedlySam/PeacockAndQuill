@@ -5,6 +5,9 @@ import 'package:peacock_and_quill/data/repositories/firestore/presentation_repos
     if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/presentation_repository_web.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/user_repository_mobile.dart'
     if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/user_repository_web.dart';
+import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/i_logo.dart';
+import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/logo_mobile.dart'
+    if (dart.library.html) 'package:peacock_and_quill/presentation/components/navigation_bar/logo/logo_web.dart';
 import 'package:peacock_and_quill/domain/routing/navigation_interceptor.dart';
 import 'package:peacock_and_quill/domain/use_cases/authorization.dart';
 import 'package:peacock_and_quill/presentation/view_models/key_press_notifier.dart';
@@ -40,5 +43,6 @@ void _repositorySetup() {
 }
 
 void _otherSetup() {
+  locator.registerLazySingleton<ILogo>(() => Logo());
   locator.registerLazySingleton(() => NavigationInterceptor());
 }
