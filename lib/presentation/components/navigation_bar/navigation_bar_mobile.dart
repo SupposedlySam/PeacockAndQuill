@@ -6,7 +6,7 @@ class NavigationBarMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = locator<Authorization>();
-    final model = locator<NavBarViewModel>();
+    final model = Provider.of<NavBarViewModel>(context);
 
     return Container(
       child: Column(
