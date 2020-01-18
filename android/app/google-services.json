@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "768283907591-3a9ilq6kmb1bctv8ucjkscdb2mh8ssks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.supposedlysam.peacock_and_quill",
+            "certificate_hash": "2a8fd470211d14c6f2d05d9b01d8e42f9a0c52f4"
+          }
+        },
+        {
           "client_id": "768283907591-pbea3cgshtooilgu2i68umdqufdvbqj0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/i_presentation_repository.dart';
+import 'package:peacock_and_quill/data/repositories/firestore/i_storage_repository.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/i_user_repository.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/presentation_repository_mobile.dart'
     if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/presentation_repository_web.dart';
+import 'package:peacock_and_quill/data/repositories/firestore/storage_repository_mobile.dart'
+    if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/storage_repository_web.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/user_repository_mobile.dart'
     if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/user_repository_web.dart';
+import 'package:peacock_and_quill/domain/routing/navigation_interceptor.dart';
+import 'package:peacock_and_quill/domain/use_cases/authorization.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/i_logo.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/logo_mobile.dart'
     if (dart.library.html) 'package:peacock_and_quill/presentation/components/navigation_bar/logo/logo_web.dart';
-import 'package:peacock_and_quill/domain/routing/navigation_interceptor.dart';
-import 'package:peacock_and_quill/domain/use_cases/authorization.dart';
 import 'package:peacock_and_quill/presentation/view_models/key_press_notifier.dart';
 import 'package:peacock_and_quill/presentation/view_models/nav_bar_view_model.dart';
 import 'package:peacock_and_quill/presentation/view_models/presenter_view_model.dart';
@@ -46,6 +49,9 @@ void _repositorySetup() {
   );
   locator.registerLazySingleton<IUserRepository>(
     () => UserRepository(),
+  );
+  locator.registerLazySingleton<IStorageRepository>(
+    () => StorageRepository(),
   );
 }
 

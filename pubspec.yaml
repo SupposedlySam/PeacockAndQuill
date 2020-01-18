@@ -21,17 +21,17 @@ dependencies:
     sdk: flutter
   cloud_firestore: ^0.13.0+1 #used for firestore mobile
   dio: ^3.0.8 # used for http
+  firebase: ^7.2.0 # used for firestore and storage on web
+  firebase_core: ^0.4.3+2 # enables using multiple firebase projects
   firebase_auth: ^0.15.3+1 # used for user login
+  firebase_storage: ^3.1.1 # used to bring in images for presentation
+  flutter_svg: ^0.15.0 # used to support svg in mobile
   get_it: ^3.1.0 # used for injecting service
   google_sign_in: ^4.1.1 # used to sign in with google
   provider: ^4.0.0 # used for dependency injection
   responsive_builder: ^0.1.4 # used to separate device size specific views
   rxdart: ^0.23.1 # used for advanced streams
   universal_html: ^1.1.10 # used to allow cross platform development
-  flutter_svg: ^0.15.0 # used to support svg in mobile
-
-  # Web only packages
-  firebase: ^7.2.0 # used for firestore web
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
