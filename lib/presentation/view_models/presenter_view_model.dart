@@ -29,9 +29,9 @@ class PresenterViewModel with Interaction {
 
   Widget buildPages({
     @required
-        Iterable<IContentEntity> pages,
+        List<IContentEntity> pages,
     @required
-        Widget Function(Iterable<Widget> widgetsForPage) onPage,
+        Widget Function(List<Widget> widgetsForPage) onPage,
     @required
         Widget Function(String) onText,
     @required
@@ -40,41 +40,24 @@ class PresenterViewModel with Interaction {
         Widget Function() onDefault,
     @required
         Widget Function(
-      Iterable<Widget> widgets,
+      List<Widget> widgets,
     )
             builder,
   }) {
-    var allPages = <Widget>[];
-
     if (pages != null) {
-      pages.map(
-        (page) {
-          var widgetsForPage = <Widget>[];
-          page.data.map((data) {
-            switch (data.type) {
-              case "text":
-                final text = data.value
-                    .split('\n')
-                    .map((paragraph) => onText(paragraph))
-                    .toList();
-                widgetsForPage.addAll(text);
-                break;
-              case "image":
-                final images =
-                    data.value.split(',').map((url) => onImage(url)).toList();
-                widgetsForPage.addAll(images);
-                break;
-            }
-          });
-
-          allPages.add(onPage(widgetsForPage));
-        },
-      );
-    } else {
-      allPages.add(onDefault());
+      return builder(pages
+          .map((page) => onPage(page.data
+              .map((data) => onPage(data.value
+                  .split('\\n')
+                  .map(
+                    (p) => onText(p),
+                  )
+                  .toList()))
+              .toList()))
+          .toList());
     }
 
-    return builder(allPages);
+    return onDefault();
   }
 
   Future _setInitialSlide(PageController pageController) async {

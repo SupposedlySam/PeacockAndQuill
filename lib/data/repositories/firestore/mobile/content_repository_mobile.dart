@@ -6,26 +6,24 @@ import 'package:peacock_and_quill/domain/entities/interfaces/i_content_entity.da
 
 class ContentRepository extends IContentRepository {
   @override
-  Stream<Iterable<IContentEntity>> getContent() {
+  Stream<List<IContentEntity>> getContent() {
     final store = fs.Firestore.instance;
     final snapshots = store
         .collection(collectionName)
         .where("presentationId", isEqualTo: presenterId)
         .snapshots();
 
-    final docModels = snapshots.map<Iterable<ContentModel>>(
+    final docModels = snapshots.map(
       (snap) {
-        return snap.documents.map<ContentModel>(
-          (doc) {
-            return ContentModel.fromJson(doc.data);
-          },
-        );
+        final documents = snap.documents;
+
+        return documents.map(docToContentModel);
       },
     );
 
-    final docEntities = docModels.map<Iterable<ContentEntity>>(
+    final docEntities = docModels.map(
       (models) {
-        return models.map<ContentEntity>(
+        return models.map(
           (model) {
             return ContentEntity(
               data: model.data,
@@ -34,10 +32,14 @@ class ContentRepository extends IContentRepository {
               uid: model.uid,
             );
           },
-        );
+        ).toList();
       },
     );
 
     return docEntities;
+  }
+
+  ContentModel docToContentModel(doc) {
+    return ContentModel.fromJson(doc.data);
   }
 }

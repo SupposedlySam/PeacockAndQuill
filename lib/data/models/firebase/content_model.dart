@@ -6,7 +6,7 @@ import 'dart:convert';
 
 import 'package:peacock_and_quill/domain/entities/interfaces/i_content_entity.dart';
 
-class ContentModel extends IContentEntity {
+class ContentModel implements IContentEntity {
   List<IContentDataEntity> data;
   int order;
   String presentationId;
@@ -19,16 +19,21 @@ class ContentModel extends IContentEntity {
     this.uid,
   });
 
-  factory ContentModel.fromRawJson(String str) =>
-      ContentModel.fromJson(json.decode(str));
+  factory ContentModel.fromRawJson(String str) {
+    return ContentModel.fromJson(json.decode(str));
+  }
 
   String toRawJson() => json.encode(toJson());
 
   factory ContentModel.fromJson(Map<String, dynamic> json) {
+    final dynamic data = json["data"];
+    final List<ContentData> contentData = data.map<ContentData>((x) {
+      return ContentData.fromJson(x.cast<String, dynamic>());
+    }).toList();
+    final dataList = List<ContentData>.from(contentData);
+
     return ContentModel(
-      data: json["data"].map((x) {
-        return ContentData.fromJson(x);
-      }),
+      data: dataList,
       order: json["order"],
       presentationId: json["presentationId"],
       uid: json["uid"],
@@ -36,15 +41,14 @@ class ContentModel extends IContentEntity {
   }
 
   Map<String, dynamic> toJson() => {
-        "data":
-            List<dynamic>.from(data.map((x) => (x as ContentData).toJson())),
+        "data": data,
         "order": order,
         "presentationId": presentationId,
         "uid": uid,
       };
 }
 
-class ContentData extends IContentDataEntity {
+class ContentData implements IContentDataEntity {
   String type;
   String value;
 

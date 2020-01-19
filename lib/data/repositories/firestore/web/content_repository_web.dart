@@ -6,7 +6,7 @@ import 'package:peacock_and_quill/domain/entities/interfaces/i_content_entity.da
 
 class ContentRepository extends IContentRepository {
   @override
-  Stream<Iterable<IContentEntity>> getContent() {
+  Stream<List<IContentEntity>> getContent() {
     final store = firestore();
     final snapshots = store
         .collection(collectionName)
@@ -31,7 +31,7 @@ class ContentRepository extends IContentRepository {
             uid: model.uid,
           );
         },
-      ),
+      ).toList(),
     );
 
     return docEntities;

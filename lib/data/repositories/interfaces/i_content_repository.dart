@@ -4,5 +4,5 @@ abstract class IContentRepository {
   final String collectionName = "content";
   final String presenterId = "jn8HsjD1vROpepjAD8vK7YAgtl93";
 
-  Stream<Iterable<IContentEntity>> getContent();
+  Stream<List<IContentEntity>> getContent();
 }

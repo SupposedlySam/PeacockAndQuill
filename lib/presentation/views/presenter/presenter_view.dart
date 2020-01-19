@@ -18,14 +18,19 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = locator<PresenterViewModel>();
 
-    return StreamProvider<Iterable<IContentEntity>>.value(
+    return StreamProvider<List<IContentEntity>>.value(
       value: contentRepository.getContent(),
-      child: Consumer<Iterable<IContentEntity>>(
+      child: Consumer<List<IContentEntity>>(
         builder: (_, pages, __) {
           return model.buildPages(
             pages: pages,
             onPage: (widgets) => SingleChildScrollView(
-              child: Column(children: widgets),
+              child: Column(
+                children: widgets
+                    .map((w) => [w, SizedBox(height: 20)])
+                    .expand((p) => p)
+                    .toList(),
+              ),
             ),
             onText: (paragraph) => SelectableText(paragraph),
             onImage: (url) => Image.network(url),
@@ -37,7 +42,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget getHomeView(Iterable<Widget> pages) {
+  Widget getHomeView(List<Widget> pages) {
     final content = !(pages?.isEmpty ?? false)
         ? (kIsWeb)
             ? HomeContentDesktop(pages: pages)
