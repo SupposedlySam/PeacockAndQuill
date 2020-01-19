@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/data/repositories/firestore/i_presentation_repository.dart';
+import 'package:peacock_and_quill/data/repositories/interfaces/i_presentation_repository.dart';
 import 'package:peacock_and_quill/domain/providers/locator.dart';
 
 enum SlideDirection { left, right }

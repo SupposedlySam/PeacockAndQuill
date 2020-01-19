@@ -1,5 +1,5 @@
 import 'package:firebase/firebase.dart';
-import 'package:peacock_and_quill/data/repositories/firestore/i_storage_repository.dart';
+import 'package:peacock_and_quill/data/repositories/interfaces/i_storage_repository.dart';
 
 class StorageRepository extends IStorageRepository {
   @override

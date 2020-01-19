@@ -1,7 +1,7 @@
 import 'package:firebase/firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:peacock_and_quill/data/models/firebase/user_model.dart';
-import 'package:peacock_and_quill/data/repositories/firestore/i_user_repository.dart';
+import 'package:peacock_and_quill/data/repositories/interfaces/i_user_repository.dart';
 
 class UserRepository implements IUserRepository {
   void init() {

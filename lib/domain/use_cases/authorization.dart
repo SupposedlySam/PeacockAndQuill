@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:peacock_and_quill/data/repositories/firestore/i_user_repository.dart';
+import 'package:peacock_and_quill/data/repositories/interfaces/i_user_repository.dart';
 import 'package:peacock_and_quill/domain/providers/locator.dart';
 
 class Authorization {
@@ -9,7 +9,7 @@ class Authorization {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<FirebaseUser> get getUser => _auth.currentUser();
-  Stream<FirebaseUser> get user => _auth.onAuthStateChanged;
+  Stream<FirebaseUser> get userStream => _auth.onAuthStateChanged;
 
   Future<AuthResult> googleSignIn() async {
     try {

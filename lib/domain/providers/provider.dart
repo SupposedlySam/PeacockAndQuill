@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/domain/entities/presentation_entity.dart';
+import 'package:peacock_and_quill/domain/use_cases/authorization.dart';
 import 'package:peacock_and_quill/presentation/view_models/nav_bar_view_model.dart';
 import 'package:peacock_and_quill/presentation/view_models/presenter_view_model.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +27,9 @@ class Providers extends StatelessWidget {
       StreamProvider<PresentationEntity>.value(
         initialData: PresentationEntity(currentSlide: 0, initialSlide: 0),
         value: locator<PresenterViewModel>().getPresentationStream(),
+      ),
+      StreamProvider<FirebaseUser>.value(
+        value: locator<Authorization>().userStream,
       ),
     ];
   }

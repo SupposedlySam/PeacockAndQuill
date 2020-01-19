@@ -1,33 +1,48 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:peacock_and_quill/data/repositories/interfaces/i_content_repository.dart';
+import 'package:peacock_and_quill/domain/entities/interfaces/i_content_entity.dart';
 import 'package:peacock_and_quill/domain/providers/locator.dart';
+import 'package:peacock_and_quill/presentation/view_models/presenter_view_model.dart';
 import 'package:peacock_and_quill/presentation/views/base_view.dart';
 import 'package:peacock_and_quill/presentation/views/presenter/presenter_content_desktop.dart';
 import 'package:peacock_and_quill/presentation/views/presenter/presenter_content_mobile.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
-  static List<Widget> pages = [
-    Center(
-      child: Column(children: [
-        Expanded(
-          child: Center(
-            child: TextFormField(),
-          ),
-        ),
-        RaisedButton(child: Text("My Button"), onPressed: () {}),
-      ]),
-    ),
-    Center(child: Text('Home Page 2')),
-    Center(child: Text('Home Page 3')),
-    Center(child: Text('Home Page 4')),
-    Center(child: Text('Home Page 5')),
-  ];
+  final IContentRepository contentRepository;
+
+  const HomeView({@required this.contentRepository});
 
   @override
   Widget build(BuildContext context) {
-    final content = (kIsWeb)
-        ? HomeContentDesktop(pages: pages)
-        : HomeContentMobile(pages: pages);
+    final model = locator<PresenterViewModel>();
+
+    return StreamProvider<Iterable<IContentEntity>>.value(
+      value: contentRepository.getContent(),
+      child: Consumer<Iterable<IContentEntity>>(
+        builder: (_, pages, __) {
+          return model.buildPages(
+            pages: pages,
+            onPage: (widgets) => SingleChildScrollView(
+              child: Column(children: widgets),
+            ),
+            onText: (paragraph) => SelectableText(paragraph),
+            onImage: (url) => Image.network(url),
+            onDefault: () => Container(),
+            builder: getHomeView,
+          );
+        },
+      ),
+    );
+  }
+
+  Widget getHomeView(Iterable<Widget> pages) {
+    final content = !(pages?.isEmpty ?? false)
+        ? (kIsWeb)
+            ? HomeContentDesktop(pages: pages)
+            : HomeContentMobile(pages: pages)
+        : Container();
 
     return BaseView(
       storageRepository: locator(),

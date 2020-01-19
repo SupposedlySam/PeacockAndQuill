@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class PresentationModel {
+import 'package:peacock_and_quill/domain/entities/interfaces/i_presentation_entity.dart';
+
+class PresentationModel extends IPresentationEntity {
   int currentSlide;
   int initialSlide;
 

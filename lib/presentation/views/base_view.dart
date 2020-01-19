@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/data/repositories/firestore/i_storage_repository.dart';
+import 'package:peacock_and_quill/data/repositories/interfaces/i_storage_repository.dart';
 import 'package:peacock_and_quill/domain/providers/locator.dart';
 import 'package:peacock_and_quill/presentation/components/centered_view.dart';
 import 'package:peacock_and_quill/presentation/components/end_drawer.dart';
@@ -37,7 +37,7 @@ class BaseView extends StatelessWidget {
                             image: DecorationImage(
                               image: NetworkImage(
                                 image.toString(),
-                              ), //AssetImage(AssetConstants.woodGrid),
+                              ),
                               fit: BoxFit.cover,
                             ),
                           ),

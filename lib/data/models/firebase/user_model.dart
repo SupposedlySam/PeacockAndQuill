@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class UserModel {
+import 'package:peacock_and_quill/domain/entities/interfaces/i_user_entity.dart';
+
+class UserModel extends IUserEntity {
   String uid;
   String name;
   String email;
