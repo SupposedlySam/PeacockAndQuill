@@ -75,7 +75,7 @@ class QuestionRepository extends IQuestionRepository {
         .where("selection.slide", "==", screen)
         .get();
 
-    snapshots.docs.map((doc) => doc.ref.delete());
+    snapshots.docs.first.ref.delete();
   }
 
   List<QuestionEntity> _docsToEntity(List<DocumentSnapshot> documents) {
