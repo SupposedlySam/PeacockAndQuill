@@ -41,7 +41,7 @@ class ContentModel implements IContentEntity {
   }
 
   Map<String, dynamic> toJson() => {
-        "data": data,
+        "data": (data as ContentData).toJson(),
         "order": order,
         "presentationId": presentationId,
         "uid": uid,

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:peacock_and_quill/domain/entities/interfaces/i_presentation_entity.dart';
 
-class PresentationEntity extends IPresentationEntity {
+class PresentationEntity implements IPresentationEntity {
   int currentSlide;
   int initialSlide;
 

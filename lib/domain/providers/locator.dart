@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:peacock_and_quill/data/repositories/interfaces/i_content_repository.dart';
 
 import 'package:peacock_and_quill/data/repositories/interfaces/i_presentation_repository.dart';
+import 'package:peacock_and_quill/data/repositories/interfaces/i_question_repository.dart';
 import 'package:peacock_and_quill/data/repositories/interfaces/i_storage_repository.dart';
 import 'package:peacock_and_quill/data/repositories/interfaces/i_user_repository.dart';
 
@@ -14,6 +15,8 @@ import 'package:peacock_and_quill/data/repositories/firestore/mobile/storage_rep
     if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/web/storage_repository_web.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/mobile/user_repository_mobile.dart'
     if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/web/user_repository_web.dart';
+import 'package:peacock_and_quill/data/repositories/firestore/mobile/question_repository_mobile.dart'
+    if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/web/question_repository_web.dart';
 import 'package:peacock_and_quill/domain/routing/navigation_interceptor.dart';
 
 import 'package:peacock_and_quill/domain/use_cases/authorization.dart';
@@ -25,6 +28,7 @@ import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/lo
 import 'package:peacock_and_quill/presentation/view_models/key_press_notifier.dart';
 import 'package:peacock_and_quill/presentation/view_models/nav_bar_view_model.dart';
 import 'package:peacock_and_quill/presentation/view_models/presenter_view_model.dart';
+import 'package:peacock_and_quill/presentation/view_models/question_view_model.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -45,6 +49,7 @@ void _viewModelSetup() {
   locator.registerLazySingleton(() => KeyPressNotifier());
   locator.registerLazySingleton(() => NavBarViewModel(value: false));
   locator.registerLazySingleton(() => PresenterViewModel());
+  locator.registerLazySingleton(() => QuestionViewModel());
 }
 
 void _useCaseSetup() {
@@ -63,6 +68,9 @@ void _repositorySetup() {
   );
   locator.registerLazySingleton<IContentRepository>(
     () => ContentRepository(),
+  );
+  locator.registerLazySingleton<IQuestionRepository>(
+    () => QuestionRepository(),
   );
 }
 

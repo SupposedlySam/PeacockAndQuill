@@ -1,11 +1,10 @@
-import 'package:peacock_and_quill/data/repositories/interfaces/i_presentation_repository.dart';
+import 'package:flutter/services.dart';
 import 'package:peacock_and_quill/domain/entities/interfaces/i_content_entity.dart';
 import 'package:peacock_and_quill/domain/entities/presentation_entity.dart';
-import 'package:peacock_and_quill/domain/use_cases/interaction.dart';
+import 'package:peacock_and_quill/domain/use_cases/slide_sync.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar_imports.dart';
 
-class PresenterViewModel with Interaction {
-  final presentationRepository = locator<IPresentationRepository>();
+class PresenterViewModel with SlideSync {
   PageController _pageController;
 
   /// Notify listeners when page changes
@@ -27,33 +26,38 @@ class PresenterViewModel with Interaction {
     return presentationRepository.getPresentationStream();
   }
 
+  Future<String> getHighlightedText() async {
+    final data = await Clipboard.getData(Clipboard.kTextPlain);
+    return data.text;
+  }
+
   Widget buildPages({
-    @required
-        List<IContentEntity> pages,
-    @required
-        Widget Function(List<Widget> widgetsForPage) onPage,
-    @required
-        Widget Function(String) onText,
-    @required
-        Widget Function(String) onImage,
-    @required
-        Widget Function() onDefault,
-    @required
-        Widget Function(
-      List<Widget> widgets,
-    )
-            builder,
+    @required List<IContentEntity> pages,
+    @required Widget Function(List<Widget> widgetsForPage) onPage,
+    @required Widget Function(int, int, String) onText,
+    @required Widget Function(String) onImage,
+    @required Widget Function() onDefault,
+    @required Widget Function(List<Widget> widgets) builder,
   }) {
     if (pages != null) {
       return builder(pages
-          .map((page) => onPage(page.data
-              .map((data) => onPage(data.value
-                  .split('\\n')
-                  .map(
-                    (p) => onText(p),
-                  )
-                  .toList()))
-              .toList()))
+          .asMap()
+          .map((pageIndex, page) => MapEntry(
+              pageIndex,
+              onPage(page.data
+                  .map((data) => onPage(data.value
+                      .split('\\n')
+                      .asMap()
+                      .map(
+                        (paragraphIndex, p) => MapEntry(
+                          paragraphIndex,
+                          onText(pageIndex, paragraphIndex, p),
+                        ),
+                      )
+                      .values
+                      .toList()))
+                  .toList())))
+          .values
           .toList());
     }
 

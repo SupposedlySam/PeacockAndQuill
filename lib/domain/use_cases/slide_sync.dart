@@ -4,7 +4,7 @@ import 'package:peacock_and_quill/domain/providers/locator.dart';
 
 enum SlideDirection { left, right }
 
-mixin Interaction {
+mixin SlideSync {
   final IPresentationRepository presentationRepository =
       locator<IPresentationRepository>();
   int lastSlide = -1;

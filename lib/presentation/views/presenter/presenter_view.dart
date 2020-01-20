@@ -2,8 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/data/repositories/interfaces/i_content_repository.dart';
 import 'package:peacock_and_quill/domain/entities/interfaces/i_content_entity.dart';
+import 'package:peacock_and_quill/domain/entities/interfaces/i_question_entity.dart';
 import 'package:peacock_and_quill/domain/providers/locator.dart';
 import 'package:peacock_and_quill/presentation/view_models/presenter_view_model.dart';
+import 'package:peacock_and_quill/presentation/view_models/question_view_model.dart';
 import 'package:peacock_and_quill/presentation/views/base_view.dart';
 import 'package:peacock_and_quill/presentation/views/presenter/presenter_content_desktop.dart';
 import 'package:peacock_and_quill/presentation/views/presenter/presenter_content_mobile.dart';
@@ -16,13 +18,21 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = locator<PresenterViewModel>();
+    final presenterViewModel = locator<PresenterViewModel>();
+    final questionViewModel = locator<QuestionViewModel>();
 
-    return StreamProvider<List<IContentEntity>>.value(
-      value: contentRepository.getContent(),
-      child: Consumer<List<IContentEntity>>(
-        builder: (_, pages, __) {
-          return model.buildPages(
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<IQuestionEntity>>.value(
+          value: questionViewModel.getQuestionsByUser(),
+        ),
+        StreamProvider<List<IContentEntity>>.value(
+          value: contentRepository.getContent(),
+        )
+      ],
+      child: Consumer2<List<IQuestionEntity>, List<IContentEntity>>(
+        builder: (_, questions, pages, __) {
+          return presenterViewModel.buildPages(
             pages: pages,
             onPage: (widgets) => SingleChildScrollView(
               child: Column(
@@ -32,7 +42,24 @@ class HomeView extends StatelessWidget {
                     .toList(),
               ),
             ),
-            onText: (paragraph) => SelectableText(paragraph),
+            onText: (pageIndex, paragraphIndex, paragraph) {
+              return GestureDetector(
+                onLongPress: () {
+                  return questionViewModel.showCustomMenu(
+                    context,
+                    pageIndex,
+                    paragraphIndex,
+                  );
+                },
+                onTapDown: questionViewModel.storePosition,
+                child: buildText(
+                  pageIndex,
+                  paragraphIndex,
+                  paragraph,
+                  questions,
+                ),
+              );
+            },
             onImage: (url) => Image.network(url),
             onDefault: () => Container(),
             builder: getHomeView,
@@ -40,6 +67,31 @@ class HomeView extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Text buildText(
+    int pageIndex,
+    int paragraphIndex,
+    String paragraph,
+    List<IQuestionEntity> questions,
+  ) {
+    if (questions != null) {
+      final hasQuestion = questions.any((question) {
+        final selection = question.selection;
+        return selection.paragraph == paragraphIndex &&
+            selection.slide == pageIndex;
+      });
+
+      if (hasQuestion) {
+        return Text(
+          paragraph,
+          style: TextStyle(
+            backgroundColor: Colors.blueGrey.withAlpha(100),
+          ),
+        );
+      }
+    }
+    return Text(paragraph);
   }
 
   Widget getHomeView(List<Widget> pages) {
