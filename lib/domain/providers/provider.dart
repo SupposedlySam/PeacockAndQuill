@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:peacock_and_quill/data/repositories/interfaces/i_storage_repository.dart';
+import 'package:peacock_and_quill/domain/asset_types/background_image.dart';
 import 'package:peacock_and_quill/domain/entities/presentation_entity.dart';
 import 'package:peacock_and_quill/domain/use_cases/authorization.dart';
 import 'package:peacock_and_quill/presentation/view_models/nav_bar_view_model.dart';
@@ -34,12 +36,29 @@ class Providers extends StatelessWidget {
     ];
   }
 
+  List<SingleChildWidget> get assetProviders {
+    return [
+      ..._backgroundImageProvider(),
+    ];
+  }
+
+  List<SingleChildWidget> _backgroundImageProvider() => [
+        FutureProvider<String>.value(
+          value: locator<IStorageRepository>().loadImage('wood_grid.jpg'),
+        ),
+        ProxyProvider<String, BackgroundImage>(
+          update: (_, url, __) => BackgroundImage(NetworkImage(url.toString())),
+          updateShouldNotify: (n, o) => n.value != o.value,
+        )
+      ];
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ...changeNotifierProviders,
         ...streamProviders,
+        ...assetProviders,
       ],
       child: child,
     );

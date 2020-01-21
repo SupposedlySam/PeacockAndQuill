@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/data/repositories/interfaces/i_storage_repository.dart';
+import 'package:peacock_and_quill/domain/asset_types/background_image.dart';
 import 'package:peacock_and_quill/domain/providers/locator.dart';
 import 'package:peacock_and_quill/presentation/components/centered_view.dart';
 import 'package:peacock_and_quill/presentation/components/end_drawer.dart';
@@ -18,7 +19,7 @@ class BaseView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final woodGridUrl = storageRepository.loadImage('wood_grid.jpg');
+    final backgroundImage = Provider.of<BackgroundImage>(context);
 
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
@@ -26,24 +27,13 @@ class BaseView extends StatelessWidget {
           key: locator<GlobalKey<ScaffoldState>>(),
           endDrawer: EndDrawer(),
           body: SafeArea(
-            child: FutureProvider<String>.value(
-              value: woodGridUrl,
-              child: Consumer<String>(
-                builder: (_, image, __) {
-                  return image != null
-                      ? Container(
-                          child: buildCenteredView(),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                image.toString(),
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        )
-                      : Container();
-                },
+            child: Container(
+              child: buildCenteredView(),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: backgroundImage.value,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

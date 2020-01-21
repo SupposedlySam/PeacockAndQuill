@@ -14,6 +14,8 @@ file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/repositories/interfac
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/repositories/interfaces/i_question_repository.dart
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/repositories/interfaces/i_storage_repository.dart
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/repositories/interfaces/i_user_repository.dart
+file:///C:/Users/Jonah/projects/peacock_and_quill/lib/domain/asset_types/asset_type.dart
+file:///C:/Users/Jonah/projects/peacock_and_quill/lib/domain/asset_types/background_image.dart
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/domain/constants.dart
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/domain/entities/content_entity.dart
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/domain/entities/interfaces/i_content_entity.dart

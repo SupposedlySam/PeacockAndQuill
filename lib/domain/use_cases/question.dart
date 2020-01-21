@@ -19,17 +19,26 @@ mixin Question {
 
   Stream<List<IQuestionEntity>> getQuestionsByUser() {
     return locator<Authorization>().userStream.switchMap(
-          (user) => questionRepository.getQuestionsByUser(user.uid),
-        );
+      (user) {
+        if (user != null) {
+          return questionRepository.getQuestionsByUser(user.uid);
+        }
+        return Stream.empty();
+      },
+    );
   }
 
   void addQuestion(int screen, int paragraph) async {
     final user = await locator<Authorization>().getUser;
-    questionRepository.addQuestion(user.uid, screen, paragraph);
+    if (user != null) {
+      questionRepository.addQuestion(user.uid, screen, paragraph);
+    }
   }
 
   void removeQuestion(int screen, int paragraph) async {
     final user = await locator<Authorization>().getUser;
-    questionRepository.removeQuestion(user.uid, screen, paragraph);
+    if (user != null) {
+      questionRepository.removeQuestion(user.uid, screen, paragraph);
+    }
   }
 }
