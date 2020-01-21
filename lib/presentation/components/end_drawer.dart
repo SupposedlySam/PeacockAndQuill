@@ -8,44 +8,44 @@ import 'package:provider/provider.dart';
 class EndDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<FirebaseUser>(context);
+
     return Drawer(
       elevation: 8,
       child: Padding(
         padding: const EdgeInsets.all(8.0)
             .copyWith(top: MediaQuery.of(context).padding.top),
-        child: Consumer<FirebaseUser>(
-          builder: (_, user, __) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  NavBarLogo(),
-                  if (user == null)
-                    RaisedButton(
-                      child: Text('Login with Google'),
-                      onPressed: () async {
-                        await locator<Authorization>().googleSignIn();
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                ],
-              ),
-              Spacer(),
-              if (user != null)
-                Container(
-                  height: 45,
-                  width: double.infinity,
-                  child: RaisedButton(
-                    child: Text('Logout'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                NavBarLogo(),
+                if (user == null)
+                  RaisedButton(
+                    child: Text('Login with Google'),
                     onPressed: () async {
-                      await locator<Authorization>().logout();
+                      await locator<Authorization>().googleSignIn();
                       Navigator.of(context).pop();
                     },
                   ),
+              ],
+            ),
+            Spacer(),
+            if (user != null)
+              Container(
+                height: 45,
+                width: double.infinity,
+                child: RaisedButton(
+                  child: Text('Logout'),
+                  onPressed: () async {
+                    await locator<Authorization>().logout();
+                    Navigator.of(context).pop();
+                  },
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       ),
     );
