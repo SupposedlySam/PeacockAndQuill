@@ -47,8 +47,10 @@ class Providers extends StatelessWidget {
           value: locator<IStorageRepository>().loadImage('wood_grid.jpg'),
         ),
         ProxyProvider<String, BackgroundImage>(
-          update: (_, url, __) => BackgroundImage(NetworkImage(url.toString())),
-          updateShouldNotify: (n, o) => n.value != o.value,
+          update: (_, url, __) => url != null
+              ? BackgroundImage(NetworkImage(url.toString()))
+              : null,
+          updateShouldNotify: (n, o) => n?.value != o?.value,
         )
       ];
 

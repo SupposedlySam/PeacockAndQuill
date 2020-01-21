@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/data/repositories/interfaces/i_storage_repository.dart';
 import 'package:peacock_and_quill/domain/asset_types/background_image.dart';
 import 'package:peacock_and_quill/domain/providers/locator.dart';
-import 'package:peacock_and_quill/presentation/components/centered_view.dart';
 import 'package:peacock_and_quill/presentation/components/end_drawer.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar.dart';
 import 'package:provider/provider.dart';
@@ -27,15 +26,17 @@ class BaseView extends StatelessWidget {
           key: locator<GlobalKey<ScaffoldState>>(),
           endDrawer: EndDrawer(),
           body: SafeArea(
-            child: Container(
-              child: buildCenteredView(),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: backgroundImage.value,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+            child: backgroundImage?.value != null
+                ? Container(
+                    child: buildCenteredView(),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: backgroundImage.value,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                : Center(child: Text('Loading...')),
           ),
         );
       },
@@ -43,17 +44,16 @@ class BaseView extends StatelessWidget {
   }
 
   Widget buildCenteredView() {
-    return CenteredView(
-      child: Container(
-        color: Colors.black.withAlpha(170),
-        child: Column(
-          children: <Widget>[
-            NavigationBar(),
-            Expanded(
-              child: child,
-            )
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      color: Colors.black54,
+      child: Column(
+        children: <Widget>[
+          NavigationBar(),
+          Expanded(
+            child: child,
+          )
+        ],
       ),
     );
   }

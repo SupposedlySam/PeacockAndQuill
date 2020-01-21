@@ -30,7 +30,7 @@ class PeacockAndQuill extends StatelessWidget {
     return MaterialApp(
       navigatorObservers: [locator<NavigationInterceptor>()],
       title: 'Peacock and Quill',
-      theme: Style.defaultTheme(context),
+      theme: kIsWeb ? Style.webTheme(context) : Style.defaultTheme(context),
       onGenerateRoute: onGenerateRouteHandler,
       debugShowCheckedModeBanner: false,
     );

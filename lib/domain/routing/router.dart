@@ -7,7 +7,10 @@ Route<dynamic> onGenerateRouteHandler(RouteSettings settings) {
   switch (settings.name) {
     default:
       return _getPageRoute(
-        HomeView(contentRepository: locator()),
+        HomeView(
+          contentRepository: locator(),
+          storageRepository: locator(),
+        ),
         settings,
       );
   }
