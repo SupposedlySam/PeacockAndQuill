@@ -7,7 +7,6 @@ class Authorization {
   final IUserRepository userRepository = locator<IUserRepository>();
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: [
     'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
   ]);
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
