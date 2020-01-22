@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/data/repositories/interfaces/i_content_repository.dart';
-import 'package:peacock_and_quill/domain/entities/interfaces/i_content_entity.dart';
-import 'package:peacock_and_quill/domain/entities/interfaces/i_question_entity.dart';
+import 'package:peacock_and_quill/presentation/interfaces/entities/i_content_entity.dart';
+import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_entity.dart';
 import 'package:peacock_and_quill/domain/entities/presentation_entity.dart';
 import 'package:peacock_and_quill/domain/providers/locator.dart';
 import 'package:peacock_and_quill/presentation/view_models/presenter_view_model.dart';

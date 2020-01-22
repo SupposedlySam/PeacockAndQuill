@@ -1,4 +1,4 @@
-import 'package:peacock_and_quill/domain/entities/interfaces/i_question_entity.dart';
+import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_entity.dart';
 
 abstract class IQuestionRepository {
   final String collectionName = "questions";

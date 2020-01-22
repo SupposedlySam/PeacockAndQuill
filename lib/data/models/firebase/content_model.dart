@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:peacock_and_quill/domain/entities/interfaces/i_content_entity.dart';
+import 'package:peacock_and_quill/presentation/interfaces/entities/i_content_entity.dart';
 
 class ContentModel implements IContentEntity {
   List<IContentDataEntity> data;
