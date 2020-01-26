@@ -13,10 +13,12 @@ class NavBarLogo extends StatelessWidget {
       child: GestureDetector(
           child: InkWell(child: Provider.of<ILogo>(context).getLogo),
           onTap: () {
-            if (scaffold.isEndDrawerOpen) {
+            if (scaffold.isEndDrawerOpen || scaffold.isDrawerOpen) {
               Navigator.of(context).pop();
             } else {
-              scaffold.openEndDrawer();
+              scaffold
+                ..openDrawer()
+                ..openEndDrawer();
             }
           }),
     );

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/presentation/asset_types/background_image.dart';
 import 'package:peacock_and_quill/presentation/components/end_drawer.dart';
@@ -15,14 +16,16 @@ class BaseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final backgroundImage = Provider.of<BackgroundImage>(context);
+    final drawer = EndDrawer(
+      authorizationUseCase: Provider.of(context),
+    );
 
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         return Scaffold(
           key: Provider.of<GlobalKey<ScaffoldState>>(context),
-          endDrawer: EndDrawer(
-            authorizationUseCase: Provider.of(context),
-          ),
+          drawer: kIsWeb ? drawer : null,
+          endDrawer: kIsWeb ? null : drawer,
           body: SafeArea(
             child: backgroundImage?.value != null
                 ? Container(
