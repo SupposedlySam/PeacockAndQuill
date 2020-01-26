@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/domain/providers/locator.dart';
 import 'package:peacock_and_quill/presentation/view_models/key_press_notifier.dart';
+import 'package:provider/provider.dart';
 
 typedef PageBuilder = Widget Function(BuildContext, PageController);
 
@@ -22,7 +22,9 @@ class _KeyPressPageManagerState extends State<KeyPressPageManager> {
   void initState() {
     super.initState();
     _pageController = PageController();
-    locator<KeyPressNotifier>()..onNext.add(handleNext)..onPrev.add(handlePrev);
+    Provider.of<KeyPressNotifier>(context, listen: false)
+      ..onNext.add(handleNext)
+      ..onPrev.add(handlePrev);
   }
 
   void handleNext() {

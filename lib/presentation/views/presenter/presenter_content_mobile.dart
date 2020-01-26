@@ -1,24 +1,22 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/data/repositories/interfaces/i_content_repository.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_content_entity.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_entity.dart';
-import 'package:peacock_and_quill/domain/entities/presentation_entity.dart';
-import 'package:peacock_and_quill/domain/providers/locator.dart';
+import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_content_use_case.dart';
 import 'package:peacock_and_quill/presentation/view_models/presenter_view_model.dart';
 import 'package:peacock_and_quill/presentation/view_models/question_view_model.dart';
 import 'package:provider/provider.dart';
 
 class HomeContentMobile extends StatelessWidget {
-  final IContentRepository contentRepository;
+  final int currentSlide;
 
-  const HomeContentMobile({@required this.contentRepository});
+  const HomeContentMobile({Key key, @required this.currentSlide})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final presenterViewModel = locator<PresenterViewModel>();
-    final questionViewModel = locator<QuestionViewModel>();
-    final entity = Provider.of<PresentationEntity>(context);
+    final contentUseCase = Provider.of<IContentUseCase>(context);
+    final presenterViewModel = Provider.of<PresenterViewModel>(context);
+    final questionViewModel = Provider.of<QuestionViewModel>(context);
 
     return MultiProvider(
       providers: [
@@ -26,7 +24,7 @@ class HomeContentMobile extends StatelessWidget {
           value: questionViewModel.getQuestionsByUser(),
         ),
         StreamProvider<List<IContentEntity>>.value(
-          value: contentRepository.getContent(),
+          value: contentUseCase.getContent(),
         )
       ],
       child: Consumer2<List<IQuestionEntity>, List<IContentEntity>>(
@@ -61,7 +59,7 @@ class HomeContentMobile extends StatelessWidget {
             },
             onImage: (url) => Image.network(url),
             onDefault: () => Container(),
-            builder: (pages) => pages[entity.currentSlide],
+            builder: (pages) => pages[currentSlide],
           );
         },
       ),

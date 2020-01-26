@@ -1,11 +1,16 @@
 import 'package:flutter/services.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_content_entity.dart';
-import 'package:peacock_and_quill/domain/entities/presentation_entity.dart';
-import 'package:peacock_and_quill/domain/use_cases/slide_sync.dart';
+import 'package:peacock_and_quill/presentation/interfaces/entities/i_presentation_entity.dart';
+import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_presentation_use_case.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar_imports.dart';
 
-class PresenterViewModel with SlideSync {
+class PresenterViewModel extends ChangeNotifier {
   PageController _pageController;
+  final IPresentationUseCase presentationUseCase;
+
+  PresenterViewModel({
+    @required this.presentationUseCase,
+  });
 
   /// Notify listeners when page changes
   void init(PageController pageController) async {
@@ -15,15 +20,19 @@ class PresenterViewModel with SlideSync {
   }
 
   Future<int> getInitialSlide() async {
-    return presentationRepository.getInitialSlide();
+    return presentationUseCase.getInitialSlide();
+  }
+
+  Future<int> getCurrentSlide() async {
+    return presentationUseCase.getCurrentSlide();
   }
 
   /// Invoke when page changes based on our use case
-  void handleListener() => syncToDevices(_pageController);
+  void handleListener() => presentationUseCase.syncToDevices(_pageController);
 
   /// Pull the data directly from the repository
-  Stream<PresentationEntity> getPresentationStream() {
-    return presentationRepository.getPresentationStream();
+  Stream<IPresentationEntity> getPresentationStream() {
+    return presentationUseCase.getPresentationStream();
   }
 
   Future<String> getHighlightedText() async {
@@ -72,7 +81,13 @@ class PresenterViewModel with SlideSync {
       pageController.jumpToPage(initialSlide);
 
       // Sync the currentSlide
-      syncToDevices(pageController);
+      presentationUseCase.syncToDevices(pageController);
     }
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }

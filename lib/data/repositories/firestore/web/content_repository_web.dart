@@ -1,6 +1,6 @@
 import 'package:firebase/firebase.dart';
 import 'package:peacock_and_quill/data/models/firebase/content_model.dart';
-import 'package:peacock_and_quill/data/repositories/interfaces/i_content_repository.dart';
+import 'package:peacock_and_quill/domain/interfaces/i_content_repository.dart';
 import 'package:peacock_and_quill/domain/entities/content_entity.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_content_entity.dart';
 

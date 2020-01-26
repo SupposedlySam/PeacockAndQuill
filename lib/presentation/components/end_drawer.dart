@@ -1,11 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/domain/providers/locator.dart';
-import 'package:peacock_and_quill/domain/use_cases/authorization.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/nav_bar_logo.dart';
+import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_authorization_use_case.dart';
 import 'package:provider/provider.dart';
 
 class EndDrawer extends StatelessWidget {
+  final IAuthorizationUseCase authorizationUseCase;
+
+  const EndDrawer({Key key, @required this.authorizationUseCase})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
@@ -26,7 +30,7 @@ class EndDrawer extends StatelessWidget {
                   RaisedButton(
                     child: Text('Login with Google'),
                     onPressed: () async {
-                      await locator<Authorization>().googleSignIn();
+                      await authorizationUseCase.googleSignIn();
                       Navigator.of(context).pop();
                     },
                   ),
@@ -40,7 +44,7 @@ class EndDrawer extends StatelessWidget {
                 child: RaisedButton(
                   child: Text('Logout'),
                   onPressed: () async {
-                    await locator<Authorization>().logout();
+                    await authorizationUseCase.logout();
                     Navigator.of(context).pop();
                   },
                 ),

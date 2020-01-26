@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:peacock_and_quill/presentation/enums.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_entity.dart';
-import 'package:peacock_and_quill/domain/use_cases/question.dart';
+import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_question_use_case.dart';
 
-class QuestionViewModel with Question {
+class QuestionViewModel {
   var _tapPosition;
+  IQuestionUseCase questionUseCase;
+
+  QuestionViewModel({@required this.questionUseCase});
 
   Future<ActionType> showCustomMenu(
     BuildContext context,
@@ -25,9 +29,9 @@ class QuestionViewModel with Question {
     if (userTappedOff) return ActionType.unchanged;
 
     if (hasQuestion) {
-      super.addQuestion(pageIndex, paragraphIndex);
+      questionUseCase.addQuestion(pageIndex, paragraphIndex);
     } else {
-      super.removeQuestion(pageIndex, paragraphIndex);
+      questionUseCase.removeQuestion(pageIndex, paragraphIndex);
     }
 
     return hasQuestion ? ActionType.add : ActionType.remove;
@@ -38,7 +42,7 @@ class QuestionViewModel with Question {
   }
 
   Stream<List<IQuestionEntity>> getQuestionsByUser() {
-    return super.getQuestionsByUser();
+    return questionUseCase.getQuestionsByUser();
   }
 }
 

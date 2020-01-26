@@ -1,7 +1,7 @@
 import 'package:firebase/firebase.dart';
 import 'package:firebase/firestore.dart';
 import 'package:peacock_and_quill/data/models/firebase/question_model.dart';
-import 'package:peacock_and_quill/data/repositories/interfaces/i_question_repository.dart';
+import 'package:peacock_and_quill/domain/interfaces/i_question_repository.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_entity.dart';
 import 'package:peacock_and_quill/domain/entities/question_entity.dart';
 

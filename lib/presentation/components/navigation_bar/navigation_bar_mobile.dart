@@ -5,7 +5,7 @@ import 'navigation_bar_imports.dart';
 class NavigationBarMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final auth = locator<Authorization>();
+    final auth = Provider.of<IAuthorizationUseCase>(context);
     final model = Provider.of<NavBarViewModel>(context);
 
     return Container(

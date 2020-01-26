@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/data/repositories/interfaces/i_storage_repository.dart';
-import 'package:peacock_and_quill/domain/asset_types/background_image.dart';
-import 'package:peacock_and_quill/domain/providers/locator.dart';
+import 'package:peacock_and_quill/presentation/asset_types/background_image.dart';
 import 'package:peacock_and_quill/presentation/components/end_drawer.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class BaseView extends StatelessWidget {
+  final Widget child;
+
   const BaseView({
     @required this.child,
-    @required this.storageRepository,
   });
-
-  final Widget child;
-  final IStorageRepository storageRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +19,10 @@ class BaseView extends StatelessWidget {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         return Scaffold(
-          key: locator<GlobalKey<ScaffoldState>>(),
-          endDrawer: EndDrawer(),
+          key: Provider.of<GlobalKey<ScaffoldState>>(context),
+          endDrawer: EndDrawer(
+            authorizationUseCase: Provider.of(context),
+          ),
           body: SafeArea(
             child: backgroundImage?.value != null
                 ? Container(

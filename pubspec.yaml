@@ -26,7 +26,6 @@ dependencies:
   firebase_auth: ^0.15.3+1 # used for user login
   firebase_storage: ^3.1.1 # used to bring in images for presentation
   flutter_svg: ^0.15.0 # used to support svg in mobile
-  get_it: ^3.1.0 # used for injecting service
   google_sign_in: ^4.1.1 # used to sign in with google
   provider: ^4.0.0 # used for dependency injection
   responsive_builder: ^0.1.4 # used to separate device size specific views

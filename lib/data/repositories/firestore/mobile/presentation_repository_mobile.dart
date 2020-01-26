@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:peacock_and_quill/data/models/firebase/presentation_model.dart';
-import 'package:peacock_and_quill/data/repositories/interfaces/i_presentation_repository.dart';
+import 'package:peacock_and_quill/domain/interfaces/i_presentation_repository.dart';
 import 'package:peacock_and_quill/domain/entities/presentation_entity.dart';
 
 class PresentationRepository extends IPresentationRepository {
@@ -31,5 +31,15 @@ class PresentationRepository extends IPresentationRepository {
     final model = PresentationModel.fromJson(doc.data);
 
     return model.initialSlide;
+  }
+
+  @override
+  Future<int> getCurrentSlide() async {
+    final store = fs.Firestore.instance;
+    final doc =
+        await store.collection(collectionName).document(presenterId).get();
+    final model = PresentationModel.fromJson(doc.data);
+
+    return model.currentSlide;
   }
 }

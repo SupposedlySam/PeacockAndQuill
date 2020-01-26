@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:peacock_and_quill/data/models/firebase/user_model.dart';
-import 'package:peacock_and_quill/data/repositories/interfaces/i_user_repository.dart';
+import 'package:peacock_and_quill/domain/interfaces/i_user_repository.dart';
 
 class UserRepository implements IUserRepository {
   final fs.Firestore _firestore = fs.Firestore.instance;

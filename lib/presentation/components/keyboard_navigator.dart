@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:peacock_and_quill/domain/providers/locator.dart';
 import 'package:peacock_and_quill/presentation/components/lifecycle_managers/focus_node_manager.dart';
 import 'package:peacock_and_quill/presentation/view_models/key_press_notifier.dart';
 import 'package:universal_html/prefer_universal/html.dart' as html;
 
 class KeyboardNavigator extends StatelessWidget {
+  final KeyPressNotifier keyPressNotifier;
   KeyboardNavigator({
+    @required this.keyPressNotifier,
     @required this.child,
   });
 
@@ -34,22 +35,21 @@ class KeyboardNavigator extends StatelessWidget {
     final isKeyUpEvent = rawKeyEvent is RawKeyUpEvent;
 
     if (isKeyUpEvent) {
-      final model = locator<KeyPressNotifier>();
       final debugName = rawKeyEvent.logicalKey.debugName;
       final document = html.document;
 
       switch (debugName) {
         case arrowUp:
-          _setFullscreen(document, model);
+          _setFullscreen(document, keyPressNotifier);
           break;
         case arrowDown:
-          _exitFullscreen(document, model);
+          _exitFullscreen(document, keyPressNotifier);
           break;
         case arrowLeft:
-          model.triggerPrev();
+          keyPressNotifier.triggerPrev();
           break;
         case arrowRight:
-          model.triggerNext();
+          keyPressNotifier.triggerNext();
           break;
       }
     }
