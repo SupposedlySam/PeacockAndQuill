@@ -1,17 +1,23 @@
+import 'package:rxdart/rxdart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:peacock_and_quill/data/models/firebase/question_model.dart';
+import 'package:peacock_and_quill/data/repositories/firestore/mobile/base_repository_mobile.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_question_repository.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_entity.dart';
 import 'package:peacock_and_quill/domain/entities/question_entity.dart';
 
-class QuestionRepository extends IQuestionRepository {
+class QuestionRepository extends BaseRepositoryMobile
+    implements IQuestionRepository {
+  final String collectionName = "questions";
+
   @override
   void addQuestion(String uid, int slide, int paragraph) async {
     final store = fs.Firestore.instance;
     final ref = await store.collection(collectionName).reference();
+    final user = await getUserDetail();
 
     final userQuestion = QuestionModel(
-      presentationId: presenterId,
+      presentationId: user.activePresentation,
       uid: uid,
       selection: SelectionModel(
         paragraph: paragraph,
@@ -24,10 +30,11 @@ class QuestionRepository extends IQuestionRepository {
 
   @override
   Future<List<IQuestionEntity>> getAllQuestions() async {
+    final user = await getUserDetail();
     final store = fs.Firestore.instance;
     final snapshots = await store
         .collection(collectionName)
-        .where("presentationId", isEqualTo: presenterId)
+        .where("presentationId", isEqualTo: user.activePresentation)
         .getDocuments();
 
     final docEntities = _docsToEntity(snapshots.documents);
@@ -37,10 +44,11 @@ class QuestionRepository extends IQuestionRepository {
 
   @override
   Future<List<IQuestionEntity>> getQuestionsBySlide(int slide) async {
+    final user = await getUserDetail();
     final store = fs.Firestore.instance;
     final snapshots = await store
         .collection(collectionName)
-        .where("presentationId", isEqualTo: presenterId)
+        .where("presentationId", isEqualTo: user.activePresentation)
         .where("selection.slide", isEqualTo: slide)
         .getDocuments();
 
@@ -51,12 +59,12 @@ class QuestionRepository extends IQuestionRepository {
 
   @override
   Stream<List<IQuestionEntity>> getQuestionsByUser(String uid) {
-    final store = fs.Firestore.instance;
-    final snapshots = store
+    final user = getUserDetail().asStream();
+    final snapshots = user.switchMap((user) => fs.Firestore.instance
         .collection(collectionName)
-        .where("presentationId", isEqualTo: presenterId)
+        .where("presentationId", isEqualTo: user.activePresentation)
         .where("uid", isEqualTo: uid)
-        .snapshots();
+        .snapshots());
 
     final docEntities = snapshots.map((snap) => _docsToEntity(snap.documents));
 
@@ -65,11 +73,12 @@ class QuestionRepository extends IQuestionRepository {
 
   @override
   void removeQuestion(String uid, int screen, int paragraph) async {
+    final user = await getUserDetail();
     final store = fs.Firestore.instance;
     final snapshots = await store
         .collection(collectionName)
         .where("uid", isEqualTo: uid)
-        .where("presentationId", isEqualTo: presenterId)
+        .where("presentationId", isEqualTo: user.activePresentation)
         .where("selection.paragraph", isEqualTo: paragraph)
         .where("selection.slide", isEqualTo: screen)
         .getDocuments();

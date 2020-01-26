@@ -48,6 +48,9 @@ class _KeyPressPageManagerState extends State<KeyPressPageManager> {
 
   @override
   void dispose() {
+    Provider.of<KeyPressNotifier>(context, listen: false)
+      ..onNext.clear()
+      ..onPrev.clear();
     _pageController.dispose();
     super.dispose();
   }

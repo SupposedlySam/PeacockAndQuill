@@ -5,10 +5,12 @@ import 'package:peacock_and_quill/presentation/interfaces/entities/i_presentatio
 class PresentationModel implements IPresentationEntity {
   int currentSlide;
   int initialSlide;
+  bool isActive;
 
   PresentationModel({
     this.currentSlide,
     this.initialSlide,
+    this.isActive = false,
   });
 
   factory PresentationModel.fromRawJson(String str) =>
@@ -20,9 +22,12 @@ class PresentationModel implements IPresentationEntity {
       PresentationModel(
         currentSlide: json["currentSlide"],
         initialSlide: json["initialSlide"],
+        isActive: json["isActive"],
       );
 
   Map<String, dynamic> toJson() => {
         "currentSlide": currentSlide,
+        "initialSlide": initialSlide,
+        "isActive": isActive,
       };
 }

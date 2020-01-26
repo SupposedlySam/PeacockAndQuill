@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:peacock_and_quill/presentation/views/presenter/presenter_view.dart';
@@ -9,7 +10,7 @@ Route<dynamic> onGenerateRouteHandler(RouteSettings settings) {
   switch (settings.name) {
     default:
       return _getPageRoute(Consumer<FirebaseUser>(builder: (context, user, __) {
-        return user != null ? PresenterView() : PublicView();
+        return user != null || kIsWeb ? PresenterView() : PublicView();
       }), settings);
   }
 }

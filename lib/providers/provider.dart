@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/mobile/content_repository_mobile.dart'
     if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/web/content_repository_web.dart';
@@ -60,6 +61,9 @@ class Providers extends StatelessWidget {
         Provider<IUserRepository>(
           create: (_) => UserRepository(),
         ),
+        Provider<IPresentationRepository>(
+          create: (_) => PresentationRepository(),
+        ),
       ];
 
   List<SingleChildWidget> get _publicUseCaseProviders => [
@@ -70,6 +74,13 @@ class Providers extends StatelessWidget {
             );
           },
         ),
+        ProxyProvider<IPresentationRepository, IPresentationUseCase>(
+          update: (_, presentationRepository, __) {
+            return PresentationUseCase(
+              presentationRepository: presentationRepository,
+            );
+          },
+        ),
       ];
 
   List<SingleChildWidget> get _publicViewModelProviders => [
@@ -77,10 +88,14 @@ class Providers extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NavBarViewModel(value: false)),
         ChangeNotifierProvider<BasePublicViewModel>(
           create: (context) => PublicViewModel(
+            userRepository:
+                Provider.of<IUserRepository>(context, listen: false),
+            presentationRepository:
+                Provider.of<IPresentationRepository>(context, listen: false),
             authorizationUseCase:
                 Provider.of<IAuthorizationUseCase>(context, listen: false),
           ),
-        )
+        ),
       ];
 
   List<SingleChildWidget> get streamProviders {
@@ -124,9 +139,6 @@ class Providers extends StatelessWidget {
       ];
 
   List<SingleChildWidget> get _authorizedRepositoryProviders => [
-        Provider<IPresentationRepository>(
-          create: (_) => PresentationRepository(),
-        ),
         Provider<IContentRepository>(
           create: (_) => ContentRepository(),
         ),
@@ -142,13 +154,6 @@ class Providers extends StatelessWidget {
             return QuestionUseCase(
               authorizationUseCase: authorizationUseCase,
               questionRepository: questionRepository,
-            );
-          },
-        ),
-        ProxyProvider<IPresentationRepository, IPresentationUseCase>(
-          update: (_, presentationRepository, __) {
-            return PresentationUseCase(
-              presentationRepository: presentationRepository,
             );
           },
         ),
@@ -191,7 +196,7 @@ class Providers extends StatelessWidget {
       providers: publicProviders,
       child: Consumer<FirebaseUser>(
         builder: (context, user, _) {
-          final isAuthorized = user != null;
+          final isAuthorized = user != null || kIsWeb;
 
           return isAuthorized
               ? MultiProvider(providers: authorizedProviders, child: child)

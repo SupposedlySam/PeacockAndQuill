@@ -1,9 +1,11 @@
 import 'package:firebase/firebase.dart';
+import 'package:firebase/firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:peacock_and_quill/data/models/firebase/user_model.dart';
+import 'package:peacock_and_quill/data/repositories/firestore/web/base_repository_web.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_user_repository.dart';
 
-class UserRepository implements IUserRepository {
+class UserRepository extends BaseRepositoryWeb implements IUserRepository {
   void init() {
     if (apps.isEmpty) {
       initializeApp(
@@ -36,5 +38,13 @@ class UserRepository implements IUserRepository {
 
       doc.set(user.toJson());
     }
+  }
+
+  @override
+  void setActivePresentation(String presentationId) async {
+    final user = await FirebaseAuth.instance.currentUser();
+    final doc = firestore().collection('users').doc(user.uid);
+
+    doc.set({'activePresentation': presentationId}, SetOptions(merge: true));
   }
 }

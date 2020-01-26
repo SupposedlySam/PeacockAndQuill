@@ -1,15 +1,18 @@
 import 'package:firebase/firestore.dart';
 import 'package:peacock_and_quill/data/models/firebase/presentation_model.dart';
+import 'package:peacock_and_quill/data/repositories/firestore/web/base_repository_web.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_presentation_repository.dart';
 import 'package:peacock_and_quill/domain/entities/presentation_entity.dart';
 import 'package:firebase/firebase.dart';
 
-class PresentationRepository extends IPresentationRepository {
+class PresentationRepository extends BaseRepositoryWeb
+    implements IPresentationRepository {
+  final String collectionName = "presentations";
+
   @override
   Stream<PresentationEntity> getPresentationStream() {
-    final store = firestore();
-    final doc = store.collection(collectionName).doc(presenterId);
-    final models = doc.onSnapshot.map<PresentationModel>(
+    final doc = _getCurrentPresentation().asStream();
+    final models = doc.map<PresentationModel>(
       (snap) => PresentationModel.fromJson(snap.data()),
     );
 
@@ -17,25 +20,21 @@ class PresentationRepository extends IPresentationRepository {
       (model) => PresentationEntity(
         currentSlide: model.currentSlide,
         initialSlide: model.initialSlide,
+        isActive: model.isActive,
       ),
     );
   }
 
   @override
-  void updateSlide(int slideIndex) {
-    final store = firestore();
-    final doc = store.collection(collectionName).doc(presenterId);
-    final model = PresentationModel(
-      currentSlide: slideIndex,
-    );
+  void updateSlide(int slideIndex) async {
+    final doc = await _getCurrentPresentation();
 
-    doc.set(model.toJson(), SetOptions(merge: true));
+    doc.ref.set({'currentSlide': slideIndex}, SetOptions(merge: true));
   }
 
   @override
   Future<int> getInitialSlide() async {
-    final store = firestore();
-    final doc = await store.collection(collectionName).doc(presenterId).get();
+    final doc = await _getCurrentPresentation();
     final model = PresentationModel.fromJson(doc.data());
 
     return model.initialSlide;
@@ -43,10 +42,45 @@ class PresentationRepository extends IPresentationRepository {
 
   @override
   Future<int> getCurrentSlide() async {
-    final store = firestore();
-    final doc = await store.collection(collectionName).doc(presenterId).get();
+    final doc = await _getCurrentPresentation();
     final model = PresentationModel.fromJson(doc.data());
 
     return model.currentSlide;
+  }
+
+  @override
+  Future<bool> checkPresentationExists(String presentationCode) {
+    return firestore()
+        .collection(collectionName)
+        .where('code', '==', presentationCode)
+        .get()
+        .then((snap) => snap.docs.length > 0);
+  }
+
+  @override
+  Future<String> getPresentationIdFromCode(String presentationCode) async {
+    final doc = await firestore()
+        .collection(collectionName)
+        .where('code', '==', presentationCode)
+        .get()
+        .then((snap) => snap.docs.first);
+
+    return doc.id;
+  }
+
+  @override
+  void toggleActive() async {
+    final doc = await _getCurrentPresentation();
+    final bool currentVal = doc.data()['isActive'];
+
+    doc.ref.set({'isActive': !currentVal}, SetOptions(merge: true));
+  }
+
+  Future<DocumentSnapshot> _getCurrentPresentation() async {
+    final user = await getUserDetail();
+    return firestore()
+        .collection(collectionName)
+        .doc(user.activePresentation)
+        .get();
   }
 }

@@ -4,9 +4,11 @@ import 'package:peacock_and_quill/presentation/interfaces/entities/i_presentatio
 class PresentationEntity implements IPresentationEntity {
   int currentSlide;
   int initialSlide;
+  bool isActive;
 
   PresentationEntity({
     @required this.currentSlide,
     @required this.initialSlide,
+    this.isActive = false,
   });
 }

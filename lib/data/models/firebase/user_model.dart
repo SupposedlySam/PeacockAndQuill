@@ -8,6 +8,7 @@ class UserModel implements IUserEntity {
   String email;
   bool isAnonymous;
   DateTime createdAt;
+  String activePresentation;
 
   UserModel({
     this.uid,
@@ -15,6 +16,7 @@ class UserModel implements IUserEntity {
     this.email,
     this.isAnonymous,
     this.createdAt,
+    this.activePresentation,
   });
 
   factory UserModel.fromRawJson(String str) =>
@@ -23,12 +25,12 @@ class UserModel implements IUserEntity {
   String toRawJson() => json.encode(toJson());
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        uid: json["uid"],
-        name: json["name"],
-        email: json["email"],
-        isAnonymous: json["isAnonymous"] == 'true',
-        createdAt: DateTime.parse(json["createdAt"]),
-      );
+      uid: json["uid"],
+      name: json["name"],
+      email: json["email"],
+      isAnonymous: json["isAnonymous"] == 'true',
+      createdAt: DateTime.parse(json["createdAt"]),
+      activePresentation: json['activePresentation']);
 
   Map<String, dynamic> toJson() => {
         "uid": uid,
@@ -36,5 +38,6 @@ class UserModel implements IUserEntity {
         "email": email,
         "isAnonymous": isAnonymous,
         "createdAt": createdAt.toString(),
+        "activePresentation": activePresentation,
       };
 }
