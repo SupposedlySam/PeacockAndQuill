@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="768283907591-8euk8velib0mh59vv3387c4hdd6jc50g.apps.googleusercontent.com" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/assets/site.webmanifest">
+    <title>Peacock and Quill</title>
+  </head>
+  <body id="app-container">
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+    
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+    
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyC4pKVii_NCp9-xJmiwyipL-HCrWd_Affs",
+        authDomain: "peacockandquill.firebaseapp.com",
+        databaseURL: "https://peacockandquill.firebaseio.com",
+        projectId: "peacockandquill",
+        storageBucket: "peacockandquill.appspot.com",
+        messagingSenderId: "768283907591",
+        appId: "1:768283907591:web:b4090e0071f4bfa9563ca2",
+        measurementId: "G-3E7DSL719Y",
+      };
+      
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+    <script src="main.dart.js"></script>
+</body>
+</html>
