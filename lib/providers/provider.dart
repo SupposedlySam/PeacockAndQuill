@@ -62,62 +62,6 @@ class Providers extends StatelessWidget {
         ),
       ];
 
-  List<SingleChildWidget> get _authorizedRepositoryProviders => [
-        Provider<IPresentationRepository>(
-          create: (_) => PresentationRepository(),
-        ),
-        Provider<IContentRepository>(
-          create: (_) => ContentRepository(),
-        ),
-        Provider<IQuestionRepository>(
-          create: (_) => QuestionRepository(),
-        ),
-      ];
-
-  List<SingleChildWidget> get _authorizedUseCaseProviders => [
-        ProxyProvider2<IAuthorizationUseCase, IQuestionRepository,
-            IQuestionUseCase>(
-          update: (_, authorizationUseCase, questionRepository, __) {
-            return QuestionUseCase(
-              authorizationUseCase: authorizationUseCase,
-              questionRepository: questionRepository,
-            );
-          },
-        ),
-        ProxyProvider<IPresentationRepository, IPresentationUseCase>(
-          update: (_, presentationRepository, __) {
-            return PresentationUseCase(
-              presentationRepository: presentationRepository,
-            );
-          },
-        ),
-        ProxyProvider<IContentRepository, IContentUseCase>(
-          update: (_, contentRepository, __) {
-            return ContentUseCase(
-              contentRepository: contentRepository,
-            );
-          },
-        ),
-      ];
-
-  List<SingleChildWidget> get _authorizedViewModelProviders => [
-        ChangeNotifierProvider(create: (context) {
-          final presenterUseCase =
-              Provider.of<IPresentationUseCase>(context, listen: false);
-
-          return PresenterViewModel(
-            presentationUseCase: presenterUseCase,
-          );
-        }),
-        ProxyProvider<IQuestionUseCase, QuestionViewModel>(
-          update: (_, questionUseCase, __) {
-            return QuestionViewModel(
-              questionUseCase: questionUseCase,
-            );
-          },
-        ),
-      ];
-
   List<SingleChildWidget> get _publicUseCaseProviders => [
         ProxyProvider<IUserRepository, IAuthorizationUseCase>(
           update: (_, userRepository, __) {
@@ -177,6 +121,62 @@ class Providers extends StatelessWidget {
         ...streamProviders,
         ...assetProviders,
         ..._otherProviders,
+      ];
+
+  List<SingleChildWidget> get _authorizedRepositoryProviders => [
+        Provider<IPresentationRepository>(
+          create: (_) => PresentationRepository(),
+        ),
+        Provider<IContentRepository>(
+          create: (_) => ContentRepository(),
+        ),
+        Provider<IQuestionRepository>(
+          create: (_) => QuestionRepository(),
+        ),
+      ];
+
+  List<SingleChildWidget> get _authorizedUseCaseProviders => [
+        ProxyProvider2<IAuthorizationUseCase, IQuestionRepository,
+            IQuestionUseCase>(
+          update: (_, authorizationUseCase, questionRepository, __) {
+            return QuestionUseCase(
+              authorizationUseCase: authorizationUseCase,
+              questionRepository: questionRepository,
+            );
+          },
+        ),
+        ProxyProvider<IPresentationRepository, IPresentationUseCase>(
+          update: (_, presentationRepository, __) {
+            return PresentationUseCase(
+              presentationRepository: presentationRepository,
+            );
+          },
+        ),
+        ProxyProvider<IContentRepository, IContentUseCase>(
+          update: (_, contentRepository, __) {
+            return ContentUseCase(
+              contentRepository: contentRepository,
+            );
+          },
+        ),
+      ];
+
+  List<SingleChildWidget> get _authorizedViewModelProviders => [
+        ChangeNotifierProvider(create: (context) {
+          final presenterUseCase =
+              Provider.of<IPresentationUseCase>(context, listen: false);
+
+          return PresenterViewModel(
+            presentationUseCase: presenterUseCase,
+          );
+        }),
+        ProxyProvider<IQuestionUseCase, QuestionViewModel>(
+          update: (_, questionUseCase, __) {
+            return QuestionViewModel(
+              questionUseCase: questionUseCase,
+            );
+          },
+        ),
       ];
 
   List<SingleChildWidget> get authorizedProviders => [

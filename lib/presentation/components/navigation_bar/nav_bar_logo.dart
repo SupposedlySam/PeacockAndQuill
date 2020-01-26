@@ -16,9 +16,11 @@ class NavBarLogo extends StatelessWidget {
             if (scaffold.isEndDrawerOpen || scaffold.isDrawerOpen) {
               Navigator.of(context).pop();
             } else {
-              scaffold
-                ..openDrawer()
-                ..openEndDrawer();
+              if (scaffold.hasDrawer) {
+                scaffold.openDrawer();
+              } else {
+                scaffold.openEndDrawer();
+              }
             }
           }),
     );
