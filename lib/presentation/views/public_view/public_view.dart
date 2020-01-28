@@ -12,19 +12,32 @@ import 'package:responsive_builder/responsive_builder.dart';
 class PublicView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final backgroundImage = Provider.of<BackgroundImage>(context);
+    final publicBackgroundImage = Provider.of<PublicBackgroundImage>(context);
 
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         return Scaffold(
           key: Provider.of<GlobalKey<ScaffoldState>>(context),
           body: SafeArea(
-            child: backgroundImage?.value != null
+            child: publicBackgroundImage?.value != null
                 ? Container(
-                    child: buildCenteredView(context),
+                    child: Stack(children: [
+                      buildCenteredView(context),
+                      Positioned(
+                        left: 10,
+                        bottom: 10,
+                        child: Text(
+                          'Photo by David Clode on Unsplash',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 10,
+                          ),
+                        ),
+                      )
+                    ]),
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: backgroundImage.value,
+                        image: publicBackgroundImage.value,
                         fit: BoxFit.cover,
                       ),
                     ),
