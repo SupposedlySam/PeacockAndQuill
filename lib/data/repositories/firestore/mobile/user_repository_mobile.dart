@@ -28,8 +28,10 @@ class UserRepository extends BaseRepositoryMobile implements IUserRepository {
   @override
   void setActivePresentation(String presentationId) async {
     final user = await FirebaseAuth.instance.currentUser();
-    final doc = fs.Firestore.instance.collection('users').document(user.uid);
+    if (user != null) {
+      final doc = fs.Firestore.instance.collection('users').document(user.uid);
 
-    doc.setData({'activePresentation': presentationId}, merge: true);
+      doc.setData({'activePresentation': presentationId}, merge: true);
+    }
   }
 }

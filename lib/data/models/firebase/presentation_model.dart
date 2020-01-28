@@ -18,12 +18,15 @@ class PresentationModel implements IPresentationEntity {
 
   String toRawJson() => json.encode(toJson());
 
-  factory PresentationModel.fromJson(Map<String, dynamic> json) =>
-      PresentationModel(
-        currentSlide: json["currentSlide"],
-        initialSlide: json["initialSlide"],
-        isActive: json["isActive"],
-      );
+  factory PresentationModel.fromJson(Map<String, dynamic> json) {
+    if (json == null) return null;
+
+    return PresentationModel(
+      currentSlide: json["currentSlide"],
+      initialSlide: json["initialSlide"],
+      isActive: json["isActive"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "currentSlide": currentSlide,

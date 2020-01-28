@@ -87,7 +87,7 @@ class PresenterViewModel extends ChangeNotifier {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pageController?.dispose();
     super.dispose();
   }
 }

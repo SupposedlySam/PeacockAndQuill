@@ -7,8 +7,8 @@ abstract class BasePublicViewModel extends ChangeNotifier {
   final IAuthorizationUseCase authorizationUseCase;
   final IPresentationRepository presentationRepository;
   final IUserRepository userRepository;
-  bool _isNotValid = false;
-  bool get isNotValid => _isNotValid;
+  bool _isValid = true;
+  bool get isValid => _isValid;
 
   BasePublicViewModel({
     @required this.authorizationUseCase,
@@ -24,19 +24,34 @@ abstract class BasePublicViewModel extends ChangeNotifier {
 
   VoidCallback get handleLogin;
 
-  Future<void> checkCodeValidity(String presentationCode) async {
+  void resetValidPresentationCode() {
+    _isValid = true;
+    notifyListeners();
+  }
+
+  @protected
+  Future<bool> checkCodeValidity(
+    String presentationCode, [
+    VoidCallback onValueChanged,
+  ]) async {
     final isValid =
         await presentationRepository.checkPresentationExists(presentationCode);
+    final isDifferent = isValid != _isValid;
 
-    if (isValid) {
+    if (isDifferent && isValid) {
       final presentationId = await presentationRepository
           .getPresentationIdFromCode(presentationCode);
+
       userRepository.setActivePresentation(presentationId);
-      _isNotValid = false;
-    } else {
-      _isNotValid = true;
     }
-    notifyListeners();
+
+    if (isDifferent) {
+      onValueChanged();
+      _isValid = isValid;
+      notifyListeners();
+    }
+
+    return isValid;
   }
 
   void storePresentationCode(String presentationCode) {}

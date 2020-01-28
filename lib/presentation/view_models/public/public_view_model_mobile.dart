@@ -19,18 +19,30 @@ class PublicViewModel extends BasePublicViewModel {
             userRepository: userRepository);
 
   void handleCodeChanged(String val) {
-    if (val.isNotEmpty != _codeIsValid) {
-      _codeIsValid = val.isNotEmpty;
+    final isValid = val.isNotEmpty && val.length == 6;
+    final isDifferent = isValid != _codeIsValid;
+    if (isDifferent) {
+      super.resetValidPresentationCode();
+      _codeIsValid = isValid;
+      validateForm();
       notifyListeners();
     }
   }
 
   VoidCallback get handleLogin => _codeIsValid ? loginAndValidatePage : null;
 
-  void loginAndValidatePage() {
-    loginWithGoogle();
-    formKey.currentState.validate();
+  void loginAndValidatePage() async {
+    final isValidCode = await super.checkCodeValidity(
+      controller.text,
+      validateForm,
+    );
+
+    if (formKey.currentState.validate() && isValidCode) {
+      loginWithGoogle();
+    }
   }
+
+  bool validateForm() => formKey.currentState.validate();
 
   @override
   void dispose() {

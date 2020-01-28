@@ -34,7 +34,7 @@ class _StateManagerState<T extends ChangeNotifier> extends State<StateManager> {
   Future<void> _handleInitState() async {
     T result = await widget.changeNotifier();
     result.addListener(() {
-      setState(() {});
+      if (mounted) setState(() {});
     });
     if (mounted) setState(() => _changeNotifier = result);
     if (widget.onReady != null) widget.onReady(result);

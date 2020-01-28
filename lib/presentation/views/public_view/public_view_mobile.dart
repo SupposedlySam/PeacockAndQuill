@@ -35,13 +35,11 @@ class PublicViewMobile extends StatelessWidget {
             ),
             onChanged: model.handleCodeChanged,
             validator: (value) {
-              model.checkCodeValidity(value);
-              if (model.isNotValid) {
-                return null;
+              if (!model.isValid) {
+                return 'This is not a valid code.';
               }
-              return 'That is not a valid code';
+              return null;
             },
-            autovalidate: true,
           ),
           RaisedButton(
             child: Text('Login with Google'),

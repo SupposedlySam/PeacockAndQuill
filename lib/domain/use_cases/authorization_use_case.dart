@@ -19,17 +19,20 @@ class AuthorizationUseCase implements IAuthorizationUseCase {
   Future<AuthResult> googleSignIn() async {
     try {
       final googleSignInAccount = await _googleSignIn.signIn();
-      final googleAuth = await googleSignInAccount.authentication;
+      final googleAuth = await googleSignInAccount?.authentication;
 
-      final credential = GoogleAuthProvider.getCredential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
+      if (googleAuth != null) {
+        final credential = GoogleAuthProvider.getCredential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
 
-      final authResult = await _auth.signInWithCredential(credential);
-      await userRepository.updateUser(authResult);
+        final authResult = await _auth.signInWithCredential(credential);
+        await userRepository.updateUser(authResult);
 
-      return authResult;
+        return authResult;
+      }
+      return null;
     } catch (error) {
       print(error);
       return null;
