@@ -20,25 +20,28 @@ class PublicView extends StatelessWidget {
           key: Provider.of<GlobalKey<ScaffoldState>>(context),
           body: SafeArea(
             child: publicBackgroundImage?.value != null
-                ? Container(
-                    child: Stack(children: [
-                      buildCenteredView(context),
-                      Positioned(
-                        left: 10,
-                        bottom: 10,
-                        child: Text(
-                          'Photo by David Clode on Unsplash',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10,
-                          ),
+                ? LayoutBuilder(
+                    builder: (context, constraints) => Container(
+                      child: Stack(children: [
+                        buildCenteredView(context),
+                        if (constraints.maxHeight > 300)
+                          Positioned(
+                            left: 15,
+                            bottom: 15,
+                            child: Text(
+                              'Photo by David Clode on Unsplash',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 10,
+                              ),
+                            ),
+                          )
+                      ]),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: publicBackgroundImage.value,
+                          fit: BoxFit.cover,
                         ),
-                      )
-                    ]),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: publicBackgroundImage.value,
-                        fit: BoxFit.cover,
                       ),
                     ),
                   )

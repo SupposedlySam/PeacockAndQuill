@@ -40,14 +40,7 @@ class AuthorizationUseCase implements IAuthorizationUseCase {
   }
 
   Future<void> logout() async {
-    await _tryDisconnect();
     userRepository.setActivePresentation('');
     return _auth.signOut();
-  }
-
-  Future _tryDisconnect() async {
-    try {
-      await _googleSignIn.disconnect();
-    } catch (Exception) {}
   }
 }
