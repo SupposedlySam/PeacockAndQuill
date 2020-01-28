@@ -37,7 +37,7 @@ class PublicViewModel extends BasePublicViewModel {
       validateForm,
     );
 
-    if (formKey.currentState.validate() && isValidCode) {
+    if (validateForm() && isValidCode) {
       loginWithGoogle();
     }
   }
