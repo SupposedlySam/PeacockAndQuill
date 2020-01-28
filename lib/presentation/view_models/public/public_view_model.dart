@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_presentation_repository.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_user_repository.dart';
@@ -38,13 +39,6 @@ abstract class BasePublicViewModel extends ChangeNotifier {
         await presentationRepository.checkPresentationExists(presentationCode);
     final isDifferent = isValid != _isValid;
 
-    if (isDifferent && isValid) {
-      final presentationId = await presentationRepository
-          .getPresentationIdFromCode(presentationCode);
-
-      userRepository.setActivePresentation(presentationId);
-    }
-
     if (isDifferent) {
       onValueChanged();
       _isValid = isValid;
@@ -54,10 +48,8 @@ abstract class BasePublicViewModel extends ChangeNotifier {
     return isValid;
   }
 
-  void storePresentationCode(String presentationCode) {}
-
   @protected
-  void loginWithGoogle() async {
-    await authorizationUseCase.googleSignIn();
+  Future<AuthResult> loginWithGoogle() async {
+    return authorizationUseCase.googleSignIn();
   }
 }

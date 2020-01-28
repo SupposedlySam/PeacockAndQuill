@@ -8,9 +8,13 @@ import 'package:provider/provider.dart';
 
 class HomeContentMobile extends StatelessWidget {
   final int currentSlide;
+  final bool isActive;
 
-  const HomeContentMobile({Key key, @required this.currentSlide})
-      : super(key: key);
+  const HomeContentMobile({
+    Key key,
+    @required this.currentSlide,
+    @required this.isActive,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +22,28 @@ class HomeContentMobile extends StatelessWidget {
     final presenterViewModel = Provider.of<PresenterViewModel>(context);
     final questionViewModel = Provider.of<QuestionViewModel>(context);
 
+    return isActive
+        ? activeView(
+            context: context,
+            contentUseCase: contentUseCase,
+            questionViewModel: questionViewModel,
+            presenterViewModel: presenterViewModel,
+          )
+        : Center(
+            child: Text(
+              'Thanks for joining! Please wait for the presentation to begin.',
+              style: TextStyle(fontSize: 25),
+              textAlign: TextAlign.center,
+            ),
+          );
+  }
+
+  MultiProvider activeView({
+    BuildContext context,
+    IContentUseCase contentUseCase,
+    QuestionViewModel questionViewModel,
+    PresenterViewModel presenterViewModel,
+  }) {
     return MultiProvider(
       providers: [
         StreamProvider<List<IQuestionEntity>>.value(

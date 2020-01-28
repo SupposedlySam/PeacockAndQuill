@@ -36,7 +36,7 @@ class UserRepository extends BaseRepositoryWeb implements IUserRepository {
         createdAt: DateTime.now(),
       );
 
-      doc.set(user.toJson());
+      doc.set(user.toJson(), SetOptions(merge: true));
     }
   }
 

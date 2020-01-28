@@ -21,7 +21,7 @@ class UserRepository extends BaseRepositoryMobile implements IUserRepository {
         createdAt: DateTime.now(),
       );
 
-      doc.setData(user.toJson());
+      doc.setData(user.toJson(), merge: true);
     }
   }
 

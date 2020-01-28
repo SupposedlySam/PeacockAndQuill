@@ -41,7 +41,7 @@ class HomeContentDesktop extends StatelessWidget {
                   children: pages
                       .map((page) => Center(
                               child: Container(
-                            color: Colors.black38,
+                            color: Color(0xFF0F0F0F),
                             padding: const EdgeInsets.all(40),
                             child: page,
                           )))

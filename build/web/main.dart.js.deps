@@ -4,6 +4,7 @@ file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/models/firebase/conte
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/models/firebase/presentation_model.dart
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/models/firebase/question_model.dart
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/models/firebase/user_model.dart
+file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/repositories/firestore/web/base_repository_web.dart
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/repositories/firestore/web/content_repository_web.dart
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/repositories/firestore/web/presentation_repository_web.dart
 file:///C:/Users/Jonah/projects/peacock_and_quill/lib/data/repositories/firestore/web/question_repository_web.dart

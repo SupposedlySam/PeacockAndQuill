@@ -23,6 +23,7 @@ class PresenterView extends StatelessWidget {
         builder: (context, presentationEntity, __) {
           return HomeContentMobile(
             currentSlide: presentationEntity?.currentSlide ?? 0,
+            isActive: presentationEntity?.isActive ?? false,
           );
         },
       ),

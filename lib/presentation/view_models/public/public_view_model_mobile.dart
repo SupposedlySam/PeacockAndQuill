@@ -32,13 +32,21 @@ class PublicViewModel extends BasePublicViewModel {
   VoidCallback get handleLogin => _codeIsValid ? loginAndValidatePage : null;
 
   void loginAndValidatePage() async {
+    final presentationCode = controller.text;
     final isValidCode = await super.checkCodeValidity(
-      controller.text,
+      presentationCode,
       validateForm,
     );
 
     if (validateForm() && isValidCode) {
-      loginWithGoogle();
+      final authResult = await loginWithGoogle();
+
+      if (authResult != null) {
+        final presentationId = await presentationRepository
+            .getPresentationIdFromCode(presentationCode);
+
+        userRepository.setActivePresentation(presentationId);
+      }
     }
   }
 

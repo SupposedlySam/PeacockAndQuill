@@ -1,3 +1,4 @@
+import 'package:rxdart/rxdart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:peacock_and_quill/data/models/firebase/presentation_model.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/mobile/base_repository_mobile.dart';
@@ -10,16 +11,20 @@ class PresentationRepository extends BaseRepositoryMobile
 
   @override
   Stream<PresentationEntity> getPresentationStream() {
-    final doc = _getCurrentPresentation().asStream();
+    final user = getUserDetailStream();
+    final doc = user.switchMap((user) => fs.Firestore.instance
+        .collection(collectionName)
+        .document(user.activePresentation)
+        .snapshots());
     final models = doc.map<PresentationModel>(
       (snap) => PresentationModel.fromJson(snap.data),
     );
 
     return models.map(
       (model) => PresentationEntity(
-        currentSlide: model.currentSlide,
-        initialSlide: model.initialSlide,
-        isActive: model.isActive,
+        currentSlide: model?.currentSlide ?? 0,
+        initialSlide: model?.initialSlide ?? 0,
+        isActive: model?.isActive ?? false,
       ),
     );
   }
