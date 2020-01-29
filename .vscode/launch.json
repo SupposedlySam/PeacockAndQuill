@@ -32,7 +32,7 @@
       "request": "launch",
       "type": "dart",
       "deviceId": "chrome",
-      "args": ["--web-port=5000"]
+      "args": ["--web-port=5000"] //, "--web-hostname=localpeacockandquill.com"]
     }
   ],
   "compounds": [
