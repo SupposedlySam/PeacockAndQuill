@@ -210,7 +210,7 @@ class Providers extends StatelessWidget {
       providers: publicProviders,
       child: Consumer<FirebaseUser>(
         builder: (context, user, _) {
-          final isAuthorized = user != null || kIsWeb;
+          final isAuthorized = user != null;
 
           return isAuthorized
               ? MultiProvider(providers: authorizedProviders, child: child)
