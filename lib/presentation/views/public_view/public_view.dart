@@ -5,7 +5,7 @@ import 'package:peacock_and_quill/presentation/components/navigation_bar/navigat
 import 'package:peacock_and_quill/presentation/view_models/public/public_view_model.dart';
 import 'package:peacock_and_quill/presentation/views/public_view/public_view_mobile.dart';
 import 'package:peacock_and_quill/presentation/views/public_view/public_view_web.dart';
-import 'package:peacock_and_quill/providers/state_manager.dart';
+import 'package:peacock_and_quill/state/state_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/presentation/view_models/key_press_notifier.dart';
-import 'package:peacock_and_quill/providers/provider.dart';
+import 'package:peacock_and_quill/state/provider.dart';
 import 'package:peacock_and_quill/presentation/routing/navigation_interceptor.dart';
 import 'package:peacock_and_quill/presentation/routing/router.dart';
 import 'package:peacock_and_quill/presentation/components/keyboard_navigator.dart';
