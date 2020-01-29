@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class IUserRepository {
-  void init();
+  final String collectionName = 'users';
   void updateUser(AuthResult user);
   void setActivePresentation(String presentationId);
 }

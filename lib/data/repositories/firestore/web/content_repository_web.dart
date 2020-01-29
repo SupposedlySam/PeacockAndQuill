@@ -12,7 +12,7 @@ class ContentRepository extends BaseRepositoryWeb
 
   @override
   Stream<List<IContentEntity>> getContent() {
-    final user = getUserDetail().asStream();
+    final user = getUserDetailStream();
     final snapshots = user.switchMap((user) => firestore()
         .collection(collectionName)
         .where("presentationId", "==", user.activePresentation)

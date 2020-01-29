@@ -12,8 +12,8 @@ class HomeContentDesktop extends StatelessWidget {
     final presenterViewModel = Provider.of<PresenterViewModel>(context);
     final contentUseCase = Provider.of<IContentUseCase>(context);
 
-    return StreamProvider<List<IContentEntity>>.value(
-      value: contentUseCase.getContent(),
+    return StreamProvider<List<IContentEntity>>(
+      create: (_) => contentUseCase.getContent(),
       child: Consumer<List<IContentEntity>>(
         builder: (_, pages, __) {
           return presenterViewModel.buildPages(

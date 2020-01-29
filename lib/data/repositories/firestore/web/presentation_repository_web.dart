@@ -1,3 +1,4 @@
+import 'package:rxdart/rxdart.dart';
 import 'package:firebase/firestore.dart';
 import 'package:peacock_and_quill/data/models/firebase/presentation_model.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/web/base_repository_web.dart';
@@ -11,7 +12,11 @@ class PresentationRepository extends BaseRepositoryWeb
 
   @override
   Stream<PresentationEntity> getPresentationStream() {
-    final doc = _getCurrentPresentation().asStream();
+    final user = getUserDetailStream();
+    final doc = user.switchMap((user) => firestore()
+        .collection(collectionName)
+        .doc(user.activePresentation)
+        .onSnapshot);
     final models = doc.map<PresentationModel>(
       (snap) => PresentationModel.fromJson(snap.data()),
     );

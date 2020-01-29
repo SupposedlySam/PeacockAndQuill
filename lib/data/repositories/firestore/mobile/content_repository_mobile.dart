@@ -19,32 +19,26 @@ class ContentRepository extends BaseRepositoryMobile
         .snapshots());
 
     final docModels = snapshots.map(
-      (snap) {
-        final documents = snap.documents;
-
-        return documents.map(docToContentModel);
-      },
+      (snap) => snap.documents.map(
+        (doc) => ContentModel.fromJson(
+          doc.data,
+        ),
+      ),
     );
 
     final docEntities = docModels.map(
-      (models) {
-        return models.map(
-          (model) {
-            return ContentEntity(
-              data: model.data,
-              order: model.order,
-              presentationId: model.presentationId,
-              uid: model.uid,
-            );
-          },
-        ).toList();
-      },
+      (models) => models.map(
+        (model) {
+          return ContentEntity(
+            data: model.data,
+            order: model.order,
+            presentationId: model.presentationId,
+            uid: model.uid,
+          );
+        },
+      ).toList(),
     );
 
     return docEntities;
-  }
-
-  ContentModel docToContentModel(doc) {
-    return ContentModel.fromJson(doc.data);
   }
 }
