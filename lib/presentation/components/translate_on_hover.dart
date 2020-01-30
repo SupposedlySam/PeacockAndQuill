@@ -28,8 +28,6 @@ class _TranslateOnHoverState extends State<TranslateOnHover> {
   }
 
   void _mouseEnter(bool hovering) {
-    setState(() {
-      _hovering = hovering;
-    });
+    if (mounted) setState(() => _hovering = hovering);
   }
 }

@@ -5,7 +5,8 @@ abstract class IQuestionRepository {
 
   Future<List<IQuestionEntity>> getAllQuestions();
   Future<List<IQuestionEntity>> getQuestionsBySlide(int slide);
-  Stream<List<IQuestionEntity>> getQuestionsByUser(String uid);
+  Stream<List<IQuestionEntity>> getQuestionsByUser();
+  Future<bool> hasQuestion(int pageIndex, int paragraphIndex);
   void addQuestion(String uid, int screen, int paragraph);
-  void removeQuestion(String uid, int screen, int paragraph);
+  void removeQuestion(int screen, int paragraph);
 }

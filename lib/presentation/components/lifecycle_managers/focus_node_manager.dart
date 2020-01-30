@@ -18,7 +18,7 @@ class _FocusNodeManagerState extends State<FocusNodeManager> {
   @override
   void initState() {
     super.initState();
-    setState(() => _focusNode = FocusNode());
+    if (mounted) setState(() => _focusNode = FocusNode());
   }
 
   @override

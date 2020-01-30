@@ -9,5 +9,7 @@ abstract class IQuestionUseCase {
 
   Stream<List<IQuestionEntity>> getQuestionsByUser();
 
+  Future<bool> hasQuestion(int pageIndex, int paragraphIndex);
+
   void removeQuestion(int screen, int paragraph);
 }

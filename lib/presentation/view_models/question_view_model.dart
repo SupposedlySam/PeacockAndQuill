@@ -7,7 +7,9 @@ class QuestionViewModel {
   var _tapPosition;
   IQuestionUseCase questionUseCase;
 
-  QuestionViewModel({@required this.questionUseCase});
+  QuestionViewModel({
+    @required this.questionUseCase,
+  });
 
   Future<ActionType> showCustomMenu(
     BuildContext context,
@@ -15,10 +17,13 @@ class QuestionViewModel {
     int paragraphIndex,
   ) async {
     final RenderBox overlay = Overlay.of(context).context.findRenderObject();
-
+    final alreadyHasQuestion =
+        await questionUseCase.hasQuestion(pageIndex, paragraphIndex);
     final hasQuestion = await showMenu(
       context: context,
-      items: <PopupMenuEntry<bool>>[_QuestionBarEntry()],
+      items: <PopupMenuEntry<bool>>[
+        _QuestionBarEntry(hasQuestion: alreadyHasQuestion)
+      ],
       position: RelativeRect.fromRect(
           _tapPosition & Size(40, 40), // smaller rect, the touch area
           Offset.zero & overlay.size // Bigger rect, the entire screen
@@ -47,8 +52,12 @@ class QuestionViewModel {
 }
 
 class _QuestionBarEntry extends PopupMenuEntry<bool> {
+  final bool hasQuestion;
+
   @override
-  final double height = 80;
+  final double height = 0;
+
+  _QuestionBarEntry({@required this.hasQuestion});
 
   @override
   bool represents(bool n) => n == true || n == false;
@@ -70,18 +79,20 @@ class QuestionBarEntryState extends State<_QuestionBarEntry> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Expanded(
-          child: FlatButton(
-            onPressed: _markWithQuestion,
-            child: Text("?", style: TextStyle(fontSize: 25)),
+        if (!widget.hasQuestion)
+          Expanded(
+            child: FlatButton(
+              onPressed: _markWithQuestion,
+              child: Text("?", style: TextStyle(fontSize: 25)),
+            ),
           ),
-        ),
-        Expanded(
-          child: FlatButton(
-            onPressed: _removeQuestion,
-            child: Text('X', style: TextStyle(fontSize: 25)),
+        if (widget.hasQuestion)
+          Expanded(
+            child: FlatButton(
+              onPressed: _removeQuestion,
+              child: Text('X', style: TextStyle(fontSize: 25)),
+            ),
           ),
-        ),
       ],
     );
   }

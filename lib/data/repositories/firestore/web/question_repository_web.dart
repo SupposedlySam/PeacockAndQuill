@@ -1,11 +1,11 @@
-import 'package:rxdart/rxdart.dart';
 import 'package:firebase/firebase.dart';
 import 'package:firebase/firestore.dart';
 import 'package:peacock_and_quill/data/models/firebase/question_model.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/web/base_repository_web.dart';
+import 'package:peacock_and_quill/domain/entities/question_entity.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_question_repository.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_entity.dart';
-import 'package:peacock_and_quill/domain/entities/question_entity.dart';
+import 'package:rxdart/rxdart.dart';
 
 class QuestionRepository extends BaseRepositoryWeb
     implements IQuestionRepository {
@@ -59,12 +59,12 @@ class QuestionRepository extends BaseRepositoryWeb
   }
 
   @override
-  Stream<List<IQuestionEntity>> getQuestionsByUser(String uid) {
-    final user = getUserDetail().asStream();
+  Stream<List<IQuestionEntity>> getQuestionsByUser() {
+    final user = getUserDetailStream();
     final snapshots = user.switchMap((user) => firestore()
         .collection(collectionName)
         .where("presentationId", "==", user.activePresentation)
-        .where("uid", "==", uid)
+        .where("uid", "==", user.uid)
         .onSnapshot);
 
     final docEntities = snapshots.map((snap) => _docsToEntity(snap.docs));
@@ -73,12 +73,27 @@ class QuestionRepository extends BaseRepositoryWeb
   }
 
   @override
-  void removeQuestion(String uid, int screen, int paragraph) async {
+  Future<bool> hasQuestion(int pageIndex, int paragraphIndex) async {
+    final user = await getUserDetail();
+    final questions = await firestore()
+        .collection(collectionName)
+        .where("presentationId", "==", user.activePresentation)
+        .where("uid", "==", user.uid)
+        .where("selection.slide", "==", pageIndex)
+        .where("selection.paragraph", "==", paragraphIndex)
+        .get();
+
+    final questionAmount = questions.docs.length;
+    return questionAmount > 0;
+  }
+
+  @override
+  void removeQuestion(int screen, int paragraph) async {
     final user = await getUserDetail();
     final store = firestore();
     final snapshots = await store
         .collection(collectionName)
-        .where("uid", "==", uid)
+        .where("uid", "==", user.uid)
         .where("presentationId", "==", user.activePresentation)
         .where("selection.paragraph", "==", paragraph)
         .where("selection.slide", "==", screen)

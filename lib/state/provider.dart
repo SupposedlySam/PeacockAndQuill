@@ -125,6 +125,15 @@ class Providers extends StatelessWidget {
           return _publicBackgroundImageProvider(storageRepository);
         },
       ),
+      if (kIsWeb)
+        FutureProvider<WebSelectPresentationBackgroundImage>(
+          create: (context) {
+            final storageRepository =
+                Provider.of<IStorageRepository>(context, listen: false);
+            return _webSelectPresentationBackgroundImageProvider(
+                storageRepository);
+          },
+        ),
     ];
   }
 
@@ -140,6 +149,14 @@ class Providers extends StatelessWidget {
   ) async {
     final url = await storageRepository.loadImage('peacock_background.jpg');
     return PublicBackgroundImage(NetworkImage(url));
+  }
+
+  Future<WebSelectPresentationBackgroundImage>
+      _webSelectPresentationBackgroundImageProvider(
+    IStorageRepository storageRepository,
+  ) async {
+    final url = await storageRepository.loadImage('peacock_web_background.png');
+    return WebSelectPresentationBackgroundImage(NetworkImage(url));
   }
 
   List<SingleChildWidget> get publicProviders => [

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_content_entity.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_presentation_entity.dart';
@@ -51,26 +52,60 @@ class PresenterViewModel extends ChangeNotifier {
     if (pages != null) {
       return builder(pages
           .asMap()
-          .map((pageIndex, page) => MapEntry(
-              pageIndex,
-              onPage(page.data
-                  .map((data) => onPage(data.value
-                      .split('\\n')
-                      .asMap()
-                      .map(
-                        (paragraphIndex, p) => MapEntry(
-                          paragraphIndex,
-                          onText(pageIndex, paragraphIndex, p),
-                        ),
-                      )
-                      .values
-                      .toList()))
-                  .toList())))
+          .map((pageIndex, content) => MapEntry(
+                pageIndex,
+                buildPage(
+                  onPage,
+                  content,
+                  onImage,
+                  onText,
+                  pageIndex,
+                ),
+              ))
           .values
           .toList());
     }
 
     return onDefault();
+  }
+
+  Widget buildPage(
+    Widget onPage(List<Widget> widgetsForPage),
+    IContentEntity content,
+    Widget Function(String) onImage,
+    Widget Function(int, int, String) onText,
+    int pageIndex,
+  ) {
+    _imagesFirstOnMobile(content);
+    return onPage(
+      content.data.map((data) {
+        return data.type == 'image'
+            ? onImage(data.value)
+            : onPage(
+                data.value
+                    .split('\\n')
+                    .asMap()
+                    .map(
+                      (sectionIndex, p) {
+                        return MapEntry(
+                          sectionIndex,
+                          onText(pageIndex, sectionIndex, p),
+                        );
+                      },
+                    )
+                    .values
+                    .toList(),
+              );
+      }).toList(),
+    );
+  }
+
+  void _imagesFirstOnMobile(IContentEntity content) {
+    if (!kIsWeb) {
+      content.data.sort(
+        (d1, d2) => d1.type != d2.type ? d2.type == "image" ? 1 : -1 : 0,
+      );
+    }
   }
 
   Future _setInitialSlide(PageController pageController) async {

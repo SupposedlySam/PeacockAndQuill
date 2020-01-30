@@ -9,3 +9,7 @@ class BackgroundImage extends AssetType<NetworkImage> {
 class PublicBackgroundImage extends AssetType<NetworkImage> {
   PublicBackgroundImage(value) : super(value);
 }
+
+class WebSelectPresentationBackgroundImage extends AssetType<NetworkImage> {
+  WebSelectPresentationBackgroundImage(value) : super(value);
+}

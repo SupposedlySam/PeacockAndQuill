@@ -5,6 +5,6 @@ abstract class IAuthorizationUseCase {
   Stream<FirebaseUser> get userStream;
 
   Future<AuthResult> googleSignIn();
-
+  Future<void> disconnect();
   Future<void> logout();
 }

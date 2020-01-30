@@ -3,7 +3,6 @@ import 'package:peacock_and_quill/domain/interfaces/i_question_repository.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar_imports.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_entity.dart';
 import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_question_use_case.dart';
-import 'package:rxdart/rxdart.dart';
 
 class QuestionUseCase implements IQuestionUseCase {
   final IQuestionRepository questionRepository;
@@ -31,21 +30,15 @@ class QuestionUseCase implements IQuestionUseCase {
   }
 
   Stream<List<IQuestionEntity>> getQuestionsByUser() {
-    return authorizationUseCase.userStream.switchMap(
-      (user) {
-        if (user != null) {
-          return questionRepository.getQuestionsByUser(user.uid);
-        }
-        return Stream.empty();
-      },
-    );
+    return questionRepository.getQuestionsByUser();
   }
 
   void removeQuestion(int screen, int paragraph) async {
-    final user = await authorizationUseCase.getUser;
+    questionRepository.removeQuestion(screen, paragraph);
+  }
 
-    if (user != null) {
-      questionRepository.removeQuestion(user.uid, screen, paragraph);
-    }
+  @override
+  Future<bool> hasQuestion(int pageIndex, int paragraphIndex) {
+    return questionRepository.hasQuestion(pageIndex, paragraphIndex);
   }
 }

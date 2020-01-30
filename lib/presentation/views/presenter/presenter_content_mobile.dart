@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:peacock_and_quill/domain/interfaces/i_storage_repository.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_content_entity.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_entity.dart';
 import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_content_use_case.dart';
 import 'package:peacock_and_quill/presentation/view_models/presenter_view_model.dart';
 import 'package:peacock_and_quill/presentation/view_models/question_view_model.dart';
+import 'package:peacock_and_quill/presentation/views/components/stored_network_image.dart';
 import 'package:provider/provider.dart';
 
-class HomeContentMobile extends StatelessWidget {
+class PresenterContentMobile extends StatelessWidget {
+  final IStorageRepository storageRepository;
   final int currentSlide;
   final bool isActive;
 
-  const HomeContentMobile({
-    Key key,
+  const PresenterContentMobile({
+    @required this.storageRepository,
     @required this.currentSlide,
     @required this.isActive,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -83,7 +87,10 @@ class HomeContentMobile extends StatelessWidget {
                 ),
               );
             },
-            onImage: (url) => Image.network(url),
+            onImage: (url) => StoredNetworkImage(
+              storageRepository: storageRepository,
+              url: url,
+            ),
             onDefault: () => Container(),
             builder: (pages) => pages[currentSlide],
           );

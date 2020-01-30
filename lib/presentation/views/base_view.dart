@@ -2,20 +2,24 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/presentation/asset_types/background_image.dart';
 import 'package:peacock_and_quill/presentation/components/end_drawer.dart';
-import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar.dart';
+import 'package:peacock_and_quill/presentation/components/navigation_bar/nav_bar_logo.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class BaseView extends StatelessWidget {
+  final bool isWebSelectPage;
   final Widget child;
 
   const BaseView({
     @required this.child,
+    this.isWebSelectPage = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final backgroundImage = Provider.of<BackgroundImage>(context);
+    final backgroundImage = isWebSelectPage
+        ? Provider.of<WebSelectPresentationBackgroundImage>(context)
+        : Provider.of<BackgroundImage>(context);
     final drawer = EndDrawer(
       authorizationUseCase: Provider.of(context),
     );
@@ -29,7 +33,20 @@ class BaseView extends StatelessWidget {
           body: SafeArea(
             child: backgroundImage?.value != null
                 ? Container(
-                    child: buildCenteredView(),
+                    child: NestedScrollView(
+                      headerSliverBuilder: (context, innerBoxIsScrolled) {
+                        return [
+                          SliverAppBar(actions: <Widget>[NavBarLogo()]),
+                          SliverToBoxAdapter(
+                            child: Container(
+                              height: 15,
+                              color: Colors.black54,
+                            ),
+                          )
+                        ];
+                      },
+                      body: buildCenteredView(),
+                    ),
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: backgroundImage.value,
@@ -50,7 +67,6 @@ class BaseView extends StatelessWidget {
       color: Colors.black54,
       child: Column(
         children: <Widget>[
-          NavigationBar(),
           Expanded(
             child: child,
           )
