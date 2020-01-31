@@ -83,14 +83,14 @@ class QuestionBarEntryState extends State<_QuestionBarEntry> {
           Expanded(
             child: FlatButton(
               onPressed: _markWithQuestion,
-              child: Text("?", style: TextStyle(fontSize: 25)),
+              child: Text("Mark with Question"),
             ),
           ),
         if (widget.hasQuestion)
           Expanded(
             child: FlatButton(
               onPressed: _removeQuestion,
-              child: Text('X', style: TextStyle(fontSize: 25)),
+              child: Text('Remove Question'),
             ),
           ),
       ],
