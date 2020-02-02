@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>768283907591-8odadd4tf7brhoeefdd937h4omesuplf.apps.googleusercontent.com</string>
+	<string>768283907591-dkjvvbna4667phqlnq6mub8lv05uu4pe.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.768283907591-8odadd4tf7brhoeefdd937h4omesuplf</string>
+	<string>com.googleusercontent.apps.768283907591-dkjvvbna4667phqlnq6mub8lv05uu4pe</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>768283907591-3a9ilq6kmb1bctv8ucjkscdb2mh8ssks.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.supposedlysam.peacockAndQuill</string>
+	<string>com.supposedlysam.peacockandquill</string>
 	<key>PROJECT_ID</key>
 	<string>peacockandquill</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:768283907591:ios:40f50c791233cbd4563ca2</string>
+	<string>1:768283907591:ios:2839d6b3f014fa97563ca2</string>
 	<key>DATABASE_URL</key>
 	<string>https://peacockandquill.firebaseio.com</string>
 </dict>

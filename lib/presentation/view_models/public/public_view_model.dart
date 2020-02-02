@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_presentation_repository.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_user_repository.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar_imports.dart';
+import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_all_authorization_use_case.dart';
 
 abstract class BasePublicViewModel extends ChangeNotifier {
-  final IAuthorizationUseCase authorizationUseCase;
+  final IAllAuthorizationUseCase authorizationUseCase;
   final IPresentationRepository presentationRepository;
   final IUserRepository userRepository;
   bool _isValid = true;
@@ -22,8 +23,6 @@ abstract class BasePublicViewModel extends ChangeNotifier {
         ? constraints.maxWidth * .5
         : constraints.maxWidth;
   }
-
-  VoidCallback get handleLogin;
 
   void resetValidPresentationCode() {
     _isValid = true;

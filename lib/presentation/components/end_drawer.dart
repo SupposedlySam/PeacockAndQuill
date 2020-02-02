@@ -2,11 +2,12 @@ import 'dart:math' as math;
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_authorization_use_case.dart';
+import 'package:peacock_and_quill/presentation/constants.dart';
+import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_all_authorization_use_case.dart';
 import 'package:provider/provider.dart';
 
 class EndDrawer extends StatelessWidget {
-  final IAuthorizationUseCase authorizationUseCase;
+  final IAllAuthorizationUseCase authorizationUseCase;
 
   const EndDrawer({Key key, @required this.authorizationUseCase})
       : super(key: key);
@@ -78,21 +79,13 @@ class EndDrawer extends StatelessWidget {
   }
 
   Widget authorizationButton(FirebaseUser user, BuildContext context) {
-    return user == null
-        ? RaisedButton(
-            child: Text('Login with Google'),
-            onPressed: () async {
-              await authorizationUseCase.googleSignIn();
-              Navigator.of(context).pop();
-            },
-          )
-        : RaisedButton(
-            child: Text('Logout'),
-            onPressed: () async {
-              await authorizationUseCase.logout();
-              Navigator.of(context).pop();
-            },
-          );
+    return RaisedButton(
+      child: Text('Logout'),
+      onPressed: () async {
+        await authorizationUseCase.logout();
+        Navigator.of(context).pop();
+      },
+    );
   }
 
   LayoutBuilder _circleAvatar(FirebaseUser user) {
@@ -103,7 +96,9 @@ class EndDrawer extends StatelessWidget {
         child: AspectRatio(
           aspectRatio: 1,
           child: CircleAvatar(
-            backgroundImage: NetworkImage(user.photoUrl),
+            backgroundImage: user.photoUrl != null
+                ? NetworkImage(user.photoUrl)
+                : AssetImage(AssetConstant.defaultAvatar),
           ),
         ),
       ),

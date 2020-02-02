@@ -2,11 +2,12 @@ import 'package:flutter/widgets.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_question_repository.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar_imports.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_entity.dart';
+import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_all_authorization_use_case.dart';
 import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_question_use_case.dart';
 
 class QuestionUseCase implements IQuestionUseCase {
   final IQuestionRepository questionRepository;
-  final IAuthorizationUseCase authorizationUseCase;
+  final IAllAuthorizationUseCase authorizationUseCase;
 
   QuestionUseCase({
     @required this.questionRepository,

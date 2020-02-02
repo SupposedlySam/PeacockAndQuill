@@ -25,6 +25,7 @@ import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/i_
 import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/logo_mobile.dart'
     if (dart.library.html) 'package:peacock_and_quill/presentation/components/navigation_bar/logo/logo_web.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar_imports.dart';
+import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_all_authorization_use_case.dart';
 import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_content_use_case.dart';
 import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_presentation_use_case.dart';
 import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_question_use_case.dart';
@@ -67,7 +68,7 @@ class Providers extends StatelessWidget {
       ];
 
   List<SingleChildWidget> get _publicUseCaseProviders => [
-        ProxyProvider<IUserRepository, IAuthorizationUseCase>(
+        ProxyProvider<IUserRepository, IAllAuthorizationUseCase>(
           update: (_, userRepository, __) {
             return AuthorizationUseCase(
               userRepository: userRepository,
@@ -93,7 +94,7 @@ class Providers extends StatelessWidget {
             presentationRepository:
                 Provider.of<IPresentationRepository>(context, listen: false),
             authorizationUseCase:
-                Provider.of<IAuthorizationUseCase>(context, listen: false),
+                Provider.of<IAllAuthorizationUseCase>(context, listen: false),
           ),
         ),
       ];
@@ -102,7 +103,7 @@ class Providers extends StatelessWidget {
     return [
       StreamProvider<FirebaseUser>(
         create: (context) {
-          return Provider.of<IAuthorizationUseCase>(context, listen: false)
+          return Provider.of<IAllAuthorizationUseCase>(context, listen: false)
               .userStream;
         },
       ),
@@ -179,7 +180,7 @@ class Providers extends StatelessWidget {
       ];
 
   List<SingleChildWidget> get _authorizedUseCaseProviders => [
-        ProxyProvider2<IAuthorizationUseCase, IQuestionRepository,
+        ProxyProvider2<IAllAuthorizationUseCase, IQuestionRepository,
             IQuestionUseCase>(
           update: (_, authorizationUseCase, questionRepository, __) {
             return QuestionUseCase(

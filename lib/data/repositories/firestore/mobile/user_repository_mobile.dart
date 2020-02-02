@@ -8,7 +8,7 @@ class UserRepository extends BaseRepositoryMobile implements IUserRepository {
   final String collectionName = "users";
   final fs.Firestore _firestore = fs.Firestore.instance;
 
-  void updateUser(AuthResult authResult) async {
+  Future<void> updateUser(AuthResult authResult) async {
     if (authResult != null) {
       final fbUser = await authResult.user;
       final doc = _firestore.collection(collectionName).document(fbUser.uid);
@@ -26,7 +26,7 @@ class UserRepository extends BaseRepositoryMobile implements IUserRepository {
   }
 
   @override
-  void setActivePresentation(String presentationId) async {
+  Future<void> setActivePresentation(String presentationId) async {
     final user = await FirebaseAuth.instance.currentUser();
 
     if (user != null) {

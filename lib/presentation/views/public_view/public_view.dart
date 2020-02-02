@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/presentation/asset_types/background_image.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/navigation_bar_imports.dart';
 import 'package:peacock_and_quill/presentation/view_models/public/public_view_model.dart';
+import 'package:peacock_and_quill/presentation/views/components/status_bar_dark_mode.dart';
 import 'package:peacock_and_quill/presentation/views/public_view/public_view_mobile.dart';
 import 'package:peacock_and_quill/presentation/views/public_view/public_view_web.dart';
 import 'package:peacock_and_quill/state/state_manager.dart';
@@ -14,41 +15,43 @@ class PublicView extends StatelessWidget {
   Widget build(BuildContext context) {
     final publicBackgroundImage = Provider.of<PublicBackgroundImage>(context);
 
-    return ResponsiveBuilder(
-      builder: (context, sizingInformation) {
-        return Scaffold(
-          key: Provider.of<GlobalKey<ScaffoldState>>(context),
-          body: SafeArea(
-            child: publicBackgroundImage?.value != null
-                ? LayoutBuilder(
-                    builder: (context, constraints) => Container(
-                      child: Stack(children: [
-                        buildCenteredView(context),
-                        if (constraints.maxHeight > 300)
-                          Positioned(
-                            left: 15,
-                            bottom: 15,
-                            child: Text(
-                              'Photo by David Clode on Unsplash',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 10,
+    return StatusBarDarkMode(
+      child: ResponsiveBuilder(
+        builder: (context, sizingInformation) {
+          return Scaffold(
+            key: Provider.of<GlobalKey<ScaffoldState>>(context),
+            body: SafeArea(
+              child: publicBackgroundImage?.value != null
+                  ? LayoutBuilder(
+                      builder: (context, constraints) => Container(
+                        child: Stack(children: [
+                          buildCenteredView(context),
+                          if (constraints.maxHeight > 300)
+                            Positioned(
+                              left: 15,
+                              bottom: 15,
+                              child: Text(
+                                'Photo by David Clode on Unsplash',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 10,
+                                ),
                               ),
-                            ),
-                          )
-                      ]),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: publicBackgroundImage.value,
-                          fit: BoxFit.cover,
+                            )
+                        ]),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: publicBackgroundImage.value,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                : Center(child: Text('Loading...')),
-          ),
-        );
-      },
+                    )
+                  : Center(child: Text('Loading...')),
+            ),
+          );
+        },
+      ),
     );
   }
 
