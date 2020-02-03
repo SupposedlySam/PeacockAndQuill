@@ -18,7 +18,10 @@ class PresentationRepository extends BaseRepositoryWeb
         .doc(user.activePresentation)
         .onSnapshot);
     final models = doc.map<PresentationModel>(
-      (snap) => PresentationModel.fromJson(snap.data()),
+      (snap) => PresentationModel.fromJson(snap.data()
+        ..addAll({
+          'refId': snap.id,
+        })),
     );
 
     return models.map(
@@ -26,6 +29,8 @@ class PresentationRepository extends BaseRepositoryWeb
         currentSlide: model.currentSlide,
         initialSlide: model.initialSlide,
         isActive: model.isActive,
+        title: model?.title,
+        refId: model.refId,
       ),
     );
   }
@@ -40,7 +45,10 @@ class PresentationRepository extends BaseRepositoryWeb
   @override
   Future<int> getInitialSlide() async {
     final doc = await _getCurrentPresentation();
-    final model = PresentationModel.fromJson(doc.data());
+    final model = PresentationModel.fromJson(doc.data()
+      ..addAll({
+        'refId': doc.id,
+      }));
 
     return model.initialSlide;
   }
@@ -48,7 +56,10 @@ class PresentationRepository extends BaseRepositoryWeb
   @override
   Future<int> getCurrentSlide() async {
     final doc = await _getCurrentPresentation();
-    final model = PresentationModel.fromJson(doc.data());
+    final model = PresentationModel.fromJson(doc.data()
+      ..addAll({
+        'refId': doc.id,
+      }));
 
     return model.currentSlide;
   }

@@ -41,8 +41,10 @@ class PeacockAndQuill extends StatelessWidget {
             if (navigationInterceptor?.navigator != null) navigationInterceptor
           ],
           title: 'Peacock and Quill',
-          theme: kIsWeb ? Style.webTheme(context) : Style.defaultTheme(context),
-          onGenerateRoute: onGenerateRouteHandler,
+          theme: Style.defaultTheme(context),
+          onGenerateRoute: (settings) {
+            return onGenerateRouteHandler(context, settings);
+          },
           debugShowCheckedModeBanner: false,
         );
       },

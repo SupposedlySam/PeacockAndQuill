@@ -18,17 +18,19 @@ class EndDrawer extends StatelessWidget {
         builder: (context, snap) {
           if (snap.hasData) {
             final user = snap.data;
-            return Drawer(
-              child: Scaffold(
-                appBar: AppBar(title: Text('Menu')),
-                body: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: SingleChildScrollView(
-                      child: Column(children: <Widget>[
-                        _subtitle('User Info'),
-                        _userInfo(context, user),
-                      ]),
+            return Material(
+              child: Drawer(
+                child: Scaffold(
+                  appBar: AppBar(title: Text('Menu')),
+                  body: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: SingleChildScrollView(
+                        child: Column(children: <Widget>[
+                          _subtitle('User Info'),
+                          _userInfo(context, user),
+                        ]),
+                      ),
                     ),
                   ),
                 ),

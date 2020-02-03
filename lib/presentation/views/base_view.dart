@@ -8,19 +8,15 @@ import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class BaseView extends StatelessWidget {
-  final bool isWebSelectPage;
   final Widget child;
 
   const BaseView({
     @required this.child,
-    this.isWebSelectPage = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final backgroundImage = isWebSelectPage
-        ? Provider.of<WebSelectPresentationBackgroundImage>(context)
-        : Provider.of<BackgroundImage>(context);
+    final backgroundImage = Provider.of<BackgroundImage>(context);
     final drawer = EndDrawer(
       authorizationUseCase: Provider.of(context),
     );
@@ -29,7 +25,6 @@ class BaseView extends StatelessWidget {
       child: ResponsiveBuilder(
         builder: (context, sizingInformation) {
           return Scaffold(
-            key: Provider.of<GlobalKey<ScaffoldState>>(context),
             drawer: kIsWeb ? drawer : null,
             endDrawer: kIsWeb ? null : drawer,
             body: SafeArea(

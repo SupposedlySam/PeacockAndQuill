@@ -858,6 +858,7 @@ file:///Users/developer/projects/PeacockAndQuill/lib/data/repositories/firestore
 file:///Users/developer/projects/PeacockAndQuill/lib/data/repositories/firestore/web/question_repository_web.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/data/repositories/firestore/web/storage_repository_web.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/data/repositories/firestore/web/user_repository_web.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/data/repositories/firestore/web/web_only_presentation_repository.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/content_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/presentation_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/question_entity.dart
@@ -866,10 +867,12 @@ file:///Users/developer/projects/PeacockAndQuill/lib/domain/interfaces/i_present
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/interfaces/i_question_repository.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/interfaces/i_storage_repository.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/interfaces/i_user_repository.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/domain/interfaces/web/i_web_only_presentation_repository.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/use_cases/authorization_use_case.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/use_cases/content_use_case.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/use_cases/presentation_use_case.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/use_cases/question_use_case.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/domain/use_cases/web/web_only_presentation_use_case.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/generated_plugin_registrant.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/main.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/asset_types/asset_type.dart
@@ -894,9 +897,11 @@ file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/use
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/use_cases/i_content_use_case.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/use_cases/i_presentation_use_case.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/use_cases/i_question_use_case.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/use_cases/web/i_web_only_presentation_use_case.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/routing/navigation_interceptor.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/routing/router.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/style.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/home_content_web_view_model.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/key_press_notifier.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/nav_bar_view_model.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/presenter_view_model.dart
@@ -907,9 +912,10 @@ file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/qu
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/base_view.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/components/status_bar_dark_mode.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/components/stored_network_image.dart
-file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/presenter/presenter_content_desktop.dart
-file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/presenter/presenter_content_mobile.dart
-file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/presenter/presenter_view.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/home/home_content_mobile.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/home/home_content_web.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/home/home_view.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/presenter_content_web.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/public_view/public_view.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/public_view/public_view_mobile.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/views/public_view/public_view_web.dart

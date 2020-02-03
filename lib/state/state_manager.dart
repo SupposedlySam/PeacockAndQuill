@@ -38,7 +38,9 @@ class _StateManagerState<T extends ChangeNotifier>
       if (mounted) setState(() {});
     });
     if (mounted) setState(() => _changeNotifier = result);
-    if (widget.onReady != null) widget.onReady(result);
+    if (widget.onReady != null) {
+      widget.onReady(result);
+    }
   }
 
   @override

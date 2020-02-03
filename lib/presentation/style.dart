@@ -27,11 +27,4 @@ class Style {
       dividerColor: Colors.white,
     );
   }
-
-  static ThemeData webTheme(BuildContext context) =>
-      defaultTheme(context).copyWith(
-        textTheme: TextTheme(
-          body1: defaultTheme(context).textTheme.body1.copyWith(fontSize: 24),
-        ),
-      );
 }

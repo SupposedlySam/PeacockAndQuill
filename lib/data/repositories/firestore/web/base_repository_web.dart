@@ -1,7 +1,7 @@
-import 'package:rxdart/rxdart.dart';
 import 'package:firebase/firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:peacock_and_quill/data/models/firebase/user_model.dart';
+import 'package:rxdart/rxdart.dart';
 
 class BaseRepositoryWeb {
   Future<UserModel> getUserDetail() async {

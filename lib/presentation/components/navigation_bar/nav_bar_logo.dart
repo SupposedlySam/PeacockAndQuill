@@ -5,9 +5,7 @@ import 'package:provider/provider.dart';
 class NavBarLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final scaffold =
-        Provider.of<GlobalKey<ScaffoldState>>(context).currentState;
-
+    final scaffold = Scaffold.of(context);
     return Padding(
       padding: const EdgeInsets.all(15),
       child: GestureDetector(

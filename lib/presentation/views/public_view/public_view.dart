@@ -19,7 +19,6 @@ class PublicView extends StatelessWidget {
       child: ResponsiveBuilder(
         builder: (context, sizingInformation) {
           return Scaffold(
-            key: Provider.of<GlobalKey<ScaffoldState>>(context),
             body: SafeArea(
               child: publicBackgroundImage?.value != null
                   ? LayoutBuilder(
@@ -62,7 +61,9 @@ class PublicView extends StatelessWidget {
           return LayoutBuilder(
             builder: (context, constraints) => Container(
               width: constraints.maxWidth,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: (kIsWeb)
+                  ? const EdgeInsets.all(0)
+                  : const EdgeInsets.symmetric(horizontal: 20),
               color: Colors.black54,
               child: SingleChildScrollView(
                 child: ConstrainedBox(

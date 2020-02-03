@@ -1,16 +1,32 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:peacock_and_quill/presentation/views/presenter/presenter_view.dart';
+import 'package:peacock_and_quill/presentation/views/home/home_view.dart';
+import 'package:peacock_and_quill/presentation/views/presenter_content_web.dart';
 import 'package:peacock_and_quill/presentation/views/public_view/public_view.dart';
 import 'package:provider/provider.dart';
 
-Route<dynamic> onGenerateRouteHandler(RouteSettings settings) {
+class RouteName {
+  static const String presenterContent = '/presenter-content';
+}
+
+Route<dynamic> onGenerateRouteHandler(
+  BuildContext context,
+  RouteSettings settings,
+) {
   switch (settings.name) {
+    case RouteName.presenterContent:
+      return _getPageRoute(
+          PresenterContentWeb(
+            storageRepository: Provider.of(context, listen: false),
+          ),
+          settings);
+      break;
     default:
       return _getPageRoute(Consumer<FirebaseUser>(builder: (context, user, __) {
-        return user != null ? PresenterView() : PublicView();
+        return user != null ? HomeView() : PublicView();
       }), settings);
+      break;
   }
 }
 

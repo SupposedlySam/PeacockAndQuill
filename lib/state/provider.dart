@@ -11,15 +11,18 @@ import 'package:peacock_and_quill/data/repositories/firestore/mobile/storage_rep
     if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/web/storage_repository_web.dart';
 import 'package:peacock_and_quill/data/repositories/firestore/mobile/user_repository_mobile.dart'
     if (dart.library.html) 'package:peacock_and_quill/data/repositories/firestore/web/user_repository_web.dart';
+import 'package:peacock_and_quill/data/repositories/firestore/web/web_only_presentation_repository.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_content_repository.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_presentation_repository.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_question_repository.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_storage_repository.dart';
 import 'package:peacock_and_quill/domain/interfaces/i_user_repository.dart';
+import 'package:peacock_and_quill/domain/interfaces/web/i_web_only_presentation_repository.dart';
 import 'package:peacock_and_quill/domain/use_cases/authorization_use_case.dart';
 import 'package:peacock_and_quill/domain/use_cases/content_use_case.dart';
 import 'package:peacock_and_quill/domain/use_cases/presentation_use_case.dart';
 import 'package:peacock_and_quill/domain/use_cases/question_use_case.dart';
+import 'package:peacock_and_quill/domain/use_cases/web/web_only_presentation_use_case.dart';
 import 'package:peacock_and_quill/presentation/asset_types/background_image.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/i_logo.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/logo_mobile.dart'
@@ -29,6 +32,7 @@ import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_all_author
 import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_content_use_case.dart';
 import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_presentation_use_case.dart';
 import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_question_use_case.dart';
+import 'package:peacock_and_quill/presentation/interfaces/use_cases/web/i_web_only_presentation_use_case.dart';
 import 'package:peacock_and_quill/presentation/routing/navigation_interceptor.dart';
 import 'package:peacock_and_quill/presentation/view_models/key_press_notifier.dart';
 import 'package:peacock_and_quill/presentation/view_models/nav_bar_view_model.dart';
@@ -46,7 +50,6 @@ class Providers extends StatelessWidget {
   Providers({@required this.child});
 
   List<SingleChildWidget> get _globalKeys => [
-        Provider(create: (_) => GlobalKey<ScaffoldState>()),
         Provider(create: (_) => GlobalKey<NavigatorState>()),
       ];
 
@@ -67,6 +70,12 @@ class Providers extends StatelessWidget {
         ),
       ];
 
+  List<SingleChildWidget> get _webOnlyPublicRepositoryProviders => [
+        Provider<IWebOnlyPresentationRepository>(
+          create: (_) => WebOnlyPresentationRepository(),
+        ),
+      ];
+
   List<SingleChildWidget> get _publicUseCaseProviders => [
         ProxyProvider<IUserRepository, IAllAuthorizationUseCase>(
           update: (_, userRepository, __) {
@@ -79,6 +88,18 @@ class Providers extends StatelessWidget {
           update: (_, presentationRepository, __) {
             return PresentationUseCase(
               presentationRepository: presentationRepository,
+            );
+          },
+        ),
+      ];
+
+  List<SingleChildWidget> get _webOnlyPublicUseCaseProviders => [
+        ProxyProvider2<IWebOnlyPresentationRepository, IUserRepository,
+            IWebOnlyPresentationUseCase>(
+          update: (_, presentationRepository, userRepository, __) {
+            return WebOnlyPresentationUseCase(
+              presentationRepository: presentationRepository,
+              userRepository: userRepository,
             );
           },
         ),
@@ -156,14 +177,16 @@ class Providers extends StatelessWidget {
       _webSelectPresentationBackgroundImageProvider(
     IStorageRepository storageRepository,
   ) async {
-    final url = await storageRepository.loadImage('peacock_web_background.png');
+    final url = await storageRepository.loadImage('peacock_web_background.jpg');
     return WebSelectPresentationBackgroundImage(NetworkImage(url));
   }
 
   List<SingleChildWidget> get publicProviders => [
         ..._globalKeys,
         ..._publicRepositoryProviders,
+        if (kIsWeb) ..._webOnlyPublicRepositoryProviders,
         ..._publicUseCaseProviders,
+        if (kIsWeb) ..._webOnlyPublicUseCaseProviders,
         ..._publicViewModelProviders,
         ...streamProviders,
         ...assetProviders,
@@ -199,12 +222,9 @@ class Providers extends StatelessWidget {
       ];
 
   List<SingleChildWidget> get _authorizedViewModelProviders => [
-        ChangeNotifierProvider(create: (context) {
-          final presenterUseCase =
-              Provider.of<IPresentationUseCase>(context, listen: false);
-
+        ChangeNotifierProvider<PresenterViewModel>(create: (context) {
           return PresenterViewModel(
-            presentationUseCase: presenterUseCase,
+            presentationUseCase: Provider.of(context, listen: false),
           );
         }),
         ProxyProvider<IQuestionUseCase, QuestionViewModel>(
