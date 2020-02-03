@@ -32,7 +32,7 @@ class AuthorizationUseCase implements IAllAuthorizationUseCase {
         );
 
         final authResult = await _auth.signInWithCredential(credential);
-        await userRepository.updateUser(authResult);
+        await userRepository.updateUser(authResult.user);
 
         return authResult;
       }
@@ -55,7 +55,7 @@ class AuthorizationUseCase implements IAllAuthorizationUseCase {
   }
 
   Future<void> logout() async {
-    await userRepository.setActivePresentation('');
+    // await userRepository.setActivePresentation('');
     await _auth.signOut();
   }
 
@@ -85,7 +85,7 @@ class AuthorizationUseCase implements IAllAuthorizationUseCase {
             final appleIdCredential = result.credential;
 
             final oAuthProvider = OAuthProvider(providerId: "apple.com");
-            final AuthCredential credential = oAuthProvider.getCredential(
+            final credential = oAuthProvider.getCredential(
               idToken: String.fromCharCodes(appleIdCredential.identityToken),
               accessToken:
                   String.fromCharCodes(appleIdCredential.authorizationCode),
@@ -93,7 +93,16 @@ class AuthorizationUseCase implements IAllAuthorizationUseCase {
 
             final authResult =
                 await FirebaseAuth.instance.signInWithCredential(credential);
-            await userRepository.updateUser(authResult);
+
+            final currentUser = await getUser;
+
+            final updateUser = UserUpdateInfo();
+            updateUser.displayName =
+                "${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}";
+
+            await currentUser.updateProfile(updateUser);
+            final updatedUser = await getUser;
+            await userRepository.updateUser(updatedUser);
 
             return authResult;
           } catch (e) {

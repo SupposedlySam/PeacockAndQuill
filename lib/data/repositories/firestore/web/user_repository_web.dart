@@ -8,9 +8,9 @@ import 'package:peacock_and_quill/domain/interfaces/i_user_repository.dart';
 class UserRepository extends BaseRepositoryWeb implements IUserRepository {
   final String collectionName = "users";
 
-  Future<void> updateUser(AuthResult authResult) async {
-    if (authResult != null) {
-      final fbUser = await authResult.user;
+  Future<void> updateUser(FirebaseUser currentUser) async {
+    if (currentUser != null) {
+      final fbUser = await currentUser;
       final store = firestore();
       final doc = store.collection(collectionName).doc(fbUser.uid);
 
@@ -28,7 +28,7 @@ class UserRepository extends BaseRepositoryWeb implements IUserRepository {
 
   @override
   Future<void> setActivePresentation(String presentationId) async {
-    final user = await FirebaseAuth.instance.currentUser();
+    final user = await getUserDetail();
 
     if (user != null) {
       final doc = firestore().collection(collectionName).doc(user.uid);

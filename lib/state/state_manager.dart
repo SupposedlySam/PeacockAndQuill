@@ -22,7 +22,8 @@ class StateManager<T extends ChangeNotifier> extends StatefulWidget {
   _StateManagerState createState() => _StateManagerState<T>();
 }
 
-class _StateManagerState<T extends ChangeNotifier> extends State<StateManager> {
+class _StateManagerState<T extends ChangeNotifier>
+    extends State<StateManager<T>> {
   T _changeNotifier;
 
   @override
@@ -32,7 +33,7 @@ class _StateManagerState<T extends ChangeNotifier> extends State<StateManager> {
   }
 
   Future<void> _handleInitState() async {
-    T result = await widget.changeNotifier();
+    final result = await widget.changeNotifier();
     result.addListener(() {
       if (mounted) setState(() {});
     });

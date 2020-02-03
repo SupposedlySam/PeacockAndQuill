@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/presentation/constants.dart';
 import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_all_authorization_use_case.dart';
-import 'package:provider/provider.dart';
 
 class EndDrawer extends StatelessWidget {
   final IAllAuthorizationUseCase authorizationUseCase;
@@ -14,24 +13,31 @@ class EndDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<FirebaseUser>(context);
-
-    return Drawer(
-      child: Scaffold(
-        appBar: AppBar(title: Text('Menu')),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: SingleChildScrollView(
-              child: Column(children: <Widget>[
-                _subtitle('User Info'),
-                _userInfo(context, user),
-              ]),
-            ),
-          ),
-        ),
-      ),
-    );
+    return FutureBuilder(
+        future: authorizationUseCase.getUser,
+        builder: (context, snap) {
+          if (snap.hasData) {
+            final user = snap.data;
+            return Drawer(
+              child: Scaffold(
+                appBar: AppBar(title: Text('Menu')),
+                body: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: SingleChildScrollView(
+                      child: Column(children: <Widget>[
+                        _subtitle('User Info'),
+                        _userInfo(context, user),
+                      ]),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return Container();
+          }
+        });
   }
 
   Column _subtitle(String title) {
@@ -62,7 +68,7 @@ class EndDrawer extends StatelessWidget {
         children: <Widget>[
           ListTile(
             leading: _circleAvatar(user),
-            title: Text(user.displayName),
+            title: Text(user.displayName ?? 'Apple User'),
             subtitle: Text(user.email),
             onTap: authorizationUseCase.disconnect,
           ),
@@ -71,14 +77,14 @@ class EndDrawer extends StatelessWidget {
               margin: const EdgeInsets.all(15),
               height: 45,
               width: double.infinity,
-              child: authorizationButton(user, context),
+              child: logoutButton(context),
             ),
         ],
       ),
     );
   }
 
-  Widget authorizationButton(FirebaseUser user, BuildContext context) {
+  Widget logoutButton(BuildContext context) {
     return RaisedButton(
       child: Text('Logout'),
       onPressed: () async {

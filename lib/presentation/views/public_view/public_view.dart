@@ -56,7 +56,7 @@ class PublicView extends StatelessWidget {
   }
 
   Widget buildCenteredView(BuildContext context) {
-    return StateManager(
+    return StateManager<BasePublicViewModel>(
         changeNotifier: () => Provider.of<BasePublicViewModel>(context),
         builder: (context, model) {
           return LayoutBuilder(
