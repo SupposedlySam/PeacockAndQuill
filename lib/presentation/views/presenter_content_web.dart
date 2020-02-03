@@ -45,10 +45,14 @@ class PresenterContentWeb extends StatelessWidget {
               onText: (pageIndex, sectionIndex, content) {
                 return Text(content);
               },
-              onImage: (url) => StoredNetworkImage(
-                storageRepository: storageRepository,
-                url: url,
-              ),
+              onImage: (url) {
+                return url.contains('http')
+                    ? Image.network(url)
+                    : StoredNetworkImage(
+                        storageRepository: storageRepository,
+                        url: url,
+                      );
+              },
               onDefault: () => Container(),
               builder: (pages) => KeyPressPageManager(
                 builder: (context, controller) {
