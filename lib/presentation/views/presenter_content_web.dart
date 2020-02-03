@@ -29,7 +29,12 @@ class PresenterContentWeb extends StatelessWidget {
           return BaseView(
             child: presenterViewModel.buildPages(
               pages: pages,
-              onPage: (widgets) => SingleChildScrollView(
+              onPage: (widgets) => Flex(
+                  direction: Axis.horizontal,
+                  children: widgets
+                      .map((w) => Flexible(child: Center(child: w)))
+                      .toList()),
+              onGroup: (widgets) => SingleChildScrollView(
                 child: Column(
                   children: widgets
                       .map((w) => [w, SizedBox(height: 20)])
@@ -55,7 +60,7 @@ class PresenterContentWeb extends StatelessWidget {
                     children: pages
                         .map((page) => Center(
                                 child: Container(
-                              color: Color(0xFF0F0F0F),
+                              color: Color(0xAA0F0F0F),
                               padding: const EdgeInsets.all(40),
                               child: page,
                             )))

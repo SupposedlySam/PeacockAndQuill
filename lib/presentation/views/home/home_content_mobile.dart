@@ -61,14 +61,8 @@ class HomeContentMobile extends StatelessWidget {
         builder: (_, questions, pages, __) {
           return presenterViewModel.buildPages(
             pages: pages,
-            onPage: (widgets) => SingleChildScrollView(
-              child: Column(
-                children: widgets
-                    .map((w) => [w, SizedBox(height: 20)])
-                    .expand((p) => p)
-                    .toList(),
-              ),
-            ),
+            onPage: verticalScroll,
+            onGroup: verticalScroll,
             onText: (pageIndex, paragraphIndex, paragraph) {
               return GestureDetector(
                 onLongPress: () {
@@ -98,6 +92,15 @@ class HomeContentMobile extends StatelessWidget {
       ),
     );
   }
+
+  Widget verticalScroll(widgets) => SingleChildScrollView(
+        child: Column(
+          children: widgets
+              .map((w) => [w, SizedBox(height: 20)])
+              .expand((p) => p)
+              .toList(),
+        ),
+      );
 
   Text buildText(
     int pageIndex,

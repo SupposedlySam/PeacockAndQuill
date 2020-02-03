@@ -35,7 +35,10 @@ class HomeContentWeb extends StatelessWidget {
           if (model.presentations.length > 0) {
             return Stack(
               children: <Widget>[
-                Image.network(backgroundImage.value.url),
+                Image.network(
+                  backgroundImage.value.url,
+                  fit: BoxFit.fitHeight,
+                ),
                 Wrap(
                   direction: Axis.horizontal,
                   children: model.presentations.map(

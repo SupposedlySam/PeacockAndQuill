@@ -44,6 +44,7 @@ class PresenterViewModel extends ChangeNotifier {
   Widget buildPages({
     @required List<IContentEntity> pages,
     @required Widget Function(List<Widget> widgetsForPage) onPage,
+    @required Widget Function(List<Widget> widgetsForGroup) onGroup,
     @required Widget Function(int, int, String) onText,
     @required Widget Function(String) onImage,
     @required Widget Function() onDefault,
@@ -56,6 +57,7 @@ class PresenterViewModel extends ChangeNotifier {
                 pageIndex,
                 buildPage(
                   onPage,
+                  onGroup,
                   content,
                   onImage,
                   onText,
@@ -70,7 +72,8 @@ class PresenterViewModel extends ChangeNotifier {
   }
 
   Widget buildPage(
-    Widget onPage(List<Widget> widgetsForPage),
+    Widget Function(List<Widget> widgetsForPage) onPage,
+    Widget Function(List<Widget> widgetsForGroup) onGroup,
     IContentEntity content,
     Widget Function(String) onImage,
     Widget Function(int, int, String) onText,
@@ -81,7 +84,7 @@ class PresenterViewModel extends ChangeNotifier {
       content.data.map((data) {
         return data.type == 'image'
             ? onImage(data.value)
-            : onPage(
+            : onGroup(
                 data.value
                     .split('\\n')
                     .asMap()
