@@ -1,11 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/presentation/view_models/key_press_notifier.dart';
+import 'package:peacock_and_quill/presentation/view_models/key_press_view_model.dart';
 import 'package:peacock_and_quill/state/provider.dart';
 import 'package:peacock_and_quill/presentation/routing/navigation_interceptor.dart';
 import 'package:peacock_and_quill/presentation/routing/router.dart';
 import 'package:peacock_and_quill/presentation/components/keyboard_navigator.dart';
 import 'package:peacock_and_quill/presentation/style.dart';
+import 'package:peacock_and_quill/state/state_manager.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -24,9 +26,21 @@ class PeacockAndQuill extends StatelessWidget {
     return Consumer<KeyPressNotifier>(
       builder: (context, keyPressNotifier, __) {
         return (kIsWeb)
-            ? KeyboardNavigator(
-                keyPressNotifier: keyPressNotifier,
-                child: _mainApp(context),
+            ? StateManager<KeyPressViewModel>(
+                shouldDispose: true,
+                changeNotifier: () => KeyPressViewModel(
+                  keyPressNotifier: keyPressNotifier,
+                ),
+                onReady: (model) => model.init(),
+                builder: (context, model) {
+                  return ChangeNotifierProvider<KeyPressViewModel>.value(
+                    value: model,
+                    child: KeyboardNavigator(
+                      keyPressNotifier: keyPressNotifier,
+                      child: _mainApp(context),
+                    ),
+                  );
+                },
               )
             : _mainApp(context);
       },
