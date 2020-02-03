@@ -122,10 +122,4 @@ class PresenterViewModel extends ChangeNotifier {
       presentationUseCase.syncToDevices(pageController);
     }
   }
-
-  @override
-  void dispose() {
-    _pageController?.dispose();
-    super.dispose();
-  }
 }
