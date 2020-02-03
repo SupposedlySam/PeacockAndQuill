@@ -862,6 +862,7 @@ file:///Users/developer/projects/PeacockAndQuill/lib/data/repositories/firestore
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/content_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/presentation_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/question_entity.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/questions_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/interfaces/i_content_repository.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/interfaces/i_presentation_repository.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/interfaces/i_question_repository.dart
@@ -880,16 +881,17 @@ file:///Users/developer/projects/PeacockAndQuill/lib/presentation/asset_types/ba
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/components/end_drawer.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/components/keyboard_navigator.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/components/lifecycle_managers/focus_node_manager.dart
-file:///Users/developer/projects/PeacockAndQuill/lib/presentation/components/lifecycle_managers/key_press_page_manager.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/components/navigation_bar/logo/i_logo.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/components/navigation_bar/logo/logo_web.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/components/navigation_bar/nav_bar_logo.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/components/navigation_bar/navigation_bar_imports.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/presentation/components/navigation_bar/web_end_drawer.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/constants.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/enums.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/entities/i_content_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/entities/i_presentation_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/entities/i_question_entity.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/entities/i_questions_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/entities/i_user_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/use_cases/i_all_authorization_use_case.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/use_cases/i_apple_authorization_use_case.dart
@@ -901,8 +903,10 @@ file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/use
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/routing/navigation_interceptor.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/routing/router.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/style.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/base_view_model.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/home_content_web_view_model.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/key_press_notifier.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/key_press_view_model.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/nav_bar_view_model.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/presenter_view_model.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/view_models/public/public_view_model.dart
