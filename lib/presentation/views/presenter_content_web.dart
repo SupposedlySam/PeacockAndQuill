@@ -46,8 +46,10 @@ class PresenterContentWeb extends StatelessWidget {
               onText: (pageIndex, sectionIndex, content) {
                 return Text(
                   content,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: Provider.of<FontSizeNotifier>(context).value),
+                    fontSize: Provider.of<FontSizeNotifier>(context).value,
+                  ),
                 );
               },
               onImage: (url) {
