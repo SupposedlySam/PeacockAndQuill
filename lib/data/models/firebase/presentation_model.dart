@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_presentation_entity.dart';
 
 class PresentationModel implements IPresentationEntity {
+  String code;
   int currentSlide;
   int initialSlide;
   bool isActive;
@@ -12,6 +13,7 @@ class PresentationModel implements IPresentationEntity {
 
   PresentationModel({
     @required this.refId,
+    @required this.code,
     this.currentSlide,
     this.initialSlide,
     this.isActive = false,
@@ -27,6 +29,7 @@ class PresentationModel implements IPresentationEntity {
     if (json == null) return null;
 
     return PresentationModel(
+      code: json["code"],
       title: json["title"] ?? 'Mystery Title',
       currentSlide: json["currentSlide"],
       initialSlide: json["initialSlide"],
@@ -40,5 +43,6 @@ class PresentationModel implements IPresentationEntity {
         "currentSlide": currentSlide,
         "initialSlide": initialSlide,
         "isActive": isActive,
+        "code": code,
       };
 }

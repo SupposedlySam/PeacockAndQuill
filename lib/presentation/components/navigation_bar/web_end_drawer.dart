@@ -25,20 +25,15 @@ class WebEndDrawer extends StatelessWidget {
             return Material(
               child: Drawer(
                 child: Scaffold(
-                  appBar: AppBar(title: Text('Menu')),
+                  appBar: AppBar(title: Text('Controls')),
                   body: SafeArea(
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          OutlineButton.icon(
-                            icon: Icon(Icons.question_answer),
-                            label: Text(
-                              '${model.showQuestions ? 'Hide' : 'Show'} Questions',
-                            ),
-                            onPressed: model.toggleQuestions,
-                          ),
+                          toggleQuestions(model),
+                          toggleActive(model),
                           Spacer(),
                           _userInfo(context, user),
                         ],
@@ -54,7 +49,28 @@ class WebEndDrawer extends StatelessWidget {
         });
   }
 
-  Container _userInfo(BuildContext context, FirebaseUser user) {
+  Widget toggleQuestions(BaseViewModel model) {
+    return OutlineButton.icon(
+      icon: Icon(Icons.question_answer),
+      label: Text(
+        '${model.showQuestions ? 'Hide' : 'Show'} Questions',
+      ),
+      onPressed: model.toggleQuestions,
+    );
+  }
+
+  Widget toggleActive(BaseViewModel model) {
+    return OutlineButton.icon(
+      icon: Icon(
+          model.isPresenting ? Icons.stop_screen_share : Icons.screen_share),
+      label: Text(
+        '${model.isPresenting ? 'Stop' : 'Start'} Presenting',
+      ),
+      onPressed: model.toggleActive,
+    );
+  }
+
+  Widget _userInfo(BuildContext context, FirebaseUser user) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(

@@ -25,6 +25,7 @@ class PresentationRepository extends BaseRepositoryMobile
 
     return models.map(
       (model) => PresentationEntity(
+        code: model?.code,
         currentSlide: model?.currentSlide ?? 0,
         initialSlide: model?.initialSlide ?? 0,
         isActive: model?.isActive ?? false,
@@ -35,7 +36,7 @@ class PresentationRepository extends BaseRepositoryMobile
   }
 
   @override
-  void updateSlide(int slideIndex) {}
+  Future<void> updateSlide(int slideIndex) async {}
 
   @override
   Future<int> getInitialSlide() async {
@@ -80,11 +81,27 @@ class PresentationRepository extends BaseRepositoryMobile
   }
 
   @override
-  void toggleActive() async {
+  Future<bool> toggleActive() async {
     final doc = await _getCurrentPresentation();
     final currentVal = doc.data['isActive'];
+    final nextVal = !currentVal;
+    await doc.reference.setData({'isActive': nextVal}, merge: true);
+    return nextVal;
+  }
 
-    doc.reference.setData({'isActive': !currentVal}, merge: true);
+  @override
+  Future<PresentationEntity> getActivePresentation() async {
+    final doc = await _getCurrentPresentation();
+    final model = PresentationModel.fromJson(doc.data);
+
+    return PresentationEntity(
+      code: model.code,
+      refId: doc.documentID,
+      title: model.title,
+      currentSlide: model.currentSlide,
+      initialSlide: model.initialSlide,
+      isActive: model.isActive,
+    );
   }
 
   Future<fs.DocumentSnapshot> _getCurrentPresentation() async {

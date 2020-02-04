@@ -29,6 +29,7 @@ class WebOnlyPresentationRepository extends BaseRepositoryWeb
     return models
         .map(
           (model) => PresentationEntity(
+            code: model.code,
             currentSlide: model.currentSlide,
             initialSlide: model.initialSlide,
             isActive: model.isActive,

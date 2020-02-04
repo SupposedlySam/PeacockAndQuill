@@ -10,6 +10,7 @@ abstract class IPresentationRepository {
 
   Stream<PresentationEntity> getPresentationStream();
 
-  void updateSlide(int slideIndex);
-  void toggleActive();
+  Future<void> updateSlide(int slideIndex);
+  Future<PresentationEntity> getActivePresentation();
+  Future<bool> toggleActive();
 }

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/presentation/asset_types/background_image.dart';
 import 'package:peacock_and_quill/presentation/components/end_drawer.dart';
-import 'package:peacock_and_quill/presentation/components/navigation_bar/nav_bar_logo.dart';
+import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/i_logo.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/web_end_drawer.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_questions_entity.dart';
 import 'package:peacock_and_quill/presentation/view_models/base_view_model.dart';
@@ -24,8 +24,9 @@ class BaseView extends StatelessWidget {
     return ChangeNotifierProvider<BaseViewModel>(
       create: (context) => BaseViewModel(
         navigator: Navigator.of(context),
-        questionUseCase: Provider.of(context, listen: false),
         keyPressModel: Provider.of(context, listen: false),
+        presentationRepository: Provider.of(context, listen: false),
+        questionUseCase: Provider.of(context, listen: false),
       ),
       child: Consumer<BaseViewModel>(builder: (context, model, __) {
         final drawer = kIsWeb
@@ -71,12 +72,51 @@ class BaseView extends StatelessWidget {
     return NestedScrollView(
       headerSliverBuilder: (context, innerBoxIsScrolled) {
         return [
-          if (model.showHeader) SliverAppBar(actions: <Widget>[NavBarLogo()]),
+          if (model.showHeader)
+            SliverAppBar(
+                title: Row(
+                  children: <Widget>[
+                    Icon(Icons.add_to_home_screen),
+                    SizedBox(width: 10),
+                    Text(
+                      model.presentationCode,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Spacer(),
+                    Container(
+                      height: 40,
+                      child: Provider.of<ILogo>(context).getLogo,
+                    ),
+                    Spacer()
+                  ],
+                ),
+                actions: <Widget>[
+                  toggleActive(model),
+                ].map(navBarPadding).toList()),
           if (model.showQuestions) questionsBar(model),
           spacer()
         ];
       },
       body: buildCenteredView(),
+    );
+  }
+
+  Padding navBarPadding(Widget w) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      child: w,
+    );
+  }
+
+  Widget toggleActive(BaseViewModel baseViewModel) {
+    return OutlineButton.icon(
+      icon: Icon(baseViewModel.isPresenting
+          ? Icons.stop_screen_share
+          : Icons.screen_share),
+      label: Text(
+        '${baseViewModel.isPresenting ? 'Stop' : 'Start'} Presenting',
+      ),
+      onPressed: baseViewModel.toggleActive,
     );
   }
 

@@ -26,6 +26,7 @@ class PresentationRepository extends BaseRepositoryWeb
 
     return models.map(
       (model) => PresentationEntity(
+        code: model.code,
         currentSlide: model.currentSlide,
         initialSlide: model.initialSlide,
         isActive: model.isActive,
@@ -36,7 +37,7 @@ class PresentationRepository extends BaseRepositoryWeb
   }
 
   @override
-  void updateSlide(int slideIndex) async {
+  Future<void> updateSlide(int slideIndex) async {
     final doc = await _getCurrentPresentation();
 
     doc.ref.set({'currentSlide': slideIndex}, SetOptions(merge: true));
@@ -85,11 +86,28 @@ class PresentationRepository extends BaseRepositoryWeb
   }
 
   @override
-  void toggleActive() async {
+  Future<bool> toggleActive() async {
     final doc = await _getCurrentPresentation();
     final bool currentVal = doc.data()['isActive'];
+    final nextVal = !currentVal;
 
-    doc.ref.set({'isActive': !currentVal}, SetOptions(merge: true));
+    await doc.ref.set({'isActive': nextVal}, SetOptions(merge: true));
+    return nextVal;
+  }
+
+  @override
+  Future<PresentationEntity> getActivePresentation() async {
+    final doc = await _getCurrentPresentation();
+    final model = PresentationModel.fromJson(doc.data());
+
+    return PresentationEntity(
+      code: model.code,
+      refId: doc.id,
+      title: model.title,
+      currentSlide: model.currentSlide,
+      initialSlide: model.initialSlide,
+      isActive: model.isActive,
+    );
   }
 
   Future<DocumentSnapshot> _getCurrentPresentation() async {
