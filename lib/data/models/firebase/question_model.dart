@@ -1,16 +1,19 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_entity.dart';
 
 class QuestionModel implements IQuestionEntity {
+  String refId;
   ISelectionEntity selection;
   String presentationId;
   String uid;
 
   QuestionModel({
-    this.selection,
-    this.presentationId,
-    this.uid,
+    @required this.refId,
+    @required this.selection,
+    @required this.presentationId,
+    @required this.uid,
   });
 
   factory QuestionModel.fromRawJson(String str) =>
@@ -19,6 +22,7 @@ class QuestionModel implements IQuestionEntity {
   String toRawJson() => json.encode(toJson());
 
   factory QuestionModel.fromJson(Map<String, dynamic> json) => QuestionModel(
+        refId: json["refId"],
         selection:
             SelectionModel.fromJson(json["selection"].cast<String, dynamic>()),
         presentationId: json["presentationId"],

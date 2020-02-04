@@ -4,6 +4,7 @@ import 'package:peacock_and_quill/presentation/asset_types/background_image.dart
 import 'package:peacock_and_quill/presentation/components/end_drawer.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/logo/i_logo.dart';
 import 'package:peacock_and_quill/presentation/components/navigation_bar/web_end_drawer.dart';
+import 'package:peacock_and_quill/presentation/interfaces/entities/i_question_user_entity.dart';
 import 'package:peacock_and_quill/presentation/interfaces/entities/i_questions_entity.dart';
 import 'package:peacock_and_quill/presentation/view_models/base_view_model.dart';
 import 'package:peacock_and_quill/presentation/views/components/status_bar_dark_mode.dart';
@@ -23,6 +24,7 @@ class BaseView extends StatelessWidget {
 
     return ChangeNotifierProvider<BaseViewModel>(
       create: (context) => BaseViewModel(
+        userRepository: Provider.of(context, listen: false),
         navigator: Navigator.of(context),
         keyPressModel: Provider.of(context, listen: false),
         presentationRepository: Provider.of(context, listen: false),
@@ -97,7 +99,7 @@ class BaseView extends StatelessWidget {
           spacer()
         ];
       },
-      body: buildCenteredView(),
+      body: buildCenteredView(model),
     );
   }
 
@@ -143,39 +145,98 @@ class BaseView extends StatelessWidget {
   }
 
   Widget questionNavigator(
-      BaseViewModel model, IQuestionsEntity questionsEntity) {
-    return FlatButton(
-      onPressed: () => model.handleQuestionPressed(questionsEntity),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        width: 150,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Screen ${questionsEntity.screen}',
-                style: TextStyle(fontSize: 18),
-              ),
-              Text('# Qs: ${questionsEntity.questions.length}')
-            ],
+    BaseViewModel model,
+    IQuestionsEntity questionsEntity,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(15),
+      child: FlatButton(
+        color: model.currentSlide.round() == questionsEntity.screen
+            ? Color(0xFF3FA9F5)
+            : Colors.transparent,
+        onPressed: () => model.handleQuestionPressed(questionsEntity),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          width: 150,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Screen ${questionsEntity.screen}',
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text('# Qs: ${questionsEntity.questions.length}')
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget buildCenteredView() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      color: Colors.black54,
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: child,
-          )
-        ],
-      ),
+  Widget buildCenteredView(BaseViewModel model) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        if (model.showQuestions) participants(model),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            color: Colors.black54,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: child,
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
     );
+  }
+
+  Widget participants(BaseViewModel model) {
+    final partipantQuestions = model.participantQuestions;
+
+    return partipantQuestions.length > 0
+        ? Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: partipantQuestions
+                  .asMap()
+                  .map(
+                    (index, futureEntity) {
+                      return MapEntry(
+                        index,
+                        FutureBuilder(
+                          future: futureEntity,
+                          builder: (context, snap) {
+                            if (snap.hasData) {
+                              final userQuestion =
+                                  snap.data as IQuestionUserEntity;
+                              return ActionChip(
+                                key: Key(userQuestion.questionRef),
+                                label: Text(userQuestion.name),
+                                onPressed: () => model.handleQuestionDelete(
+                                  index,
+                                  userQuestion.questionRef,
+                                ),
+                              );
+                            }
+                            return Chip(
+                              label: Text('Loading...'),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  )
+                  .values
+                  .toList(),
+            ),
+          )
+        : Container();
   }
 }

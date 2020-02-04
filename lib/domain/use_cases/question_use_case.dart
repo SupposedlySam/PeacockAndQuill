@@ -17,7 +17,7 @@ class QuestionUseCase implements IQuestionUseCase {
     @required this.authorizationUseCase,
   });
 
-  void addQuestion(int screen, int paragraph) async {
+  Future<void> addQuestion(int screen, int paragraph) async {
     final user = await authorizationUseCase.getUser;
 
     if (user != null) {
@@ -49,12 +49,17 @@ class QuestionUseCase implements IQuestionUseCase {
     return questionRepository.getQuestionsByUser();
   }
 
-  void removeQuestion(int screen, int paragraph) async {
-    questionRepository.removeQuestion(screen, paragraph);
+  Future<void> removeQuestion(int screen, int paragraph) {
+    return questionRepository.removeQuestion(screen, paragraph);
   }
 
   @override
   Future<bool> hasQuestion(int pageIndex, int paragraphIndex) {
     return questionRepository.hasQuestion(pageIndex, paragraphIndex);
+  }
+
+  @override
+  Future<void> removeQuestionById(String refId) {
+    return questionRepository.removeQuestionById(refId);
   }
 }

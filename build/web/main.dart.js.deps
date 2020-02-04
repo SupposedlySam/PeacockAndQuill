@@ -862,7 +862,9 @@ file:///Users/developer/projects/PeacockAndQuill/lib/data/repositories/firestore
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/content_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/presentation_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/question_entity.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/question_user_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/questions_entity.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/domain/entities/user_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/interfaces/i_content_repository.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/interfaces/i_presentation_repository.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/domain/interfaces/i_question_repository.dart
@@ -891,6 +893,7 @@ file:///Users/developer/projects/PeacockAndQuill/lib/presentation/enums.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/entities/i_content_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/entities/i_presentation_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/entities/i_question_entity.dart
+file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/entities/i_question_user_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/entities/i_questions_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/entities/i_user_entity.dart
 file:///Users/developer/projects/PeacockAndQuill/lib/presentation/interfaces/use_cases/i_all_authorization_use_case.dart

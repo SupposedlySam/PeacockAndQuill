@@ -1,4 +1,5 @@
 abstract class IQuestionEntity {
+  String refId;
   ISelectionEntity selection;
   String presentationId;
   String uid;

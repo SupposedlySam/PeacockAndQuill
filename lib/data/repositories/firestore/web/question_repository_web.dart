@@ -12,12 +12,13 @@ class QuestionRepository extends BaseRepositoryWeb
   final String collectionName = "questions";
 
   @override
-  void addQuestion(String uid, int slide, int paragraph) async {
+  Future<void> addQuestion(String uid, int slide, int paragraph) async {
     final user = await getUserDetail();
     final store = firestore();
     final ref = await store.collection(collectionName);
 
     final userQuestion = QuestionModel(
+      refId: '',
       presentationId: user.activePresentation,
       uid: uid,
       selection: SelectionModel(
@@ -88,7 +89,7 @@ class QuestionRepository extends BaseRepositoryWeb
   }
 
   @override
-  void removeQuestion(int screen, int paragraph) async {
+  Future<void> removeQuestion(int screen, int paragraph) async {
     final user = await getUserDetail();
     final store = firestore();
     final snapshots = await store
@@ -102,14 +103,26 @@ class QuestionRepository extends BaseRepositoryWeb
     snapshots.docs.first.ref.delete();
   }
 
+  @override
+  Future<void> removeQuestionById(String refId) async {
+    final question = await firestore().collection(collectionName).doc(refId);
+    await question.delete();
+  }
+
   List<QuestionEntity> _docsToEntity(List<DocumentSnapshot> documents) {
     final docModels = documents.map((doc) {
-      return QuestionModel.fromJson(doc.data());
+      return QuestionModel.fromJson(
+        doc.data()
+          ..addAll({
+            'refId': doc.id,
+          }),
+      );
     });
 
     final docEntities = docModels.map(
       (model) {
         return QuestionEntity(
+          refId: model.refId,
           selection: model.selection,
           presentationId: model.presentationId,
           uid: model.uid,
