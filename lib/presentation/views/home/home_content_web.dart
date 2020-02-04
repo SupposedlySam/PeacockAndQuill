@@ -20,6 +20,7 @@ class HomeContentWeb extends StatelessWidget {
         Provider.of<WebSelectPresentationBackgroundImage>(context);
 
     return StateManager<HomeContentWebViewModel>(
+      shouldDispose: true,
       changeNotifier: () => HomeContentWebViewModel(
         navigator: Navigator.of(context),
         storageRepository: storageRepository,
@@ -29,7 +30,6 @@ class HomeContentWeb extends StatelessWidget {
       onReady: (model) {
         return model.getPresentations();
       },
-      shouldDispose: true,
       builder: (context, model) {
         if (model.presentations != null) {
           if (model.presentations.length > 0) {

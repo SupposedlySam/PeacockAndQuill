@@ -54,23 +54,25 @@ class PresenterContentWeb extends StatelessWidget {
                       );
               },
               onDefault: () => Container(),
-              builder: (pages) => StateManager<KeyPressViewModel>(
-                changeNotifier: () => Provider.of<KeyPressViewModel>(context),
-                onReady: (model) => presenterViewModel.init(model.controller),
-                builder: (context, model) {
-                  return PageView(
-                    controller: model.controller,
-                    children: pages
-                        .map((page) => Center(
-                                child: Container(
-                              color: Color(0xAA0F0F0F),
-                              padding: const EdgeInsets.all(40),
-                              child: page,
-                            )))
-                        .toList(),
-                  );
-                },
-              ),
+              builder: (pages) {
+                return StateManager<KeyPressViewModel>(
+                  changeNotifier: () => Provider.of<KeyPressViewModel>(context),
+                  onReady: (model) => presenterViewModel.init(model.controller),
+                  builder: (context, model) {
+                    return PageView(
+                      controller: model.controller,
+                      children: pages
+                          .map((page) => Center(
+                                  child: Container(
+                                color: Color(0xAA0F0F0F),
+                                padding: const EdgeInsets.all(40),
+                                child: page,
+                              )))
+                          .toList(),
+                    );
+                  },
+                );
+              },
             ),
           );
         },
