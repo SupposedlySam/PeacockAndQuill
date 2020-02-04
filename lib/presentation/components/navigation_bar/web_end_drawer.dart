@@ -56,18 +56,22 @@ class WebEndDrawer extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        OutlineButton(
-          onPressed: () {
-            return fontSize.value = fontSize.value - 3;
-          },
-          child: Icon(Icons.remove),
+        Expanded(
+          child: OutlineButton(
+            onPressed: () {
+              return fontSize.value = fontSize.value - 3;
+            },
+            child: Icon(Icons.remove),
+          ),
         ),
         SizedBox(width: 10),
-        OutlineButton(
-          onPressed: () {
-            return fontSize.value = fontSize.value + 3;
-          },
-          child: Icon(Icons.add),
+        Expanded(
+          child: OutlineButton(
+            onPressed: () {
+              return fontSize.value = fontSize.value + 3;
+            },
+            child: Icon(Icons.add),
+          ),
         ),
       ],
     );
