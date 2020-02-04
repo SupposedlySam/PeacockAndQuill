@@ -5,6 +5,7 @@ import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_content_us
 import 'package:peacock_and_quill/presentation/view_models/key_press_view_model.dart';
 import 'package:peacock_and_quill/presentation/view_models/presenter_view_model.dart';
 import 'package:peacock_and_quill/presentation/views/base_view.dart';
+import 'package:peacock_and_quill/presentation/views/components/font_size_notifier.dart';
 import 'package:peacock_and_quill/presentation/views/components/stored_network_image.dart';
 import 'package:peacock_and_quill/state/state_manager.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,11 @@ class PresenterContentWeb extends StatelessWidget {
                 ),
               ),
               onText: (pageIndex, sectionIndex, content) {
-                return Text(content);
+                return Text(
+                  content,
+                  style: TextStyle(
+                      fontSize: Provider.of<FontSizeNotifier>(context).value),
+                );
               },
               onImage: (url) {
                 return url.contains('http')

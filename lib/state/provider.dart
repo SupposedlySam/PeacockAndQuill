@@ -41,6 +41,7 @@ import 'package:peacock_and_quill/presentation/view_models/public/public_view_mo
 import 'package:peacock_and_quill/presentation/view_models/public/public_view_model_mobile.dart'
     if (dart.library.html) 'package:peacock_and_quill/presentation/view_models/public/public_view_model_web.dart';
 import 'package:peacock_and_quill/presentation/view_models/question_view_model.dart';
+import 'package:peacock_and_quill/presentation/views/components/font_size_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -56,6 +57,9 @@ class Providers extends StatelessWidget {
   List<SingleChildWidget> get _otherProviders => [
         Provider<ILogo>(create: (_) => Logo()),
         Provider(create: (_) => NavigationInterceptor()),
+        ChangeNotifierProvider(
+          create: (_) => FontSizeNotifier(24),
+        )
       ];
 
   List<SingleChildWidget> get _publicRepositoryProviders => [

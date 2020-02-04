@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:peacock_and_quill/presentation/constants.dart';
 import 'package:peacock_and_quill/presentation/interfaces/use_cases/i_all_authorization_use_case.dart';
 import 'package:peacock_and_quill/presentation/view_models/base_view_model.dart';
+import 'package:peacock_and_quill/presentation/views/components/font_size_notifier.dart';
 import 'package:provider/provider.dart';
 
 class WebEndDrawer extends StatelessWidget {
@@ -21,6 +22,7 @@ class WebEndDrawer extends StatelessWidget {
           if (snap.hasData) {
             final user = snap.data;
             final model = Provider.of<BaseViewModel>(context);
+            final fontSize = Provider.of<FontSizeNotifier>(context);
 
             return Material(
               child: Drawer(
@@ -32,8 +34,9 @@ class WebEndDrawer extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          toggleQuestions(model),
-                          toggleActive(model),
+                          _fontSizeControl(fontSize),
+                          _toggleQuestions(model),
+                          _toggleActive(model),
                           Spacer(),
                           _userInfo(context, user),
                         ],
@@ -49,7 +52,28 @@ class WebEndDrawer extends StatelessWidget {
         });
   }
 
-  Widget toggleQuestions(BaseViewModel model) {
+  Widget _fontSizeControl(FontSizeNotifier fontSize) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        OutlineButton(
+          onPressed: () {
+            return fontSize.value = fontSize.value - 3;
+          },
+          child: Icon(Icons.remove),
+        ),
+        SizedBox(width: 10),
+        OutlineButton(
+          onPressed: () {
+            return fontSize.value = fontSize.value + 3;
+          },
+          child: Icon(Icons.add),
+        ),
+      ],
+    );
+  }
+
+  Widget _toggleQuestions(BaseViewModel model) {
     return OutlineButton.icon(
       icon: Icon(Icons.question_answer),
       label: Text(
@@ -59,7 +83,7 @@ class WebEndDrawer extends StatelessWidget {
     );
   }
 
-  Widget toggleActive(BaseViewModel model) {
+  Widget _toggleActive(BaseViewModel model) {
     return OutlineButton.icon(
       icon: Icon(
           model.isPresenting ? Icons.stop_screen_share : Icons.screen_share),
