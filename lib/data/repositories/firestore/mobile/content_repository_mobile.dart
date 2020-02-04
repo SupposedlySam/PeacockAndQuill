@@ -16,6 +16,7 @@ class ContentRepository extends BaseRepositoryMobile
     final snapshots = user.switchMap((user) => fs.Firestore.instance
         .collection(collectionName)
         .where("presentationId", isEqualTo: user.activePresentation)
+        .orderBy('order')
         .snapshots());
 
     final docModels = snapshots.map(
