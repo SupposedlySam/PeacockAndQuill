@@ -81,10 +81,12 @@ class HomeContentMobile extends StatelessWidget {
                 ),
               );
             },
-            onImage: (url) => StoredNetworkImage(
-              storageRepository: storageRepository,
-              url: url,
-            ),
+            onImage: (url) => url.contains('http')
+                ? Image.network(url)
+                : StoredNetworkImage(
+                    storageRepository: storageRepository,
+                    url: url,
+                  ),
             onDefault: () => Container(),
             builder: (pages) => pages[currentSlide],
           );
