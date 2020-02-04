@@ -37,7 +37,6 @@ class PresenterContentWeb extends StatelessWidget {
                       .toList()),
               onGroup: (widgets) => SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: widgets
                       .map((w) => [w, SizedBox(height: 20)])
                       .expand((p) => p)
@@ -47,6 +46,7 @@ class PresenterContentWeb extends StatelessWidget {
               onText: (pageIndex, sectionIndex, content) {
                 return Text(
                   content,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: Provider.of<FontSizeNotifier>(context).value,
                   ),
