@@ -15,19 +15,35 @@
       },
       "oauth_client": [
         {
+          "client_id": "768283907591-eaurv54si18h3blnukpd1ota8fhogjbu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.supposedlysam.peacock_and_quill",
+            "certificate_hash": "243db3b4bea735e5e808b24334445004cc982319"
+          }
+        },
+        {
+          "client_id": "768283907591-ah50ae0pkqnnbic71k4sji1djhdm2i5t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.supposedlysam.peacock_and_quill",
+            "certificate_hash": "27446fb794fe3f61eb8217d453a69707c356d1c4"
+          }
+        },
+        {
+          "client_id": "768283907591-upsmag5ieus4806qtk9tnv77lanp3qm8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.supposedlysam.peacock_and_quill",
+            "certificate_hash": "ac3f9aa7ba11a077ed24a47cf822e8331308b1dd"
+          }
+        },
+        {
           "client_id": "768283907591-3a9ilq6kmb1bctv8ucjkscdb2mh8ssks.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.supposedlysam.peacock_and_quill",
             "certificate_hash": "2a8fd470211d14c6f2d05d9b01d8e42f9a0c52f4"
-          }
-        },
-        {
-          "client_id": "768283907591-pbea3cgshtooilgu2i68umdqufdvbqj0.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.supposedlysam.peacock_and_quill",
-            "certificate_hash": "280b6352a53779e561ff34d028672882fa7b4b01"
           }
         },
         {
@@ -48,10 +64,10 @@
               "client_type": 3
             },
             {
-              "client_id": "768283907591-8odadd4tf7brhoeefdd937h4omesuplf.apps.googleusercontent.com",
+              "client_id": "768283907591-dkjvvbna4667phqlnq6mub8lv05uu4pe.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.supposedlysam.peacockAndQuill"
+                "bundle_id": "com.supposedlysam.peacockandquill"
               }
             }
           ]
