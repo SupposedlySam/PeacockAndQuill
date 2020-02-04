@@ -26,52 +26,50 @@ class PresenterContentWeb extends StatelessWidget {
       create: (_) => contentUseCase.getContent(),
       child: Consumer<List<IContentEntity>>(
         builder: (_, pages, __) {
-          return StateManager<KeyPressViewModel>(
-            changeNotifier: () => Provider.of<KeyPressViewModel>(context),
-            onReady: (model) => presenterViewModel.init(model.controller),
-            builder: (context, model) => BaseView(
-              child: presenterViewModel.buildPages(
-                pages: pages,
-                onPage: (widgets) => Flex(
-                    direction: Axis.horizontal,
-                    children: widgets
-                        .map((w) => Flexible(child: Center(child: w)))
-                        .toList()),
-                onGroup: (widgets) => SingleChildScrollView(
-                  child: Column(
-                    children: widgets
-                        .map((w) => [w, SizedBox(height: 20)])
-                        .expand((p) => p)
+          return BaseView(
+            child: presenterViewModel.buildPages(
+              pages: pages,
+              onPage: (widgets) => Flex(
+                  direction: Axis.horizontal,
+                  children: widgets
+                      .map((w) => Flexible(child: Center(child: w)))
+                      .toList()),
+              onGroup: (widgets) => SingleChildScrollView(
+                child: Column(
+                  children: widgets
+                      .map((w) => [w, SizedBox(height: 20)])
+                      .expand((p) => p)
+                      .toList(),
+                ),
+              ),
+              onText: (pageIndex, sectionIndex, content) {
+                return Text(content);
+              },
+              onImage: (url) {
+                return url.contains('http')
+                    ? Image.network(url)
+                    : StoredNetworkImage(
+                        storageRepository: storageRepository,
+                        url: url,
+                      );
+              },
+              onDefault: () => Container(),
+              builder: (pages) => StateManager<KeyPressViewModel>(
+                changeNotifier: () => Provider.of<KeyPressViewModel>(context),
+                onReady: (model) => presenterViewModel.init(model.controller),
+                builder: (context, model) {
+                  return PageView(
+                    controller: model.controller,
+                    children: pages
+                        .map((page) => Center(
+                                child: Container(
+                              color: Color(0xAA0F0F0F),
+                              padding: const EdgeInsets.all(40),
+                              child: page,
+                            )))
                         .toList(),
-                  ),
-                ),
-                onText: (pageIndex, sectionIndex, content) {
-                  return Text(content);
+                  );
                 },
-                onImage: (url) {
-                  return url.contains('http')
-                      ? Image.network(url)
-                      : StoredNetworkImage(
-                          storageRepository: storageRepository,
-                          url: url,
-                        );
-                },
-                onDefault: () => Container(),
-                builder: (pages) => Consumer<KeyPressViewModel>(
-                  builder: (context, model, __) {
-                    return PageView(
-                      controller: model.controller,
-                      children: pages
-                          .map((page) => Center(
-                                  child: Container(
-                                color: Color(0xAA0F0F0F),
-                                padding: const EdgeInsets.all(40),
-                                child: page,
-                              )))
-                          .toList(),
-                    );
-                  },
-                ),
               ),
             ),
           );
