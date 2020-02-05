@@ -51,6 +51,7 @@ class BaseViewModel extends ChangeNotifier {
     slideInfo.questions.removeAt(index);
     if (slideInfo.questions.length == 0) _questions.removeAt(questionIndex);
     _participantQuestions.removeAt(index);
+    if ((_questions?.length ?? 0) == 0) _showQuestions = false;
     notifyListeners();
     await questionUseCase.removeQuestionById(refId);
   }
