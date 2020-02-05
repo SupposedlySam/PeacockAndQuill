@@ -38,7 +38,8 @@ class QuestionUseCase implements IQuestionUseCase {
           ),
         )
         .values
-        .toList();
+        .toList()
+          ..sort((q1, q2) => q1.screen < q2.screen ? -1 : 1);
   }
 
   Future<List<IQuestionEntity>> getQuestions(int slide) {

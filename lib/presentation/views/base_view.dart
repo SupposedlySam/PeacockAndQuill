@@ -200,7 +200,7 @@ class BaseView extends StatelessWidget {
   Widget participants(BaseViewModel model) {
     final partipantQuestions = model.participantQuestions;
 
-    return partipantQuestions.length > 0
+    return (partipantQuestions?.length ?? 0) > 0
         ? Padding(
             padding: const EdgeInsets.all(15),
             child: Column(

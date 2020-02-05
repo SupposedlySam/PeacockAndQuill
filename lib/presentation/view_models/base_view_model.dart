@@ -45,10 +45,11 @@ class BaseViewModel extends ChangeNotifier {
   double get currentSlide => keyPressModel.controller.page;
 
   void handleQuestionDelete(int index, String refId) async {
-    final slideAsInt = currentSlide.round();
-    final slideInfo = _questions[slideAsInt];
+    final slideNumber = currentSlide.round();
+    final questionIndex = _questions.indexWhere((q) => q.screen == slideNumber);
+    final slideInfo = _questions[questionIndex];
     slideInfo.questions.removeAt(index);
-    if (slideInfo.questions.length == 0) _questions.removeAt(slideAsInt);
+    if (slideInfo.questions.length == 0) _questions.removeAt(questionIndex);
     _participantQuestions.removeAt(index);
     notifyListeners();
     await questionUseCase.removeQuestionById(refId);
@@ -74,6 +75,7 @@ class BaseViewModel extends ChangeNotifier {
     if (_showQuestions) {
       await _getAllQuestions();
     }
+    navigator.pop();
     notifyListeners();
   }
 
@@ -90,8 +92,13 @@ class BaseViewModel extends ChangeNotifier {
 
   void _getQuestionsForActiveSlide([int slide]) {
     final index = slide ?? keyPressModel.controller.page;
-    _participantQuestions = userRepository.getUsersFromQuestions(
-      questions.firstWhere((question) => question.screen == index).questions,
-    );
+    final userQuestions =
+        questions.where((question) => question.screen == index);
+
+    _participantQuestions = userQuestions.length > 0
+        ? userRepository.getUsersFromQuestions(
+            userQuestions.first.questions,
+          )
+        : [];
   }
 }

@@ -21,13 +21,17 @@ class QuestionModel implements IQuestionEntity {
 
   String toRawJson() => json.encode(toJson());
 
-  factory QuestionModel.fromJson(Map<String, dynamic> json) => QuestionModel(
-        refId: json["refId"],
-        selection:
-            SelectionModel.fromJson(json["selection"].cast<String, dynamic>()),
-        presentationId: json["presentationId"],
-        uid: json["uid"],
-      );
+  factory QuestionModel.fromJson(Map<String, dynamic> json) {
+    if (json == null) return null;
+
+    return QuestionModel(
+      refId: json["refId"],
+      selection:
+          SelectionModel.fromJson(json["selection"].cast<String, dynamic>()),
+      presentationId: json["presentationId"],
+      uid: json["uid"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "selection": (selection as SelectionModel).toJson(),
