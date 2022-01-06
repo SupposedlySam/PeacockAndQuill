@@ -14,7 +14,8 @@ description: PeacockAndQuill is a cross platform application used to present inf
 version: 1.0.0+6
 
 environment:
-  sdk: '>=2.6.0 <3.0.0'
+  sdk: '>=2.6.0 <2.14.0'
+  flutter: '>=1.12.13+hotfix.4 <2.0.0'
 
 dependencies:
   flutter:
