@@ -11,40 +11,40 @@ description: PeacockAndQuill is a cross platform application used to present inf
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+6
+version: 1.0.0+1 # controlled by Git tags and CodeMagic build number
 
 environment:
-  sdk: '>=2.6.0 <2.14.0'
-  flutter: '>=1.12.13+hotfix.4 <2.0.0'
+  sdk: '>=2.15.0 <3.0.0'
+  flutter: '>=2.8.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^0.13.0+1 #used for firestore mobile
-  dio: ^3.0.8 # used for http
-  firebase: ^7.2.0 # used for firestore and storage on web
-  firebase_core: ^0.4.3+2 # enables using multiple firebase projects
-  firebase_auth: ^0.15.3+1 # used for user login
-  firebase_storage: ^3.1.1 # used to bring in images for presentation
-  flutter_svg: ^0.15.0 # used to support svg in mobile
-  google_sign_in: ^4.1.1 # used to sign in with google
-  provider: ^4.0.0 # used for dependency injection
-  responsive_builder: ^0.1.4 # used to separate device size specific views
-  rxdart: ^0.23.1 # used for advanced streams
-  universal_html: ^1.1.10 # used to allow cross platform development
-  photo_view: ^0.9.1 # zoomable images
-  apple_sign_in: ^0.1.0 # used to sign into Apple
-  device_info: ^0.4.1+4 # used to detect what version of apple we're on
+  cloud_firestore: ^3.1.5 #used for firestore mobile
+  dio: ^4.0.4 # used for http
+  firebase: ^9.0.2 # used for firestore and storage on web
+  firebase_core: ^1.10.6 # enables using multiple firebase projects
+  firebase_auth: ^3.3.4 # used for user login
+  firebase_storage: ^10.2.4 # used to bring in images for presentation
+  flutter_svg: ^1.0.0 # used to support svg in mobile
+  google_sign_in: ^5.2.1 # used to sign in with google
+  provider: ^6.0.2 # used for dependency injection
+  responsive_builder: ^0.4.1 # used to separate device size specific views
+  rxdart: ^0.27.3 # used for advanced streams
+  universal_html: ^2.0.8 # used to allow cross platform development
+  photo_view: ^0.13.0 # zoomable images
+  sign_in_with_apple: ^3.3.0 # sign in with apple
+  device_info: ^2.0.3 # used to detect what version of apple we're on
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   effective_dart: ^1.0.0
-  flutter_launcher_icons: ^0.7.4 # create launcher icons
+  flutter_launcher_icons: ^0.9.2 # create launcher icons
 
 flutter_icons:
   image_path_android: 'assets/icon/ios-and-google-icon.png'
